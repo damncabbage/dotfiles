@@ -8,6 +8,10 @@ syntax on
 set t_Co=256
 colorscheme zenburn
 
+" Search Highlights; press space to clear highlight.
+set hlsearch
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
 " Shortcuts
 cmap cmt <esc>^Da}<esc>%k/function<return>1wyt(j%a//end <esc>pa()<esc>
 
