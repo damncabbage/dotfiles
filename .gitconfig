@@ -1,0 +1,15 @@
+[user]
+	name = Rob Howard
+	email = damncabbage@gmail.com
+[diff]
+	external = ~/bin/git_vimdiff_wrapper.sh
+[pager]
+	diff =
+[merge]
+	renameLimit = 10000
+[alias]
+	stat = status
+	s = status
+	co = checkout
+	b = branch
+
