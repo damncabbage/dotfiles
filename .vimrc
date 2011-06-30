@@ -12,8 +12,18 @@ colorscheme zenburn
 set hlsearch
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
-" Shortcuts
-cmap cmt <esc>^Da}<esc>%k/function<return>1wyt(j%a//end <esc>pa()<esc>
+" Whitespace Stripping (disabled for the moment.)
+"set listchars=tab:>.,trail:.,extends:#,nbsp:.
+"autocmd filetype html,xml set listchars-=tab:>.
+function StripTrailingWhitespace()
+	if !&binary && &filetype != 'diff'
+		normal mz
+		normal Hmy
+		%s/\s\+$//e
+		normal 'yz<CR>
+		normal `z
+	endif
+endfunction
 
 " Quick Markup
 let g:user_zen_settings = {
