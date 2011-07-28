@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Search the googles with:
+#  g "your search terms"
+#
+# Credit to http://stackoverflow.com/questions/296536/urlencode-from-a-bash-script/2236014#2236014
+# for the url encoding one-liner.
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 'search terms'"
+	exit 1
+fi
+
+SEARCH=$(python -c "import urllib; print urllib.quote('''$1''')")
+lynx -accept_all_cookies "http://google.com/search?q=$SEARCH"
