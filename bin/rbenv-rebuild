@@ -1,0 +1,52 @@
+#!/usr/bin/env bash 
+#
+# Recompile the current version (or a specified version) of ruby managed
+# with rbenv; this is useful for rebuilding the binaries after
+# installing new libraries (such as libxml2-dev).
+#
+# Usage:
+#   rbenv rebuild
+# 
+# Or:
+#   rbenv 1.9.2-p290   # Rebuilds just this version
+#
+# Or:
+#   rbenv all          # ALL the rubies. Go make a cup of tea and a sandwich.
+#
+
+if ! which ruby-build > /dev/null; then
+	echo "You must have ruby-build first." >&2
+	echo >&2
+	echo "Grab it from:" >&2
+	echo " https://github.com/sstephenson/ruby-build" >&2
+	if which brew > /dev/null; then
+		echo "or install it with homebrew:" >&2
+		echo " brew install ruby-build" >&2
+	fi
+	exit 1
+fi
+
+
+VERSIONS=$(rbenv versions --bare)
+
+if [ ! -z "$1" ]; then
+	SELECTED_VERSION="$1"
+else
+	# Grab the one currently in use
+	SELECTED_VERSION="$(rbenv version-name)"
+fi
+
+function build_version() {
+	VERSION="$1"
+	ruby-build 1.9.2-p290 $HOME/.rbenv/versions/1.9.2-p290
+}
+
+for VERSION in $VERSIONS; do
+	if [ "$SELECTED_VERSION" != "all" ] && [ "$SELECTED_VERSION" != "$VERSION" ]; then
+		continue
+	fi
+	echo "Rebuilding $VERSION..."
+	ruby-build $VERSION $HOME/.rbenv/versions/$VERSION
+	echo
+done
+
