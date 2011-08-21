@@ -11,7 +11,7 @@ fi
 
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+	PATH="$HOME/bin:$PATH"
 fi
 
 
@@ -44,7 +44,7 @@ fi
 
 # Programmable bash completion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+	. /etc/bash_completion
 fi
 
 
@@ -56,7 +56,7 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 # rbenv
 if [ -d "$HOME/.rbenv/bin" ] ; then
 	# "rbenv" command
-    PATH="$HOME/.rbenv/bin:$PATH"
+	PATH="$HOME/.rbenv/bin:$PATH"
 	# Shim paths
 	eval "$(rbenv init -)"
 fi
