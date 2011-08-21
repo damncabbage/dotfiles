@@ -1,9 +1,10 @@
 " Indentation
-" (The rails.vim plugin handles switching this over
-" to soft-tabs and 2-space indentation automatically.)
 set autoindent
 set tabstop=4
 set shiftwidth=4
+
+" Defer to plugins later for filetype-specific indentation rules
+filetype plugin indent on
 
 " Colours
 syntax on
