@@ -10,10 +10,19 @@ filetype plugin indent on
 syntax on
 set t_Co=256
 colorscheme zenburn
+hi Visual    ctermbg=232 " Colourscheme hacks; originally 235.
+hi VisualNOS ctermbg=232
 
 " Search Highlights; press space to clear highlight.
 set hlsearch
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" Tab shortcuts
+nnoremap <C-h> :tabp<CR>
+nnoremap <C-l> :tabn<CR>
+
+" NERDTree
+nnoremap ^ :NERDTree<CR>
 
 " Whitespace Stripping (disabled for the moment.)
 "set listchars=tab:>.,trail:.,extends:#,nbsp:.
