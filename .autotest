@@ -4,7 +4,7 @@ require 'autotest/timestamp'
  
 module Autotest::GnomeNotify
   def self.notify title, msg, img
-    system "notify-send '#{title}' '#{msg}' -i #{img} -t 3000"
+    system "notify-send '#{title}' '#{msg}' -i #{img} -t 1000"
   end
  
   Autotest.add_hook :ran_command do |at|
