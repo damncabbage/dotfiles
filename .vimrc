@@ -6,6 +6,9 @@ set shiftwidth=4
 " Defer to plugins later for filetype-specific indentation rules
 filetype plugin indent on
 
+" Plugin settings
+let g:omni_sql_no_default_maps = 1 " Stops Omni from grabbing left/right keys
+
 " Colours
 syntax on
 set t_Co=256
