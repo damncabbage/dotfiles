@@ -1,12 +1,14 @@
 " Indentation
+set nocompatible
 set autoindent
 set tabstop=4
 set shiftwidth=4
 
-" Defer to plugins later for filetype-specific indentation rules
-filetype plugin indent on
+" Defer to plugins later for filetype-specific rules
+filetype plugin on
 
 " Plugin settings
+au FileType vim,rb,ruby,rails filetype indent on " Only switch on indentation for a few types.
 let g:omni_sql_no_default_maps = 1 " Stops Omni from grabbing left/right keys
 
 " Colours
