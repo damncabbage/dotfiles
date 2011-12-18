@@ -27,7 +27,7 @@ nnoremap <C-h> :tabp<CR>
 nnoremap <C-l> :tabn<CR>
 
 " NERDTree
-nnoremap ^ :NERDTree<CR>
+nnoremap % :NERDTree<CR>
 
 " Whitespace Stripping (disabled for the moment.)
 "set listchars=tab:>.,trail:.,extends:#,nbsp:.
