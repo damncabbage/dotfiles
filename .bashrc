@@ -61,3 +61,8 @@ if [ -d "$HOME/.rbenv/bin" ] ; then
 	eval "$(rbenv init -)"
 fi
 
+# Set STDERR text to red
+#if [ -f "$HOME/lib/stderred.so" ]; then
+#	export LD_PRELOAD="$HOME/lib/stderred.so"
+#fi
+

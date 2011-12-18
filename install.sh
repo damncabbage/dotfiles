@@ -26,7 +26,7 @@ function action() {
 pushd `dirname $0` > /dev/null
 
 	# Can anyone say HACK?
-	FILES=".[A-Za-z0-9_]* bin/*"
+	FILES=".[A-Za-z0-9_]* bin/* lib/*"
 	TARGETDIR=$HOME
 
 	for FILE in $FILES
