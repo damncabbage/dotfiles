@@ -1,9 +1,8 @@
-#.conkyrc for TODOs
+#.conkyrc for Taskwarrior
 #
-# Slightly modified version of basic config
+# Original here: https://gist.github.com/1572195
 #
-# Adrian Mouat 2012
-#
+
 alignment top_right
 background yes
 border_width 1
@@ -15,7 +14,10 @@ draw_graph_borders yes
 draw_outline no
 draw_shades no
 use_xft yes
+
+# Needs ttf-dejavu
 xftfont DejaVu Sans Mono:size=12
+
 gap_x 5
 gap_y 60
 minimum_size 450
