@@ -14,6 +14,7 @@ draw_graph_borders yes
 draw_outline no
 draw_shades no
 use_xft yes
+double_buffer yes
 
 # Needs ttf-dejavu
 xftfont DejaVu Sans Mono:size=12
