@@ -14,6 +14,10 @@ if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
 fi
 
+if [ -d "/opt/blender" ]; then
+	PATH="$PATH:/opt/blender"
+fi
+
 
 # History
 # No duplicate blanks lines
