@@ -12,7 +12,7 @@ alias be="bundle exec"
 alias bi="bundle install"
 
 # Pretty-print JSON from STDIN
-alias jsonpp='python -c "import sys, json; print json.dumps(json.load(sys.stdin), sort_keys=True, indent=4)"'
+alias json="python -mjson.tool"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
