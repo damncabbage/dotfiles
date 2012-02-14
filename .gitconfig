@@ -1,6 +1,6 @@
 [user]
 	name = Rob Howard
-	email = damncabbage@gmail.com
+	email = rob@robhoward.id.au
 [diff]
 	external = ~/bin/git_vimdiff_wrapper.sh
 [pager]
