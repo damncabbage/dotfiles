@@ -33,6 +33,8 @@ HISTFILESIZE=2000
 # Misc preferences
 export EDITOR=/usr/bin/vim
 export TERM=xterm-256color
+export GREP_OPTIONS="--color=auto"
+export CLICOLOR=1
 
 # Check the window size after each command and, if necessary,
 # Update the values of LINES and COLUMNS.
