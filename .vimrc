@@ -27,7 +27,7 @@ nnoremap <C-h> :tabp<CR>
 nnoremap <C-l> :tabn<CR>
 
 " NERDTree
-nnoremap % :NERDTree<CR>
+nmap ,t :NERDTree<CR>
 
 " Whitespace Stripping (disabled for the moment.)
 "set listchars=tab:>.,trail:.,extends:#,nbsp:.
@@ -41,22 +41,6 @@ function StripTrailingWhitespace()
 		normal `z
 	endif
 endfunction
-
-" Quick Markup
-let g:user_zen_settings = {
-\  'indentation' : '  ',
-\  'perl' : {
-\	'aliases' : {
-\	  'req' : 'require '
-\	},
-\	'snippets' : {
-\	  'use' : "use strict\nuse warnings\n\n",
-\	  'warn' : "warn \"|\";",
-\	}
-\  }
-\}
-let g:user_zen_expandabbr_key = '<c-y>'
-let g:use_zen_complete_tag = 1
 
 
 " Source: http://stackoverflow.com/questions/164847/what-is-in-your-vimrc/1219104#1219104
