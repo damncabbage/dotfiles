@@ -29,6 +29,9 @@ nnoremap <C-l> :tabn<CR>
 " NERDTree
 nmap ,t :NERDTree<CR>
 
+" CTags
+set tags=tags
+
 " Whitespace Stripping (disabled for the moment.)
 "set listchars=tab:>.,trail:.,extends:#,nbsp:.
 "autocmd filetype html,xml set listchars-=tab:>.
