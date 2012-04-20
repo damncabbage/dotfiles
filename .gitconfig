@@ -12,4 +12,4 @@
 	s = status
 	co = checkout
 	b = branch
-
+	serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
