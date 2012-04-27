@@ -13,10 +13,18 @@ let g:omni_sql_no_default_maps = 1 " Stops Omni from grabbing left/right keys
 
 " Colours
 syntax on
-set t_Co=256
-colorscheme zenburn
-hi Visual    ctermbg=232 " Colourscheme hacks; originally 235.
-hi VisualNOS ctermbg=232
+if !empty($TERM_PROGRAM) && $TERM_PROGRAM == "Apple_Terminal"
+  " HACK: Deal with the terrible OS X terminal (t_Co=256 makes the entire screen blink).
+  set t_Co=16
+  colorscheme desert
+else
+  " Linux and OS X with iTerm2
+  set t_Co=256
+  colorscheme zenburn
+  hi Visual    ctermbg=232 " Colourscheme hacks; originally 235.
+  hi VisualNOS ctermbg=232
+endif
+
 
 " Search Highlights; press space to clear highlight.
 set hlsearch
