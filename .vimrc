@@ -1,8 +1,10 @@
 " Indentation
 set nocompatible
 set autoindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 
 " Defer to plugins later for filetype-specific rules
 filetype plugin on
@@ -98,6 +100,9 @@ set statusline+=%c, "cursor column
 set statusline+=%l/%L "cursor line/total lines
 set statusline+=\ %P "percent through file
 set laststatus=2
+
+" Ctags
+set tags=tags
 
 " Recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning

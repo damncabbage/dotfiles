@@ -23,3 +23,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ $IS_MAC ]; then
 	alias seq="ruby -e 'Range.new((ARGV[0].to_i), (ARGV[1].to_i)).each { |i| puts i }'"
 fi
+
+if [ $IS_LINUX ]; then
+  # Debian has an inconvenient name for its ack.
+  alias ack="ack-grep"
+fi
