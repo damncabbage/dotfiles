@@ -18,6 +18,9 @@ if [ -d "/opt/blender" ]; then
 	PATH="$PATH:/opt/blender"
 fi
 
+# Check what we're running on.
+[[ `uname -a | grep -ic 'linux'` -gt 0 ]] && export IS_LINUX=1
+[[ `uname -a | grep -ic 'darwin'` -gt 0 ]] && export IS_MAC=1
 
 # History
 # No duplicate blanks lines
