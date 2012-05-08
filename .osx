@@ -80,3 +80,6 @@ echo "0x08000100:0" > ~/.CFUserTextEncoding
 
 # Mouse acceleration
 defaults write .GlobalPreferences com.apple.mouse.scaling -1
+
+# Dim hidden apps
+defaults write com.apple.dock showhidden -bool true
