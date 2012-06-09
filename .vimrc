@@ -32,9 +32,15 @@ endif
 set hlsearch
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
-" Tab shortcuts
-nnoremap <C-h> :tabp<CR>
-nnoremap <C-l> :tabn<CR>
+" Tab shortcuts a la Firefox
+nmap <c-s-tab> :tabprevious<cr>
+nmap <c-tab> :tabnext<cr>
+map <c-s-tab> :tabprevious<cr>
+map <c-tab> :tabnext<cr>
+imap <c-s-tab> <esc>:tabprevious<cr>i
+imap <c-tab> <esc>:tabnext<cr>i
+nmap <c-t> :tabnew<cr>:e<space>
+imap <c-t> <esc>:tabnew<cr>:e<space>
 
 " NERDTree
 nmap ,t :NERDTree<CR>
