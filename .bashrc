@@ -37,7 +37,9 @@ HISTFILESIZE=2000
 export EDITOR=/usr/bin/vim
 export TERM=xterm-256color
 export GREP_OPTIONS="--color=auto"
-export CLICOLOR=1
+if [ $IS_MAC ]; then
+  export CLICOLOR=1
+fi
 
 # Check the window size after each command and, if necessary,
 # Update the values of LINES and COLUMNS.
