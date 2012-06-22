@@ -1,5 +1,26 @@
-" Indentation
+" Vundle Start
 set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle (required)
+Bundle 'gmarik/vundle'
+
+" Ack
+Bundle "ack.vim"
+noremap <LocalLeader># "ayiw:Ack <C-r>a<CR>
+vnoremap <LocalLeader># "ay:Ack <C-r>a<CR>
+
+" Git integration
+"Bundle "git.zip"
+Bundle "fugitive.vim"
+
+filetype plugin indent on
+" Vundle Finished
+
+
+" Indentation
 set autoindent
 set tabstop=2
 set shiftwidth=2
@@ -43,7 +64,7 @@ nmap <c-t> :tabnew<cr>:e<space>
 imap <c-t> <esc>:tabnew<cr>:e<space>
 
 " NERDTree
-nmap ,t :NERDTree<CR>
+nmap <LocalLeader>t :NERDTree<CR>
 
 " CTags
 set tags=tags
