@@ -27,6 +27,7 @@ else
   hi VisualNOS ctermbg=232
 endif
 
+command WW w !sudo tee % > /dev/null
 
 " Search Highlights; press space to clear highlight.
 set hlsearch
