@@ -1,0 +1,14 @@
+# Follow symlinks
+--follow
+
+# Add to existing types
+--type-add=ruby=.haml,.rake,.rsel
+
+# Extra types
+--type-set=ini=.ini
+--type-set=coffee=.coffee
+--type-set=slim=.slim
+--type-set=scss=.scss
+--type-set=less=.less
+--type-set=cucumber=.feature
+--type-set=twig=.tpl
