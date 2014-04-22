@@ -4,11 +4,11 @@
 #
 
 function info() {
-	echo -e "\e[0;32m **\e[m $*"
+	echo -e "\033[0;32m **\033[m $*"
 }
 
 function error() {
-	echo -e "\e[1;31m !!\e[m $*"
+	echo -e "\033[1;31m !!\033[m $*"
 }
 
 function action() {
