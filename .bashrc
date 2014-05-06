@@ -65,10 +65,9 @@ export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 
 # rbenv
-if [ -d "$HOME/.rbenv/bin" ] ; then
+if [ -d "$HOME/.rbenv" ] ; then
 	# "rbenv" command
 	PATH="$HOME/.rbenv/bin:$PATH"
-	# Shim paths
 	eval "$(rbenv init -)"
 fi
 
