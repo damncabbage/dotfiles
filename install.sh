@@ -4,6 +4,10 @@
 #
 
 function info() {
+	echo -e "\033[0;33m --\033[m $*"
+}
+
+function success() {
 	echo -e "\033[0;32m **\033[m $*"
 }
 
@@ -17,7 +21,7 @@ function action() {
 	if [ $CODE -gt 0 ]; then
 		error $* " (Failed with code $CODE)"
 	else
-		info $*
+		success $*
 	fi
 }
 
@@ -43,7 +47,7 @@ pushd `dirname $0` > /dev/null
 				error "Already present and is a regular file: $FILE"
 			fi
 
-		else 
+		else
 			DIR=`dirname "$FILE"`
 			if [ ! -d "$TARGETDIR/$DIR" ]; then
 				mkdir -p "$TARGETDIR/$DIR"
