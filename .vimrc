@@ -40,8 +40,6 @@ map <c-s-tab> :tabprevious<cr>
 map <c-tab> :tabnext<cr>
 imap <c-s-tab> <esc>:tabprevious<cr>i
 imap <c-tab> <esc>:tabnext<cr>i
-nmap <c-t> :tabnew<cr>:e<space>
-imap <c-t> <esc>:tabnew<cr>:e<space>
 
 " NERDTree
 nmap ,t :NERDTree<CR>
