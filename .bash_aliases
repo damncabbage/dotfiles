@@ -31,3 +31,6 @@ if [ $IS_LINUX ]; then
   # Debian has an inconvenient name for its ack.
   alias ack="ack-grep"
 fi
+
+# Today's journal log (with yesterday's log in a split pane)
+alias log='mkdir -p ~/logs && vim -O ~/logs/`date +%F`.txt ~/logs/`date -v-1d +%F`.txt'
