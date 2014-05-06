@@ -16,3 +16,5 @@
 	prune-all = !git remote | xargs -n 1 git remote prune
 	d = difftool -t vimdiff
 	vimdiff = difftool -t vimdiff
+[core]
+	excludesfile = /Users/rhoward/.gitignore_global
