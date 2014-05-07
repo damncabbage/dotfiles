@@ -34,3 +34,14 @@ fi
 
 # Today's journal log (with yesterday's log in a split pane)
 alias log='mkdir -p ~/logs && vim -O ~/logs/`date +%F`.txt ~/logs/`date -v-1d +%F`.txt'
+
+### Git ###
+
+# Cherry-pick last commit to multiple branches
+function git-mt() {
+  sha=`git rev-parse HEAD`
+  for branch in ${*:1}; do
+    git checkout $branch
+    git cherry-pick $sha
+  done
+}
