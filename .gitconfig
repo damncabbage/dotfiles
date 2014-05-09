@@ -1,6 +1,8 @@
 [user]
 	name = Rob Howard
 	email = rob@robhoward.id.au
+[diff]
+	tool = vimdiff
 [merge]
 	renameLimit = 10000
 [alias]
