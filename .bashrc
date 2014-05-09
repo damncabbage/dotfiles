@@ -9,9 +9,21 @@ if [ -f /etc/bash.bashrc ]; then
 	. /etc/bash.bashrc
 fi
 
+# Node.js
+PATH="$PATH:node_modules/.bin"
+PATH="$PATH:/usr/local/share/npm/bin"
+
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/build/bin" ] ; then
+	PATH="$HOME/build/bin:$PATH"
+fi
+
+# Haskell
+if [ -d "$HOME/.cabal" ]; then
+	PATH="$HOME/.cabal/bin:$PATH"
 fi
 
 if [ -d "/opt/blender" ]; then
