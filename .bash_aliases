@@ -24,6 +24,10 @@ if [ $IS_MAC ]; then
 	# OS X doesn't have "seq" (a la "for ii in `seq 1 10`; do ... done" for looping from 1 to 10.)
 	# Shim it instead. (TODO: Add skip as optional middle parameter, eg `seq 1 2 10` for 1 3 5...)
 	alias seq="ruby -e 'Range.new((ARGV[0].to_i), (ARGV[1].to_i)).each { |i| puts i }'"
+
+	# Reset the sound on OS X 10.9 after sleep + unsleep. Almost makes one miss Red Hat 9.
+	# (No, I don't know why OS X "su" needs the username specified to use -c.)
+	alias wtfmavericks="sudo su root -c 'kextunload /System/Library/Extensions/AppleHDA.kext; kextload /System/Library/Extensions/AppleHDA.kext'"
 fi
 
 if [ $IS_LINUX ]; then
