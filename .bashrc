@@ -9,6 +9,10 @@ if [ -f /etc/bash.bashrc ]; then
 	. /etc/bash.bashrc
 fi
 
+# Prepend Homebrew/local paths, otherwise things like ctags will always use
+# the (rubbish) system-provided version.
+PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
 # Node.js
 PATH="$PATH:node_modules/.bin"
 PATH="$PATH:/usr/local/share/npm/bin"
