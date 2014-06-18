@@ -12,6 +12,8 @@
 --type-set=less=.less
 --type-set=cucumber=.feature
 --type-set=twig=.tpl
+--type-set=haml=.haml
+--type-set=rubytemplate=.erb,.haml
 
 # Ignores
 --ignore-dir=vendor/bundler
