@@ -19,4 +19,4 @@
 	d = difftool -t vimdiff
 	vimdiff = difftool -t vimdiff
 [core]
-	excludesfile = /Users/rhoward/.gitignore_global
+	excludesfile = ~/.gitignore_global
