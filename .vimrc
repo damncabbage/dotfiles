@@ -5,6 +5,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set backspace=indent,eol,start " Sane backspacing in Insert mode.
 
 " Defer to plugins later for filetype-specific rules
 filetype plugin on
