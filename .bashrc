@@ -26,8 +26,11 @@ if [ -d "$HOME/build/bin" ] ; then
 fi
 
 # Haskell
+if [ -d "/Applications/ghc-7.8.2.app" ]; then
+	PATH="/Applications/ghc-7.8.2.app/Contents/bin:$PATH" # OS X install
+fi
 if [ -d "$HOME/.cabal" ]; then
-	PATH="$HOME/.cabal/bin:$PATH"
+	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
 fi
 
 if [ -d "/opt/blender" ]; then
