@@ -177,7 +177,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Desktop</string>
+	<string>~/dotfiles/osx</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -2340,7 +2340,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/rhoward/Desktop</string>
+	<string>/Users/rhoward/dotfiles/osx</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
