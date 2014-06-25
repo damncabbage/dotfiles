@@ -40,6 +40,12 @@ pushd `dirname $0` > /dev/null
 			continue
 		fi
 
+    # HACK: Ignore files we'd never want to symlink. (This could be restricted
+    #       to files in git, but then it's a pain to add and test new things.)
+		if [ $FILE == "._.DS_Store" ] || [ $FILE == ".DS_Store" ]; then
+			continue
+		fi
+
 		if [ -f ~/"$FILE" ] || [ -d ~/"$FILE" ]; then
 			if [ -L ~/"$FILE" ]; then
 				info "Already symlinked: $FILE"
