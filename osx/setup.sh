@@ -1,8 +1,9 @@
 #!/bin/bash
 
 brew install \
-  git vim ack sox  \
-  rbenv ruby-build
+  git vim ack ctags sox \
+  rbenv ruby-build \
+  postgres redis
 
 echo <<-EOF
   Manually install:
