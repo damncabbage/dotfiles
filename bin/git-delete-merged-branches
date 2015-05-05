@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BRANCHES=$(git branch --merged | grep -v "\*")
+echo "Deleting the following merged branches:"
+echo "$BRANCHES"
+echo
+echo "Proceed? (y/N)"
+
+read PROMPT
+if [ "$PROMPT" == "y" ]; then
+  echo "Deleting..."; sleep 2
+  echo $BRANCHES | xargs -n 1 git branch -d
+else
+  echo "Aborted."
+fi
