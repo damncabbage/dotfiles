@@ -48,6 +48,13 @@ imap <c-tab> <esc>:tabnext<cr>i
 " NERDTree
 nmap ,t :NERDTree<CR>
 
+" Bash-like filename completion
+set wildmode=longest,list,full
+set wildmenu
+
+" e opens from pwd; ,e opens relative to the current file
+nnoremap ,e :e <C-R>=substitute(expand("%:p:h"), ' ', '\\ ', 'g').'/'<CR><BS>/
+
 " CTags
 set tags=tags
 
