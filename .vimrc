@@ -14,6 +14,9 @@ filetype plugin on
 au FileType vim,rb,ruby,rails filetype indent on " Only switch on indentation for a few types.
 let g:omni_sql_no_default_maps = 1 " Stops Omni from grabbing left/right keys
 
+" File-type detection overrides
+autocmd BufNewFile,BufReadPost *.cwiki set filetype=confluencewiki
+
 " Colours
 syntax on
 if !empty($TERM_PROGRAM) && $TERM_PROGRAM == "Apple_Terminal"
