@@ -35,6 +35,9 @@ fi
 if [ -d "$HOME/.cabal" ]; then
 	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
 fi
+if [ -d "$HOME/.haskell-vim-now/bin" ]; then
+  PATH="$HOME/.haskell-vim-now/bin:$PATH"
+fi
 
 if [ -d "/opt/blender" ]; then
 	PATH="$PATH:/opt/blender"
