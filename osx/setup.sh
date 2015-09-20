@@ -2,6 +2,7 @@
 
 brew install \
   git vim ack ctags sox \
+  icu4c \
   rbenv ruby-build \
   postgres redis
 
