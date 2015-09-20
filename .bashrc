@@ -17,6 +17,9 @@ PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 PATH="$PATH:node_modules/.bin"
 PATH="$PATH:/usr/local/share/npm/bin"
 
+# Python
+PATH="$PATH:env/bin"
+
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
