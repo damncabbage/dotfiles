@@ -15,6 +15,7 @@ ehthumbs.db
 Thumbs.db
 
 # Ruby locally-installed dependencies
-gemfiles/vendor/bundler
-vendor/bundler
-.bundle
+/gemfiles/vendor/bundler
+/vendor/bundle
+/vendor/bundler
+/.bundle
