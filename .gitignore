@@ -1,2 +1,7 @@
 .vim/.netrwhist
 .DS_Store
+
+/.vim/haskell/data
+/.vim/haskell/libexec
+/.vim/haskell/.cabal-sandbox
+/.vim/haskell/cabal.sandbox.config
