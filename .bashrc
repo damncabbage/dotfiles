@@ -108,3 +108,11 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
   eval `$SSHAGENT $SSHAGENTARGS`
   trap "kill $SSH_AGENT_PID" 0
 fi
+
+
+# Load in anything else that's install-specific.
+if [ -d "$HOME/.bashrc.d" ]; then
+  for FILE in "$HOME/.bashrc.d/"*; do
+    source "${FILE}"
+  done
+fi
