@@ -14,11 +14,10 @@ fi
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Node.js
-PATH="$PATH:node_modules/.bin"
-PATH="$PATH:/usr/local/share/npm/bin"
+PATH="node_modules/.bin:$PATH"
 
 # Python
-PATH="$PATH:env/bin"
+PATH="env/bin:$PATH"
 
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -31,6 +30,9 @@ fi
 # Haskell
 if [ -d "/Applications/ghc-7.8.2.app" ]; then
 	PATH="/Applications/ghc-7.8.2.app/Contents/bin:$PATH" # OS X install
+fi
+if [ -d "$HOME/build/ghc-7.8.3/bin" ]; then
+	PATH="$HOME/build/ghc-7.8.3/bin:$PATH" # OS X install
 fi
 if [ -d "$HOME/.cabal" ]; then
 	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
