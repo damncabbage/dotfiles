@@ -285,9 +285,12 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
-" Linebreak on 500 characters
+" Line-wrap with gq
+set tw=500 " tw is textwidth
+au FileType markdown setlocal tw=100 tabstop=4 expandtab shiftwidth=4 softtabstop=4
+
+" Avoid line-wrapping in the middle of a word.
 set lbr
-set tw=500
 
 set ai "Auto indent
 set si "Smart indent
