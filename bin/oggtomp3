@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+IN=$1
+OUT=$2
+
+if [ ! -f "$IN" ]; then
+  echo "Couldn't find ${IN}"
+  exit 1
+fi
+
+if [ -z "$2" ]; then
+  OUT="${IN%.ogg}.mp3"
+fi
+
+ffmpeg -i "$IN" -codec:a libmp3lame -qscale:a 2 "$OUT"

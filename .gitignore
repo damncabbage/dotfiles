@@ -1,9 +1,15 @@
 .vim/.netrwhist
 .DS_Store
 
+/.bundle/cache
+
+/.vim/bundle
+/.vim/haskell/bin
 /.vim/haskell/data
 /.vim/haskell/libexec
 /.vim/haskell/.cabal-sandbox
 /.vim/haskell/cabal.sandbox.config
 
 /.bashrc.d/*
+
+/parked

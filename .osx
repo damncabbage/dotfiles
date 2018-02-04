@@ -18,7 +18,7 @@ defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 defaults write -g PMPrintingExpandedStateForPrint -bool true
 
 # Disable shadow in screenshots
-defaults write com.apple.screencapture disable-shadow -bool true
+#defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilte-stack -bool true
@@ -30,7 +30,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable window animations
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+#defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 # Disable disk image verification
 #defaults write com.apple.frameworks.diskimages skip-verify -bool true
@@ -54,8 +54,8 @@ defaults write com.apple.Safari IncludeDebugMenu -bool true
 #defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
 # Disable send and reply animations in Mail.app
-#defaults write com.apple.Mail DisableReplyAnimations -bool true
-#defaults write com.apple.Mail DisableSendAnimations -bool true
+defaults write com.apple.Mail DisableReplyAnimations -bool true
+defaults write com.apple.Mail DisableSendAnimations -bool true
 
 # Disable Resume system-wide
 #defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
@@ -64,7 +64,7 @@ defaults write com.apple.Safari IncludeDebugMenu -bool true
 defaults write com.apple.dashboard devmode -bool true
 
 # Reset Launchpad
-rm ~/Library/Application\ Support/Dock/*.db
+#rm ~/Library/Application\ Support/Dock/*.db
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
@@ -76,10 +76,11 @@ chflags nohidden ~/Library
 for app in Safari Finder Dock Mail; do killall "$app"; done
 
 # Fix for the ancient UTF-8 bug in QuickLook (http://mths.be/bbo)
-echo "0x08000100:0" > ~/.CFUserTextEncoding
+#echo "0x08000100:0" > ~/.CFUserTextEncoding
 
 # Mouse acceleration
-defaults write .GlobalPreferences com.apple.mouse.scaling -1
+#defaults write .GlobalPreferences com.apple.mouse.scaling -1
 
 # Dim hidden apps
 defaults write com.apple.dock showhidden -bool true
+killall Dock

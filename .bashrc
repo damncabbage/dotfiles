@@ -19,6 +19,9 @@ PATH="node_modules/.bin:$PATH"
 # Python
 PATH="env/bin:$PATH"
 
+# Stack (Haskell)
+PATH="$HOME/.local/bin:$PATH"
+
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
@@ -28,21 +31,24 @@ if [ -d "$HOME/build/bin" ] ; then
 fi
 
 # Haskell
-if [ -d "/Applications/ghc-7.8.2.app" ]; then
-	PATH="/Applications/ghc-7.8.2.app/Contents/bin:$PATH" # OS X install
-fi
-if [ -d "$HOME/build/ghc-7.8.3/bin" ]; then
-	PATH="$HOME/build/ghc-7.8.3/bin:$PATH" # OS X install
-fi
 if [ -d "$HOME/.cabal" ]; then
 	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
 fi
-if [ -d "$HOME/.haskell-vim-now/bin" ]; then
-  PATH="$HOME/.haskell-vim-now/bin:$PATH"
+if [ -d "$HOME/.mafia/bin/hdevtools/bin" ]; then
+  PATH="$HOME/.mafia/bin/hdevtools/bin:$PATH"
 fi
+#if [ -d "$HOME/.haskell-vim-now/bin" ]; then
+#  PATH="$HOME/.haskell-vim-now/bin:$PATH"
+#fi
 
 if [ -d "/opt/blender" ]; then
 	PATH="$PATH:/opt/blender"
+fi
+
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+  #nvm use 8 2>/dev/null >/dev/null
 fi
 
 # Check what we're running on.
@@ -61,8 +67,8 @@ HISTFILESIZE=2000
 
 
 # Misc preferences
-export EDITOR=/usr/bin/vim
-export TERM=xterm-256color
+export EDITOR=$(which vim)
+#export TERM=xterm-256color
 export GREP_OPTIONS="--color=auto"
 if [ $IS_MAC ]; then
   export CLICOLOR=1
@@ -87,8 +93,13 @@ fi
 
 
 # Git Prompt
+#export GIT_PS1_SHOWCOLORHINTS='y'
+#export GIT_PS1_SHOWUPSTREAM='auto'
+#export GIT_PS1_DESCRIBE_STYLE='contains'
+#export color_prompt="yes"
 . ~/.git-completion.bash
-export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
+#export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
+export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 
 # rbenv
@@ -118,3 +129,6 @@ if [ -d "$HOME/.bashrc.d" ]; then
     source "${FILE}"
   done
 fi
+
+# GHC 8.2.2
+export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"

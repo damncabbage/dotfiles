@@ -25,11 +25,14 @@ set tm=2000
 noremap ,, ,
 
 " Use par for prettier line formatting
-set formatprg="PARINIT='rTbgqR B=.,?_A_a Q=_s>|' par\ -w72"
+" set formatprg="PARINIT='rTbgqR B=.,?_A_a Q=_s>|' par\ -w72"
 
 " Use stylish haskell instead of par for haskell buffers
 " TODO: stylish-haskell doesn't compile.
 " autocmd FileType haskell let &formatprg="stylish-haskell"
+
+" Makefiles
+autocmd filetype make setlocal noexpandtab
 
 " Find custom built ghc-mod, codex etc
 let $PATH = $PATH . ':' . expand("~/.vim/haskell/bin")
@@ -76,6 +79,7 @@ Plugin 'vim-scripts/Gundo'
 Plugin 'tpope/vim-commentary'
 Plugin 'godlygeek/tabular'
 Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'tpope/tpope-vim-abolish' " Subvert, eg. :%S/foo/bar/, preserves case
 
 " Allow pane movement to jump out of vim into tmux
 Plugin 'christoomey/vim-tmux-navigator'
@@ -89,9 +93,25 @@ Plugin 'Twinside/vim-hoogle'
 
 " Purescript
 Plugin 'raichoo/purescript-vim'
+Plugin 'frigoeu/psc-ide-vim'
+
+" Elm
+Plugin 'lambdatoast/elm.vim'
+
+" Elixir
+Plugin 'elixir-editors/vim-elixir'
+
+" Machinator
+Plugin 'damncabbage/machinator-vim'
+
+" TypeScript
+Plugin 'HerringtonDarkholme/yats.vim'
 
 " Colorscheme
 "Plugin 'vim-scripts/wombat256.vim'
+
+" Session management
+"Plugin 'thaerkh/vim-workspace'
 
 " Custom bundles
 if filereadable(expand("~/.vim.local/bundles.vim"))
@@ -212,7 +232,7 @@ hi! link Visual Search
 
 " Enable filetype plugins
 filetype plugin on
-filetype indent on
+"filetype indent on
 
 " Match wombat colors in nerd tree
 hi Directory guifg=#8ac6f2
@@ -287,7 +307,8 @@ set tabstop=2
 
 " Line-wrap with gq
 set tw=500 " tw is textwidth
-au FileType markdown setlocal tw=100 tabstop=4 expandtab shiftwidth=4 softtabstop=4
+"au FileType markdown setlocal tw=100 tabstop=2 expandtab shiftwidth=2 softtabstop=2
+au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
 " Avoid line-wrapping in the middle of a word.
 set lbr
@@ -532,12 +553,15 @@ function! LoadHscope()
   let db = findfile("hscope.out", ".;")
   if (!empty(db))
     let path = strpart(db, 0, match(db, "/hscope.out$"))
+    "echo db
+    "echo path
+    "echo "cs add " . db . " " . path
     set nocscopeverbose " suppress 'duplicate connection' error
     exe "cs add " . db . " " . path
     set cscopeverbose
   endif
 endfunction
-au BufEnter /*.hs call LoadHscope()
+"au BufEnter /*.hs call LoadHscope()
 
 " }}}
 
@@ -597,6 +621,12 @@ endif
 " Show types in completion suggestions
 let g:necoghc_enable_detailed_browse = 1
 
+" qualified/unQualified import line
+nmap <silent> <leader>hq :s/^import          /import qualified/<CR>:nohl<CR>
+nmap <silent> <leader>hQ :s/^import qualified/import          /<CR>:nohl<CR>
+vnoremap <silent> <leader>hq :s/^import          /import qualified/<CR>:nohl<CR>
+vnoremap <silent> <leader>hQ :s/import qualified/^import          /<CR>:nohl<CR>
+
 " Type of expression under cursor
 nmap <silent> <leader>ht :GhcModType<CR>
 " Insert type of expression under cursor
@@ -645,3 +675,13 @@ if filereadable(expand("~/.vimrc.local"))
 endif
 
 " }}}
+
+" Hanging indent soft-wrap
+set breakindent
+set breakindentopt=shift:2
+
+" Nvim Compat
+command! -nargs=1 R execute ":! " <q-args>
+
+" PureScript
+map <leader>pg :!$HOME/bin/purescript-tags.sh<CR>

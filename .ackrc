@@ -14,7 +14,13 @@
 --type-set=twig=.tpl
 --type-set=haml=.haml
 --type-set=rubytemplate=.erb,.haml
+--type-set=js=.js,.jsx
+--type-set=ps=.purs
+--type-set=hbs=.hbs
 
 # Ignores
 --ignore-dir=vendor/bundler
 --ignore-file=match:tags
+
+--noignore-dir=node_modules
+--type-set=npm:is:package.json
