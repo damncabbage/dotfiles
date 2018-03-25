@@ -100,6 +100,7 @@ Plugin 'lambdatoast/elm.vim'
 
 " Elixir
 Plugin 'elixir-editors/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
 
 " Machinator
 Plugin 'damncabbage/machinator-vim'
@@ -112,6 +113,9 @@ Plugin 'HerringtonDarkholme/yats.vim'
 
 " Session management
 "Plugin 'thaerkh/vim-workspace'
+
+" Build
+Plugin 'neomake/neomake'
 
 " Custom bundles
 if filereadable(expand("~/.vim.local/bundles.vim"))
@@ -232,7 +236,7 @@ hi! link Visual Search
 
 " Enable filetype plugins
 filetype plugin on
-"filetype indent on
+filetype indent on
 
 " Match wombat colors in nerd tree
 hi Directory guifg=#8ac6f2
@@ -309,6 +313,7 @@ set tabstop=2
 set tw=500 " tw is textwidth
 "au FileType markdown setlocal tw=100 tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 " Avoid line-wrapping in the middle of a word.
 set lbr
@@ -687,3 +692,10 @@ command! -nargs=1 R execute ":! " <q-args>
 
 " PureScript
 map <leader>pg :!$HOME/bin/purescript-tags.sh<CR>
+
+" Elixir, NeoMake
+augroup elixir
+  autocmd!
+  autocmd BufWritePost * Neomake
+augroup END
+"let g:alchemist_tag_disable = 1
