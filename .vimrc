@@ -35,7 +35,7 @@ noremap ,, ,
 autocmd filetype make setlocal noexpandtab
 
 " Find custom built ghc-mod, codex etc
-let $PATH = $PATH . ':' . expand("~/.vim/haskell/bin")
+"let $PATH = $PATH . ':' . expand("~/.vim/haskell/bin")
 
 " Kill the damned Ex mode.
 nnoremap Q <nop>
@@ -87,9 +87,9 @@ Plugin 'christoomey/vim-tmux-navigator'
 " Haskell
 Plugin 'raichoo/haskell-vim'
 "Plugin 'enomsg/vim-haskellConcealPlus' " Unicode abbreviations of ->, true, forAll, etc.
-Plugin 'eagletmt/ghcmod-vim'
-Plugin 'eagletmt/neco-ghc'
 Plugin 'Twinside/vim-hoogle'
+"Plugin 'eagletmt/ghcmod-vim'
+"Plugin 'eagletmt/neco-ghc'
 
 " Purescript
 Plugin 'raichoo/purescript-vim'
@@ -539,29 +539,31 @@ let g:tagbar_type_haskell = {
 \ }
 
 " Generate haskell tags with codex and hscope
-map <leader>tg :!codex update --force<CR>:call system("git hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
+"map <leader>tg :!codex update --force<CR>:call system("git hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
+"map <leader>tg :!hasktags --ignore-close-implementation --ctags .<CR>
+map <leader>tg :!codex update --force<CR>
 
 map <leader>tt :TagbarToggle<CR>
 
-set csprg=~/.vim/haskell/bin/hscope
-set csto=1 " search codex tags first
-set cst
-set csverb
-nnoremap <silent> <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>
-" Automatically make cscope connections
-function! LoadHscope()
-  let db = findfile("hscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/hscope.out$"))
-    "echo db
-    "echo path
-    "echo "cs add " . db . " " . path
-    set nocscopeverbose " suppress 'duplicate connection' error
-    exe "cs add " . db . " " . path
-    set cscopeverbose
-  endif
-endfunction
-"au BufEnter /*.hs call LoadHscope()
+"set csprg=~/.vim/haskell/bin/hscope
+"set csto=1 " search codex tags first
+"set cst
+"set csverb
+"nnoremap <silent> <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>
+"" Automatically make cscope connections
+"function! LoadHscope()
+"  let db = findfile("hscope.out", ".;")
+"  if (!empty(db))
+"    let path = strpart(db, 0, match(db, "/hscope.out$"))
+"    "echo db
+"    "echo path
+"    "echo "cs add " . db . " " . path
+"    set nocscopeverbose " suppress 'duplicate connection' error
+"    exe "cs add " . db . " " . path
+"    set cscopeverbose
+"  endif
+"endfunction
+""au BufEnter /*.hs call LoadHscope()
 
 " }}}
 
