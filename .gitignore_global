@@ -4,6 +4,8 @@
 
 # CTags
 /tags
+/codex.tags
+/hscope.out
 
 # OS-generated files
 .DS_Store

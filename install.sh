@@ -30,7 +30,7 @@ function action() {
 pushd `dirname $0` > /dev/null
 
 	# Can anyone say HACK?
-	FILES=".[A-Za-z0-9_]* bin/* lib/*"
+	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/*"
 	TARGETDIR=$HOME
 
 	for FILE in $FILES
@@ -40,8 +40,8 @@ pushd `dirname $0` > /dev/null
 			continue
 		fi
 
-    # HACK: Ignore files we'd never want to symlink. (This could be restricted
-    #       to files in git, but then it's a pain to add and test new things.)
+		# HACK: Ignore files we'd never want to symlink. (This could be restricted
+		#       to files in git, but then it's a pain to add and test new things.)
 		if [ $FILE == "._.DS_Store" ] || [ $FILE == ".DS_Store" ]; then
 			continue
 		fi

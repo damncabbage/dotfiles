@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+for IN in "$@"; do
+  OUT="${IN%.opus}.mp3"
+  echo
+  echo "$IN ====> $OUT"
+  ffmpeg -i "$IN" -codec:a libmp3lame -qscale:a 2 "$OUT"
+done

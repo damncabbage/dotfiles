@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'time'
+puts Time.parse($stdin.read.chomp).localtime

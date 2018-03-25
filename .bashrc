@@ -14,11 +14,13 @@ fi
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Node.js
-PATH="$PATH:node_modules/.bin"
-PATH="$PATH:/usr/local/share/npm/bin"
+PATH="node_modules/.bin:$PATH"
 
 # Python
-PATH="$PATH:env/bin"
+PATH="env/bin:$PATH"
+
+# Stack (Haskell)
+PATH="$HOME/.local/bin:$PATH"
 
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -29,18 +31,24 @@ if [ -d "$HOME/build/bin" ] ; then
 fi
 
 # Haskell
-if [ -d "/Applications/ghc-7.8.2.app" ]; then
-	PATH="/Applications/ghc-7.8.2.app/Contents/bin:$PATH" # OS X install
-fi
 if [ -d "$HOME/.cabal" ]; then
 	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
 fi
-if [ -d "$HOME/.haskell-vim-now/bin" ]; then
-  PATH="$HOME/.haskell-vim-now/bin:$PATH"
-fi
+#if [ -d "$HOME/.mafia/bin/hdevtools/bin" ]; then
+#  PATH="$HOME/.mafia/bin/hdevtools/bin:$PATH"
+#fi
+#if [ -d "$HOME/.haskell-vim-now/bin" ]; then
+#  PATH="$HOME/.haskell-vim-now/bin:$PATH"
+#fi
 
 if [ -d "/opt/blender" ]; then
 	PATH="$PATH:/opt/blender"
+fi
+
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+  #nvm use 8 2>/dev/null >/dev/null
 fi
 
 # Check what we're running on.
@@ -59,8 +67,8 @@ HISTFILESIZE=2000
 
 
 # Misc preferences
-export EDITOR=/usr/bin/vim
-export TERM=xterm-256color
+export EDITOR=$(which vim)
+#export TERM=xterm-256color
 export GREP_OPTIONS="--color=auto"
 if [ $IS_MAC ]; then
   export CLICOLOR=1
@@ -85,21 +93,45 @@ fi
 
 
 # Git Prompt
+#export GIT_PS1_SHOWCOLORHINTS='y'
+#export GIT_PS1_SHOWUPSTREAM='auto'
+#export GIT_PS1_DESCRIBE_STYLE='contains'
+#export color_prompt="yes"
 . ~/.git-completion.bash
-export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
+#export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
+export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 
 # rbenv
-if [ -d "$HOME/.rbenv" ] ; then
-	# "rbenv" command
-	PATH="$HOME/.rbenv/bin:$PATH"
-	eval "$(rbenv init -)"
-fi
+#if [ -d "$HOME/.rbenv" ] ; then
+#	# "rbenv" command
+#	PATH="$HOME/.rbenv/bin:$PATH"
+#	eval "$(rbenv init -)"
+#fi
+
+# Elixir
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Set STDERR text to red
 #if [ -f "$HOME/lib/stderred.so" ]; then
 #	export LD_PRELOAD="$HOME/lib/stderred.so"
 #fi
+
+# Load in anything else that's install-specific.
+if [ -d "$HOME/.bashrc.d" ]; then
+  shopt -s nullglob
+  for FILE in "$HOME/.bashrc.d/"*; do
+    source "${FILE}"
+  done
+  shopt -u nullglob
+fi
+
+# GHC 8.2.2
+#export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"
+
+# asdf
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
 
 # SSH Agent
 SSHAGENT=/usr/bin/ssh-agent

@@ -1,10 +1,10 @@
 [user]
 	name = Rob Howard
 	email = rob@robhoward.id.au
-[diff]
-	tool = vimdiff
 [merge]
 	renameLimit = 10000
+[difftool "vimdiff"]
+	cmd = vimdiff -c ':colorscheme ron' $LOCAL $REMOTE
 [alias]
 	stat = status
 	s = status
@@ -12,13 +12,19 @@
 	b = branch
 	serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
 	pc = push origin HEAD
+	pcf = push origin HEAD --force-with-lease
 	lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%cr)%C(reset) %C(white)%s%C(reset) %C(bold white)— %cn%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
 	lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%cD%C(reset) %C(bold green)(%cr)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %cn%C(reset)' --abbrev-commit
 	lg = !"git lg1"
 	prune-all = !git remote | xargs -n 1 git remote prune
 	d = difftool -t vimdiff
 	vimdiff = difftool -t vimdiff
+ 	f = fetch -p
+	recent = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 [status]
 	submoduleSummary = true
+[commit]
+	verbose = true
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = /usr/local/bin/vim

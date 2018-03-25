@@ -1,0 +1,3 @@
+#!/bin/bash -eux
+
+git fetch origin && git checkout $(git rev-parse origin/master)

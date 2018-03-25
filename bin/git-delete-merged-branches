@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BRANCHES=$(git branch --merged | grep -v "\*")
+BRANCHES=$(git branch --merged | grep -v "\*" | grep -v '^[ ]*master$')
 echo "Deleting the following merged branches:"
 echo "$BRANCHES"
 echo

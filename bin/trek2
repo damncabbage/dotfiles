@@ -1,0 +1,10 @@
+#!/bin/bash
+
+play -c2 -n \
+     synth whitenoise band -n 100 24 band -n 300 100 gain +20 \
+     synth whitenoise lowpass -1 80 lowpass -1 80 lowpass -1 80 gain +18
+
+# p2=$!
+# 
+# wait $p1 $p2
+# echo

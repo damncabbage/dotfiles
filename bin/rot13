@@ -1,0 +1,5 @@
+#!/bin/sh -eu
+
+cat | tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+
+# Pnaabg fvg ba pbhpu. 2. Ibvpr npgvat abg irel anghenyvfgvp. 3. Pnaabg or sevraqf jvgu avpr fvera ynql?
