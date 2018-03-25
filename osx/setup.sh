@@ -3,9 +3,12 @@
 brew install \
   git vim ack ctags sox watch wget \
   icu4c \
-  rbenv ruby-build \
-  postgres redis \
-  ncdu gnu-sed
+  postgres \
+  ncdu gnu-sed \
+  coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \ # Needed by asdf
+  tig \
+  caskroom/cask/iterm2 caskroom/cask/caffeine caskroom/cask/vlc
+  # caskroom/cask/tunnelblick   # Not always needed
 
 echo <<-EOF
   Manually install:
@@ -16,8 +19,9 @@ echo <<-EOF
   - Caffeine <http://lightheadsw.com/caffeine/>
 EOF
 
-sudo pmset -a destroyfvkeyonstandby 1
-sudo pmset -a standbydelay 300 # 5-minute hibernate countdown
+# These make MacOS randomly shut down after being suspended for a while sometimes. :|
+#sudo pmset -a destroyfvkeyonstandby 1
+#sudo pmset -a standbydelay 300 # 5-minute hibernate countdown
 
 # Make HiDPI mode available for high-res external monitors
 # sudo defaults write /Library/Preferences/com.apple.windowserver.plist DisplayResolutionEnabled -bool true
