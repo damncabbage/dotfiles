@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+for IN in "$@"; do
+  OUT="${IN%.opus}.m4a"
+  echo
+  echo "$IN ====> $OUT"
+  ffmpeg -i "$IN" -codec:a aac -q:a 2 "$OUT"
+done
