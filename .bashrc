@@ -34,9 +34,9 @@ fi
 if [ -d "$HOME/.cabal" ]; then
 	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
 fi
-if [ -d "$HOME/.mafia/bin/hdevtools/bin" ]; then
-  PATH="$HOME/.mafia/bin/hdevtools/bin:$PATH"
-fi
+#if [ -d "$HOME/.mafia/bin/hdevtools/bin" ]; then
+#  PATH="$HOME/.mafia/bin/hdevtools/bin:$PATH"
+#fi
 #if [ -d "$HOME/.haskell-vim-now/bin" ]; then
 #  PATH="$HOME/.haskell-vim-now/bin:$PATH"
 #fi
@@ -103,16 +103,35 @@ export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 
 # rbenv
-if [ -d "$HOME/.rbenv" ] ; then
-	# "rbenv" command
-	PATH="$HOME/.rbenv/bin:$PATH"
-	eval "$(rbenv init -)"
-fi
+#if [ -d "$HOME/.rbenv" ] ; then
+#	# "rbenv" command
+#	PATH="$HOME/.rbenv/bin:$PATH"
+#	eval "$(rbenv init -)"
+#fi
+
+# Elixir
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Set STDERR text to red
 #if [ -f "$HOME/lib/stderred.so" ]; then
 #	export LD_PRELOAD="$HOME/lib/stderred.so"
 #fi
+
+# Load in anything else that's install-specific.
+if [ -d "$HOME/.bashrc.d" ]; then
+  shopt -s nullglob
+  for FILE in "$HOME/.bashrc.d/"*; do
+    source "${FILE}"
+  done
+  shopt -u nullglob
+fi
+
+# GHC 8.2.2
+#export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"
+
+# asdf
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
 
 # SSH Agent
 SSHAGENT=/usr/bin/ssh-agent
@@ -121,14 +140,3 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
   eval `$SSHAGENT $SSHAGENTARGS`
   trap "kill $SSH_AGENT_PID" 0
 fi
-
-
-# Load in anything else that's install-specific.
-if [ -d "$HOME/.bashrc.d" ]; then
-  for FILE in "$HOME/.bashrc.d/"*; do
-    source "${FILE}"
-  done
-fi
-
-# GHC 8.2.2
-export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"
