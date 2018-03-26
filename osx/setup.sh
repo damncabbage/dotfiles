@@ -5,9 +5,10 @@ brew install \
   icu4c \
   postgres \
   ncdu gnu-sed \
-  coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \ # Needed by asdf
+  coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
   tig \
-  caskroom/cask/iterm2 caskroom/cask/caffeine caskroom/cask/vlc
+  caskroom/cask/iterm2 caskroom/cask/caffeine caskroom/cask/vlc caskroom/cask/flux
+  # caskroom/cask/virtualbox
   # caskroom/cask/tunnelblick   # Not always needed
 
 echo <<-EOF
