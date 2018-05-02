@@ -108,8 +108,9 @@ Plugin 'damncabbage/machinator-vim'
 " TypeScript
 Plugin 'HerringtonDarkholme/yats.vim'
 
-" Colorscheme
+" Colorschemes
 "Plugin 'vim-scripts/wombat256.vim'
+Plugin 'tssm/fairyfloss.vim'
 
 " Session management
 "Plugin 'thaerkh/vim-workspace'
@@ -214,13 +215,14 @@ nnoremap <leader>m :set mouse=a<cr>
 
 " Colors and Fonts {{{
 
-try
-  "colorscheme wombat256mod
-  colorscheme zenburn
-  hi Visual    ctermbg=232 " Colourscheme hacks; originally 235.
-  hi VisualNOS ctermbg=232
-catch
-endtry
+colorscheme fairyfloss
+"try
+"  "colorscheme wombat256mod
+"  colorscheme zenburn
+"  hi Visual    ctermbg=232 " Colourscheme hacks; originally 235.
+"  hi VisualNOS ctermbg=232
+"catch
+"endtry
 
 " Enable syntax highlighting
 syntax enable
@@ -258,6 +260,7 @@ if has("gui_running")
   set guitablabel=%M\ %t
 endif
 set t_Co=256
+set termguicolors
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -319,7 +322,7 @@ au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 set lbr
 
 set ai "Auto indent
-set si "Smart indent
+"set si "Smart indent
 set wrap "Wrap lines
 
 " Pretty unicode haskell symbols

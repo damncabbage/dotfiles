@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 brew install \
-  git vim ack ctags sox watch wget \
+  git vim ack ctags sox watch wget rename \
   icu4c \
   postgres \
   ncdu gnu-sed \
