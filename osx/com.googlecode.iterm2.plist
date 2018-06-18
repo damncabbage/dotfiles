@@ -51,9 +51,10 @@
 		<key>0x74-0x100000</key>
 		<dict>
 			<key>Action</key>
-			<integer>27</integer>
+			<integer>25</integer>
 			<key>Text</key>
-			<string>5ED2C93F-7346-4887-BB0D-0087FDCCF7AB</string>
+			<string>New Tab with Current Profile
+New Tab with Current Profile</string>
 		</dict>
 		<key>0xf700-0x300000</key>
 		<dict>
@@ -163,7 +164,7 @@
 	<key>HideMenuBarInFullscreen</key>
 	<true/>
 	<key>HideScrollbar</key>
-	<false/>
+	<true/>
 	<key>HideTab</key>
 	<true/>
 	<key>HighlightTabLabels</key>
@@ -194,6 +195,8 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 1</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/dotfiles/osx</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -234,12 +237,20 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>-790 417 445 103 -1920 0 1920 1080 </string>
+	<key>NSWindow Frame ProfilesPanel</key>
+	<string>-1575 645 735 382 -1920 0 1920 1080 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 373 620 392 0 0 1440 877 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>-1651 126 606 469 -1920 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>-1451 290 796 473 -1920 0 1920 1080 </string>
+	<string>-1178 602 796 473 -1920 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>155 93 836 520 0 0 1440 877 </string>
+	<string>-1854 10 920 707 -1920 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>226 0 935 730 0 0 1440 900 </string>
+	<string>226 48 935 707 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -3262,13 +3273,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.49148714542388916</real>
+				<real>0.451263427734375</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.36774510145187378</real>
+				<real>0.32812585635110736</real>
 				<key>Red Component</key>
-				<real>0.38804322481155396</real>
+				<real>0.35424594725058833</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -3869,6 +3880,8 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>6E1C156C-3B22-42FC-8E7F-54E3EB396DFD</string>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>543717800.67465997</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -3945,7 +3958,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-04-06T01:39:38Z</date>
+	<date>2018-05-19T01:45:14Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -3994,10 +4007,12 @@
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.5</string>
+	<string>3.1.6</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

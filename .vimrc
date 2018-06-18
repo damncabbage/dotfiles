@@ -216,6 +216,7 @@ nnoremap <leader>m :set mouse=a<cr>
 " Colors and Fonts {{{
 
 colorscheme fairyfloss
+hi Underlined guifg=#fff352 guibg=NONE gui=underline ctermfg=0
 "try
 "  "colorscheme wombat256mod
 "  colorscheme zenburn

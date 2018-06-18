@@ -67,7 +67,7 @@ HISTFILESIZE=2000
 
 
 # Misc preferences
-export EDITOR=$(which vim)
+export EDITOR=$(command -v vim)
 #export TERM=xterm-256color
 export GREP_OPTIONS="--color=auto"
 if [ $IS_MAC ]; then

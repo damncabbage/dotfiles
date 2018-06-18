@@ -7,7 +7,7 @@ brew install \
   ncdu gnu-sed \
   coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
   tig \
-  caskroom/cask/iterm2 caskroom/cask/caffeine caskroom/cask/vlc caskroom/cask/flux
+  caskroom/cask/iterm2 caskroom/cask/caffeine caskroom/cask/vlc caskroom/cask/flux caskroom/cask/sim-daltonism
   # caskroom/cask/virtualbox
   # caskroom/cask/tunnelblick   # Not always needed
 
