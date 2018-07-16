@@ -3,6 +3,7 @@
 brew install \
   git vim ack ctags sox watch wget rename \
   icu4c \
+  exiftool \
   postgres \
   ncdu gnu-sed \
   coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
@@ -11,7 +12,12 @@ brew install \
   # caskroom/cask/virtualbox
   # caskroom/cask/tunnelblick   # Not always needed
 
-echo <<-EOF
+echo "Install slowquitapps?"
+if [ "$(read -r | grep -c -i 'y')" -eq 1 ]; then
+  brew tap dteoh/sqa && brew cask install slowquitapps
+fi
+
+cat <<-EOF
   Manually install:
   - iTerm2 <http://www.iterm2.com/#/section/downloads>
   - GHC+Cabal <http://ghcformacosx.github.io/>
