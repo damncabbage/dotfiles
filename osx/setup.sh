@@ -35,3 +35,10 @@ EOF
 
 #wget http://download.virtualbox.org/virtualbox/5.0.10/VirtualBox-5.0.10-104061-OSX.dmg > /tmp/virtualbox.dmg
 #open /tmp/virtualbox.dmg
+
+mkdir -p ~/build
+(
+  git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
+  cd ~/build/osx-cpu-temp;
+  git checkout git22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
+)
