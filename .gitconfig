@@ -28,3 +28,5 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = /usr/local/bin/vim
+[rebase]
+  autoStash = true
