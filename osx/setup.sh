@@ -8,6 +8,7 @@ brew install \
   ncdu gnu-sed \
   coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
   tig \
+  terminal-notifier \
   caskroom/cask/iterm2 \
   caskroom/cask/caffeine \
   caskroom/cask/vlc \
@@ -30,6 +31,9 @@ cat <<-EOF
   - VLC <http://www.videolan.org/vlc/index.html>
   - Caffeine <http://lightheadsw.com/caffeine/>
 EOF
+
+# Pomodoro
+gem install thyme
 
 # These make MacOS randomly shut down after being suspended for a while sometimes. :|
 #sudo pmset -a destroyfvkeyonstandby 1
