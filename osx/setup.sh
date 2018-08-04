@@ -7,6 +7,7 @@ brew install \
   postgres \
   ncdu gnu-sed \
   coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
+  imagemagick \
   tig \
   terminal-notifier \
   caskroom/cask/iterm2 \
