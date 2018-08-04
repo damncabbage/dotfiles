@@ -64,3 +64,5 @@ alias trek="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -
 alias weather="curl http://wttr.in/Sydney"
 alias minprompt='export PS1="\w$(__git_ps1)\$ "'
 alias vis="cd ~/build/tdsr; ./tdsr"
+
+alias pomo="thyme -r -b"

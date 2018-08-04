@@ -23,16 +23,31 @@ end
 #  `mplayer ~/music/flight-of-the-bumble-bee.mp3 &`
 #end
 
+module Utils
+  module_function
+
+  def play(file)
+    `(mpv --no-video #{file} >/dev/null 2>/dev/null &)`
+  end
+
+  def notify(msg)
+    `(terminal-notifier -message "#{msg}" -title "Pomodoro" &)`
+  end
+end
+
 # execute hook before each pomodoro
 before do
-  `terminal-notifier -message "🏃‍♀️💨" -title "Pomodoro"`
-  `(mpv --no-video ~/dotfiles/sound/ois/launch_weapon.wav >/dev/null 2>/dev/null &)`
+  Utils.notify("🏃‍♀️💨")
+  Utils.play("~/dotfiles/sound/ois/menu_load.wav")
+  #Utils.play("~/dotfiles/sound/ois/launch_weapon.wav")
 end
 
 # execute hook after each pomodoro
 after do |seconds_left|
-  `terminal-notifier -message "🌈✨" -title "Pomodoro"` if seconds_left == 0
-  `(mpv --no-video ~/dotfiles/sound/ois/menu_load.wav >/dev/null 2>/dev/null &)`
+  if seconds_left == 0
+    Utils.notify("🌈✨")
+    Utils.play("~/dotfiles/sound/ois/incoming_hail.wav")
+  end
 end
 
 # execute hook after thyme program quits
