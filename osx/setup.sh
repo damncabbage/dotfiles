@@ -10,6 +10,7 @@ brew install \
   imagemagick \
   tig \
   terminal-notifier \
+  jq \
   caskroom/cask/iterm2 \
   caskroom/cask/caffeine \
   caskroom/cask/vlc \
