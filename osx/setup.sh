@@ -10,15 +10,18 @@ brew install \
   imagemagick \
   tig \
   terminal-notifier \
-  jq \
-  caskroom/cask/iterm2 \
-  caskroom/cask/caffeine \
-  caskroom/cask/vlc \
-  caskroom/cask/flux \
-  caskroom/cask/sim-daltonism \
-  caskroom/cask/focuswriter
-  # caskroom/cask/virtualbox
-  # caskroom/cask/tunnelblick   # Not always needed
+  jq
+
+brew cask install \
+  iterm2 \
+  caffeine \
+  vlc \
+  flux \
+  sim-daltonism \
+  focuswriter
+  # aws-vault
+  # virtualbox
+  # tunnelblick
 
 echo "Install slowquitapps?"
 if [ "$(read -r | grep -c -i 'y')" -eq 1 ]; then
