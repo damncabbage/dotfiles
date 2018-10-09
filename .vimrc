@@ -322,6 +322,9 @@ au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 " Avoid line-wrapping in the middle of a word.
 set lbr
 
+" Keep some space at the bottom of the window
+set scrolloff=3
+
 set ai "Auto indent
 "set si "Smart indent
 set wrap "Wrap lines
