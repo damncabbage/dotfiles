@@ -20,7 +20,7 @@ brew cask install \
   sim-daltonism \
   focuswriter \
   virtualbox \
-  karabiner
+  karabiner-elements
   # aws-vault
   # tunnelblick
 
