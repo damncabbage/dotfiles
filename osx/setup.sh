@@ -31,7 +31,7 @@ fi
 
 cat <<-EOF
   Manually install:
-  - Haptic Touch Bar App? <https://www.haptictouchbar.com/>
+  - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
   - GHC+Cabal <http://ghcformacosx.github.io/>
   - Tunnelblick <https://code.google.com/p/tunnelblick/wiki/DownloadsEntry#Tunnelblick_Beta_Release>
 EOF
