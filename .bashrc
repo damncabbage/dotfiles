@@ -130,10 +130,14 @@ fi
 #export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"
 
 # asdf
-if [ -d "$HOME/.asdf" ]; then
+if [ -f "$HOME/.asdf/asdf.sh" ]; then
   . "$HOME/.asdf/asdf.sh"
   . "$HOME/.asdf/completions/asdf.bash"
 fi
+if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
+  . "/usr/local/opt/asdf/asdf.sh"
+fi
+
 
 # SSH Agent
 SSHAGENT=/usr/bin/ssh-agent

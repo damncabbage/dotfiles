@@ -5,22 +5,24 @@ brew install \
   icu4c \
   exiftool \
   postgres \
-  ncdu gnu-sed \
+  ncdu \
+  gnu-sed \
   coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
   imagemagick \
   tig \
   terminal-notifier \
-  jq
+  jq \
+  asdf \
+  gpg # needed for asdf-nodejs
 
 brew cask install \
   iterm2 \
   caffeine \
   vlc \
-  flux \
   sim-daltonism \
   focuswriter \
-  virtualbox \
-  karabiner-elements
+  karabiner-elements \
+  virtualbox
   # aws-vault
   # tunnelblick
 
