@@ -71,7 +71,7 @@ Plugin 'int3/vim-extradite'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
+"Plugin 'majutsushi/tagbar'
 
 " Text manipulation
 Plugin 'vim-scripts/Align'
@@ -515,47 +515,47 @@ let g:haskell_tabular = 1
 " }}}
 
 " Tags {{{
-
-set tags=tags;/,codex.tags;/
-
-let g:tagbar_type_haskell = {
-    \ 'ctagsbin'  : 'hasktags',
-    \ 'ctagsargs' : '-x -c -o-',
-    \ 'kinds'     : [
-        \  'm:modules:0:1',
-        \  'd:data: 0:1',
-        \  'd_gadt: data gadt:0:1',
-        \  't:type names:0:1',
-        \  'nt:new types:0:1',
-        \  'c:classes:0:1',
-        \  'cons:constructors:1:1',
-        \  'c_gadt:constructor gadt:1:1',
-        \  'c_a:constructor accessors:1:1',
-        \  'ft:function types:1:1',
-        \  'fi:function implementations:0:1',
-        \  'o:others:0:1'
-    \ ],
-    \ 'sro'        : '.',
-    \ 'kind2scope' : {
-        \ 'm' : 'module',
-        \ 'c' : 'class',
-        \ 'd' : 'data',
-        \ 't' : 'type'
-    \ },
-    \ 'scope2kind' : {
-        \ 'module' : 'm',
-        \ 'class'  : 'c',
-        \ 'data'   : 'd',
-        \ 'type'   : 't'
-    \ }
-\ }
-
-" Generate haskell tags with codex and hscope
-"map <leader>tg :!codex update --force<CR>:call system("git hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
-"map <leader>tg :!hasktags --ignore-close-implementation --ctags .<CR>
-map <leader>tg :!codex update --force<CR>
-
-map <leader>tt :TagbarToggle<CR>
+"""
+"""set tags=tags;/,codex.tags;/
+"""
+"""let g:tagbar_type_haskell = {
+"""    \ 'ctagsbin'  : 'hasktags',
+"""    \ 'ctagsargs' : '-x -c -o-',
+"""    \ 'kinds'     : [
+"""        \  'm:modules:0:1',
+"""        \  'd:data: 0:1',
+"""        \  'd_gadt: data gadt:0:1',
+"""        \  't:type names:0:1',
+"""        \  'nt:new types:0:1',
+"""        \  'c:classes:0:1',
+"""        \  'cons:constructors:1:1',
+"""        \  'c_gadt:constructor gadt:1:1',
+"""        \  'c_a:constructor accessors:1:1',
+"""        \  'ft:function types:1:1',
+"""        \  'fi:function implementations:0:1',
+"""        \  'o:others:0:1'
+"""    \ ],
+"""    \ 'sro'        : '.',
+"""    \ 'kind2scope' : {
+"""        \ 'm' : 'module',
+"""        \ 'c' : 'class',
+"""        \ 'd' : 'data',
+"""        \ 't' : 'type'
+"""    \ },
+"""    \ 'scope2kind' : {
+"""        \ 'module' : 'm',
+"""        \ 'class'  : 'c',
+"""        \ 'data'   : 'd',
+"""        \ 'type'   : 't'
+"""    \ }
+"""\ }
+"""
+"""" Generate haskell tags with codex and hscope
+""""map <leader>tg :!codex update --force<CR>:call system("git hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
+""""map <leader>tg :!hasktags --ignore-close-implementation --ctags .<CR>
+"""map <leader>tg :!codex update --force<CR>
+"""
+"""map <leader>tt :TagbarToggle<CR>
 
 "set csprg=~/.vim/haskell/bin/hscope
 "set csto=1 " search codex tags first
