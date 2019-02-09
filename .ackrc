@@ -17,6 +17,8 @@
 --type-set=js=.js,.jsx
 --type-set=ps=.purs
 --type-set=hbs=.hbs
+--type-set=elm=.elm
+--type-set=txt=.txt
 
 # Ignores
 --ignore-dir=vendor/bundler
