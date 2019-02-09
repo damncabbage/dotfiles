@@ -700,6 +700,9 @@ command! -nargs=1 R execute ":! " <q-args>
 " PureScript
 map <leader>pg :!$HOME/bin/purescript-tags.sh<CR>
 
+" NeoMake
+"let g:neomake_logfile = '/tmp/neomake.log'
+
 " Elixir, NeoMake
 augroup elixir
   autocmd!
