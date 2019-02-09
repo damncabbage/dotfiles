@@ -1,6 +1,8 @@
 # Vim
 *.swp
 *.swo
+*.swn
+*.swm
 
 # CTags
 /tags
