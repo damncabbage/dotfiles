@@ -706,3 +706,23 @@ augroup elixir
   autocmd BufWritePost * Neomake
 augroup END
 "let g:alchemist_tag_disable = 1
+
+" JS
+"let g:neomake_javascript_enabled_makers = [] " 'flow'] " TODO: eslint
+let g:neomake_javascript_enabled_makers = ['flow'] ", 'eslint']
+let g:neomake_open_list = 2 " an error dialog that pops up, preserving cursor location
+
+" Flow
+" Get the Flow type at the current cursor position.
+function! Flow_get_type()
+  let pos = line('.').' '.col('.')
+  let path = ' --path '.fnameescape(expand('%'))
+  let cmd = 'node_modules/.bin/flow type-at-pos '.pos.path
+  let stdin = join(getline(1,'$'), "\n")
+
+  let output = 'FlowType: '.system(cmd, stdin)
+  let output = substitute(output, '\n$', '', '')
+  echo output
+endfunction
+command! FlowType call Flow_get_type()
+nnoremap <Leader>t :FlowType<CR>
