@@ -13,16 +13,15 @@ brew install \
   terminal-notifier \
   jq \
   asdf \
+  direnv \
   gpg # needed for asdf-nodejs
 
 brew cask install \
-  iterm2 \
   caffeine \
-  vlc \
   sim-daltonism \
   focuswriter \
-  karabiner-elements \
-  virtualbox
+  karabiner-elements
+  # virtualbox
   # aws-vault
   # tunnelblick
 
@@ -39,14 +38,14 @@ cat <<-EOF
 EOF
 
 # Pomodoro
-gem install thyme
+sudo gem install thyme
 
 # CPU Temp tool
 mkdir -p ~/build
 (
-  git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
+  [[ -d ~/build/osx-cpu-temp ]] || git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
   cd ~/build/osx-cpu-temp;
-  git checkout git22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
+  git checkout 22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
 )
 
 
