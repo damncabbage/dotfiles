@@ -138,6 +138,11 @@ if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
   . "/usr/local/opt/asdf/asdf.sh"
 fi
 
+# Global JS tools
+if [ -d "$HOME/build/js/node_modules/.bin" ]; then
+  export PATH="$PATH:$HOME/build/js/node_modules/.bin"
+fi
+
 
 # SSH Agent
 SSHAGENT=/usr/bin/ssh-agent
