@@ -21,7 +21,7 @@
 --regex-Elm=/^type[[:blank:]]+alias[[:blank:]]+([[:upper:]][[:alnum:]_]+)/\1/a,type-alias,type-aliases/
 
 
---langmap=JavaScript:.js.es6.es.jsx
+--langmap=JavaScript:.js.es6.es.jsx.ts.tsx
 --JavaScript-kinds=-c-f-m-p-v
 
 --regex-JavaScript=/^[ \t]*var[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*\[/\1/A,Array,Arrays/b
@@ -118,5 +118,4 @@
 --exclude=\*.swp
 --exclude=\*.bak
 --exclude=tags
---exclude=node_modules
 --exclude=bower_components
