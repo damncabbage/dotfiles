@@ -9,6 +9,7 @@
 /.vim/haskell/libexec
 /.vim/haskell/.cabal-sandbox
 /.vim/haskell/cabal.sandbox.config
+/.vim/sessions
 
 /.bashrc.d/*
 

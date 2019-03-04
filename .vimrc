@@ -113,7 +113,7 @@ Plugin 'HerringtonDarkholme/yats.vim'
 Plugin 'tssm/fairyfloss.vim'
 
 " Session management
-"Plugin 'thaerkh/vim-workspace'
+Plugin 'thaerkh/vim-workspace'
 
 " Build
 Plugin 'neomake/neomake'
@@ -680,6 +680,12 @@ function! Pointful()
 endfunction
 vnoremap <silent> <leader>h> :call Pointful()<CR>
 
+" }}}
+
+" Workspaces {{{
+nnoremap <leader>w :ToggleWorkspace<CR>
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_session_disable_on_args = 1
 " }}}
 
 " Customization {{{
