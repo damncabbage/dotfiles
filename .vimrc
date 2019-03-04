@@ -740,7 +740,8 @@ augroup END
 " JS
 "let g:neomake_javascript_enabled_makers = [] " 'flow'] " TODO: eslint
 let g:neomake_javascript_enabled_makers = ['flow'] ", 'eslint']
-let g:neomake_open_list = 2 " an error dialog that pops up, preserving cursor location
+"let g:neomake_open_list = 2 " an error dialog that pops up, preserving cursor location
+let g:neomake_open_list = 0 " no dialog / loclist window.
 
 " Flow
 " Get the Flow type at the current cursor position.
