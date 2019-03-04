@@ -74,7 +74,7 @@ Plugin 'kien/ctrlp.vim'
 "Plugin 'majutsushi/tagbar'
 
 " Text manipulation
-Plugin 'vim-scripts/Align'
+"Plugin 'vim-scripts/Align'
 Plugin 'vim-scripts/Gundo'
 Plugin 'tpope/vim-commentary'
 Plugin 'godlygeek/tabular'
