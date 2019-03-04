@@ -727,21 +727,27 @@ command! -nargs=1 R execute ":! " <q-args>
 " PureScript
 map <leader>pg :!$HOME/bin/purescript-tags.sh<CR>
 
-" NeoMake
-"let g:neomake_logfile = '/tmp/neomake.log'
 
-" Elixir, NeoMake
+" NeoMake {{{
+
+"let g:neomake_logfile = '/tmp/neomake.log'
+"let g:neomake_open_list = 2 " an error dialog that pops up, preserving cursor location
+let g:neomake_open_list = 0 " no dialog / loclist window.
+
+" Shortcut to open the loclist error window, if applicable:
+nnoremap <leader>e :lwindow<cr>
+
+""" Elixir, NeoMake
 augroup elixir
   autocmd!
   autocmd BufWritePost * Neomake
 augroup END
 "let g:alchemist_tag_disable = 1
 
-" JS
-"let g:neomake_javascript_enabled_makers = [] " 'flow'] " TODO: eslint
+""" JS
 let g:neomake_javascript_enabled_makers = ['flow'] ", 'eslint']
-"let g:neomake_open_list = 2 " an error dialog that pops up, preserving cursor location
-let g:neomake_open_list = 0 " no dialog / loclist window.
+
+" }}}
 
 " Flow
 " Get the Flow type at the current cursor position.
