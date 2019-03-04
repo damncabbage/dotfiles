@@ -63,6 +63,9 @@ function git-mt() {
 alias ie="iex -S mix"
 alias ip="iex -S mix phx.server"
 
+### Docker ###
+alias d-c="docker-compose"
+
 ### Esoteric ###
 alias trek="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14" # Infinite starship engine noise. :D
 alias weather="curl http://wttr.in/Sydney"
