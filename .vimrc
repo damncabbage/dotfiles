@@ -404,11 +404,31 @@ noremap <leader>b<space> :CtrlPBuffer<cr>
 
 " }}}
 
-" Status line {{{
+" Status line / Airline {{{
 
 " Always show the status line
 set laststatus=2
+let g:airline#extensions#neomake#enabled = 1
+let airline#extensions#neomake#error_symbol = '誤' " 'E:'
+let airline#extensions#neomake#warning_symbol = '危' " 'W:'
+let g:airline#extensions#default#section_truncate_width = {
+    \ 'b': 79,
+    \ 'x': 60,
+    \ 'y': 88,
+    \ 'z': 45,
+    \ 'warning': 80,
+    \ }
+    "\ 'error': 80, " Don't shrink the error.
 
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  if g:airline_theme == 'dark'
+    for mode in keys(a:palette)
+      let a:palette[mode]['airline_warning'] = [ '#ffffff', '#e8730d', 232, 166 ]
+      let a:palette[mode]['airline_error'] = [ '#ffffff', '#990000', 232, 160 ]
+    endfor
+  endif
+endfunction
 " }}}
 
 " Editing mappings {{{
