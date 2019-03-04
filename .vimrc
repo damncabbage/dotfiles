@@ -518,19 +518,19 @@ nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
 " Alignment {{{
 
-" Stop Align plugin from forcing its mappings on us
-let g:loaded_AlignMapsPlugin=1
-" Align on equal signs
-map <Leader>a= :Align =<CR>
-" Align on commas
-map <Leader>a, :Align ,<CR>
-" Align on pipes
-map <Leader>a<bar> :Align <bar><CR>
-" Prompt for align character
-map <leader>ap :Align
+"" Stop Align plugin from forcing its mappings on us
+"let g:loaded_AlignMapsPlugin=1
+"" Align on equal signs
+"map <Leader>a= :Align =<CR>
+"" Align on commas
+"map <Leader>a, :Align ,<CR>
+"" Align on pipes
+"map <Leader>a<bar> :Align <bar><CR>
+"" Prompt for align character
+"map <leader>ap :Align
 
 " Enable some tabular presets for Haskell
-let g:haskell_tabular = 1
+"let g:haskell_tabular = 1
 
 " }}}
 
