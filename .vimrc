@@ -408,9 +408,20 @@ noremap <leader>b<space> :CtrlPBuffer<cr>
 
 " Always show the status line
 set laststatus=2
-let g:airline#extensions#neomake#enabled = 1
-let airline#extensions#neomake#error_symbol = '誤' " 'E:'
-let airline#extensions#neomake#warning_symbol = '危' " 'W:'
+
+" Manually set extensions, as we have a custom neomake one to add.
+"let g:airline_extensions = ['term', 'ctrlp', 'robmake']
+
+let g:airline#extensions#neomake#enabled = 0
+
+" 'robmake' is just a shitty fork that displays the error if *any* buffer has
+" a problem, and also removes the error/warning *count* because it's usually
+" always wrong.
+let g:airline#extensions#robmake#enabled = 1
+let airline#extensions#robmake#error_symbol = '誤' " 'E:'
+let airline#extensions#robmake#warning_symbol = '危' " 'W:'
+
+" Make sure the error section always shows up.
 let g:airline#extensions#default#section_truncate_width = {
     \ 'b': 79,
     \ 'x': 60,
