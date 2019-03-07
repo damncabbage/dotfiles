@@ -108,6 +108,10 @@ Plugin 'damncabbage/machinator-vim'
 " TypeScript
 Plugin 'HerringtonDarkholme/yats.vim'
 
+" React
+Plugin 'amadeus/vim-jsx'
+Plugin 'amadeus/vim-xml'
+
 " Colorschemes
 "Plugin 'vim-scripts/wombat256.vim'
 Plugin 'tssm/fairyfloss.vim'
@@ -760,7 +764,17 @@ let g:neomake_javascript_enabled_makers = ['flow'] ", 'eslint']
 
 " }}}
 
-" Flow
+
+" JS {{{
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0
+augroup FiletypeGroup
+  autocmd!
+  au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
+" }}}
+
+" Flow {{{
 " Get the Flow type at the current cursor position.
 function! Flow_get_type()
   let pos = line('.').' '.col('.')
@@ -774,3 +788,4 @@ function! Flow_get_type()
 endfunction
 command! FlowType call Flow_get_type()
 nnoremap <Leader>t :FlowType<CR>
+" }}}
