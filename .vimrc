@@ -206,6 +206,7 @@ map <silent> <leader>r :redraw!<CR>
 
 " Turn mouse mode on
 nnoremap <leader>m :set mouse=a<cr>
+" to disable: set mouse-=a
 
 " Previous mouse settings:
 "" Turn mouse mode on
@@ -279,6 +280,8 @@ set gfn=Monaco:h19
 " }}}
 
 " Files, backups and undo {{{
+
+set undodir=~/.vim/undodir
 
 " Turn backup off, since most stuff is in Git anyway...
 set nobackup
