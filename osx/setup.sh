@@ -24,6 +24,7 @@ prompt_to_install () {
     asdf \
     direnv \
     pstree \
+    shellcheck \
     gpg # needed for asdf-nodejs
 
   brew cask install \
