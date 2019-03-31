@@ -51,10 +51,10 @@ prompt_to_install "slowquitapps" && (
 prompt_to_install "docker" && (
   set -x;
   brew install docker docker-compose docker-machine xhyve docker-machine-driver-xhyve;
-  sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve;
-  sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve;
+  sudo chown root:wheel "$(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve";
+  sudo chmod u+s "$(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve";
   docker-machine create default --driver xhyve --xhyve-experimental-nfs-share;
-  eval $(docker-machine env default);
+  eval "$(docker-machine env default)";
   echo "Docker started on: $(docker-machine ip default)";
 );
 
