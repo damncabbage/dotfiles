@@ -1,34 +1,61 @@
 #!/bin/bash -eux
 
-brew install \
-  git vim ack ctags sox watch wget rename \
-  icu4c \
-  exiftool \
-  postgres \
-  ncdu \
-  gnu-sed \
-  coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
-  imagemagick \
-  tig \
-  terminal-notifier \
-  jq \
-  asdf \
-  direnv \
-  gpg # needed for asdf-nodejs
+prompt_to_install () {
+  echo "Install '${1}'?";
+  local PROMPT;
+  read -r PROMPT;
+  [[ "$(echo "$PROMPT" | grep -c -i 'y')" -eq 1 ]];
+}
 
-brew cask install \
-  caffeine \
-  sim-daltonism \
-  focuswriter \
-  karabiner-elements
-  # virtualbox
-  # aws-vault
-  # tunnelblick
+(
+  set -x;
+  brew install \
+    git vim ack ctags sox watch wget rename \
+    icu4c \
+    exiftool \
+    postgres \
+    ncdu \
+    gnu-sed \
+    coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
+    imagemagick \
+    tig \
+    terminal-notifier \
+    jq \
+    asdf \
+    direnv \
+    pstree \
+    gpg # needed for asdf-nodejs
 
-echo "Install slowquitapps?"
-if [ "$(read -r | grep -c -i 'y')" -eq 1 ]; then
-  brew tap dteoh/sqa && brew cask install slowquitapps
-fi
+  brew cask install \
+    caffeine \
+    sim-daltonism \
+    focuswriter \
+    karabiner-elements
+    # virtualbox
+    # aws-vault
+    # tunnelblick
+)
+
+prompt_to_install "obs ('Open Broadcaster Software')" && (
+  set -x;
+  brew cask install obs;
+)
+
+prompt_to_install "slowquitapps" && (
+  set -x;
+  brew tap dteoh/sqa;
+  brew cask install slowquitapps;
+);
+
+prompt_to_install "docker" && (
+  set -x;
+  brew install docker docker-compose docker-machine xhyve docker-machine-driver-xhyve;
+  sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve;
+  sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve;
+  docker-machine create default --driver xhyve --xhyve-experimental-nfs-share;
+  eval $(docker-machine env default);
+  echo "Docker started on: $(docker-machine ip default)";
+);
 
 cat <<-EOF
   Manually install:
@@ -38,11 +65,15 @@ cat <<-EOF
 EOF
 
 # Pomodoro
-sudo gem install thyme
+prompt_to_install "thyme" && (
+  set -x;
+  sudo gem install thyme;
+);
 
 # CPU Temp tool
 mkdir -p ~/build
 (
+  set -x;
   [[ -d ~/build/osx-cpu-temp ]] || git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
   cd ~/build/osx-cpu-temp;
   git checkout 22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
@@ -51,6 +82,8 @@ mkdir -p ~/build
 
 ### macOS settings
 (
+  set -x;
+
   # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
   defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
