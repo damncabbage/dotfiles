@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function forked_from() {
+  local BRANCH=${1:-origin/master}
+  git merge-base "$BRANCH" HEAD
+}
+
+function files_changed() {
+  local BRANCH=${1:-origin/master}
+  (
+    set -e;
+    FORK_SHA=$(git merge-base "$BRANCH" HEAD);
+    git diff-tree --name-only -r "$FORK_SHA" HEAD;
+  );
+}

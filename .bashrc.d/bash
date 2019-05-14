@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function history_delete_last() {
+  (
+    set -e;
+    set -o pipefail;
+    set -x
+    local LAST_NUM;
+    LAST_NUM=$(history | tail -1 | sed 's/^[ ]*//' | cut -f1 -d' ');
+    history -d "$LAST_NUM"
+  )
+}

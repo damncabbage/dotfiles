@@ -1,0 +1,5 @@
+#!/bin/bash
+
+blast () { terminal-notifier -message "$1"; say "$1"; }
+lrun () { "$@" && blast "'$1' finished" || blast "'$1' failed"; }
+prun () { wait "$1" && blast "'$1' finished" || blast "'$1' failed"; }
