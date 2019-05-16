@@ -1,0 +1,12 @@
+#!/bin/bash
+
+unzip_bandcamp () {
+  (
+    set -e;
+    [ -z "$1" ] && (echo "Usage: unzip_bandcamp path/to/file.zip [another/file.zip [...]]"; exit 1);
+    mkdir tmp;
+    cd tmp;
+    echo "$@" | xargs -I{} bash -c 'CHOPPED=$(basename "${@%.zip}"); ARTIST=$(echo "$CHOPPED" | sed "s/\(.*\) -.*/\1/"); ALBUM=$(echo "$CHOPPED" | sed "s/^.* - \(.*\)/\1/"); DIR="${ARTIST}/${ALBUM}"; set -x; mkdir -p "$DIR"; pushd "$DIR"; tar xf "$@"; popd' bash '{}'
+    ls -1 */*
+  )
+}
