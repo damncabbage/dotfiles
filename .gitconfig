@@ -3,6 +3,7 @@
 	email = rob@robhoward.id.au
 [merge]
 	renameLimit = 10000
+	conflictstyle = diff3
 [difftool "vimdiff"]
 	cmd = vimdiff -c ':colorscheme ron' $LOCAL $REMOTE
 [alias]
@@ -30,3 +31,4 @@
 	editor = /usr/local/bin/vim
 [rebase]
   autoStash = true
+  autoSquash = true
