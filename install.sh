@@ -35,6 +35,11 @@ pushd `dirname $0` > /dev/null
 
 	for FILE in $FILES
 	do
+		# HACK:	It's caught up in the regex above, which is Not Great
+		if [ $FILE == ".config" ]; then
+			continue
+		fi
+
 		# HACK: Ignore our repo .git if this is not a bare repo.
 		if [ $FILE == ".git" ] || [ $FILE == ".gitignore" ]; then
 			continue
