@@ -3391,7 +3391,7 @@ New Tab with Current Profile</string>
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Flashing Bell</key>
-			<false/>
+			<true/>
 			<key>Foreground Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3796,7 +3796,7 @@ New Tab with Current Profile</string>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Silence Bell</key>
-			<false/>
+			<true/>
 			<key>Smart Cursor Color</key>
 			<true/>
 			<key>Smart Selection Rules</key>
@@ -3902,9 +3902,9 @@ New Tab with Current Profile</string>
 			<array>
 				<dict>
 					<key>action</key>
-					<string>GrowlTrigger</string>
+					<string>ScriptTrigger</string>
 					<key>parameter</key>
-					<string>Success Webpack</string>
+					<string>/usr/local/bin/terminal-notifier -message "Success!" -title "Webpack" -group "Webpack" -contentImage "$HOME/dotfiles/images/emoji-greencheck.png"</string>
 					<key>partial</key>
 					<true/>
 					<key>regex</key>
@@ -3912,9 +3912,9 @@ New Tab with Current Profile</string>
 				</dict>
 				<dict>
 					<key>action</key>
-					<string>GrowlTrigger</string>
+					<string>ScriptTrigger</string>
 					<key>parameter</key>
-					<string>FAILED Webpack</string>
+					<string>/usr/local/bin/terminal-notifier -message "FAILED" -title "Webpack" -group "Webpack" -contentImage "$HOME/dotfiles/images/emoji-cross.png"</string>
 					<key>partial</key>
 					<true/>
 					<key>regex</key>
