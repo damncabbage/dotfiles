@@ -8,7 +8,7 @@ set foldcolumn=0
 
 
 " Sets how many lines of history VIM has to remember
-set history=700
+set history=7000
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -207,6 +207,7 @@ map <silent> <leader>r :redraw!<CR>
 " Turn mouse mode on
 nnoremap <leader>m :set mouse=a<cr>
 " to disable: set mouse-=a
+nnoremap <leader>M :set mouse-=a<cr>
 
 " Previous mouse settings:
 "" Turn mouse mode on
@@ -220,8 +221,13 @@ nnoremap <leader>m :set mouse=a<cr>
 
 " Colors and Fonts {{{
 
+" Enable syntax highlighting
+syntax enable
+
+" Colour-scheme w/ overrides
 colorscheme fairyfloss
-hi Underlined guifg=#fff352 guibg=NONE gui=underline ctermfg=0
+hi Underlined guifg=#ffffff guibg=NONE gui=underline cterm=none ctermfg=0
+
 "try
 "  "colorscheme wombat256mod
 "  colorscheme zenburn
@@ -229,9 +235,6 @@ hi Underlined guifg=#fff352 guibg=NONE gui=underline ctermfg=0
 "  hi VisualNOS ctermbg=232
 "catch
 "endtry
-
-" Enable syntax highlighting
-syntax enable
 
 " Adjust signscolumn and syntastic to match wombat
 hi! link SignColumn LineNr
@@ -325,6 +328,7 @@ set tw=500 " tw is textwidth
 "au FileType markdown setlocal tw=100 tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
+au FileType elixir setlocal nosmarttab
 
 " Avoid line-wrapping in the middle of a word.
 set lbr
@@ -361,6 +365,10 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 "noremap <c-k> <c-w>k
 "noremap <c-j> <c-w>j
 "noremap <c-l> <c-w>l
+
+" Tab-shifting
+nnoremap mt :tabmove +1<cr>
+nnoremap mT :tabmove -1<cr>
 
 " Disable highlight when <leader><cr> is pressed
 " but preserve cursor coloring
@@ -764,6 +772,8 @@ augroup END
 
 """ JS
 let g:neomake_javascript_enabled_makers = ['flow'] ", 'eslint']
+let g:neomake_typescript_enabled_makers = ['tsc']
+let g:neomake_haskell_enabled_makers = []
 
 " }}}
 
