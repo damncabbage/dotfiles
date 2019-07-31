@@ -329,6 +329,7 @@ set tw=500 " tw is textwidth
 au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 au FileType elixir setlocal nosmarttab
+au FileType javascript setlocal nosmarttab
 
 " Avoid line-wrapping in the middle of a word.
 set lbr
