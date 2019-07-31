@@ -10,6 +10,7 @@
 /.vim/haskell/.cabal-sandbox
 /.vim/haskell/cabal.sandbox.config
 /.vim/sessions
+/.vim/undodir
 
 /.bashrc.d/*
 
