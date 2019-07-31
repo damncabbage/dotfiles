@@ -21,6 +21,7 @@ prompt_to_install () {
     tig \
     terminal-notifier \
     jq \
+    pv \
     asdf \
     direnv \
     pstree \
@@ -31,7 +32,9 @@ prompt_to_install () {
     caffeine \
     sim-daltonism \
     focuswriter \
-    karabiner-elements
+    karabiner-elements \
+    muzzle \
+    flux
     # virtualbox
     # aws-vault
     # tunnelblick
