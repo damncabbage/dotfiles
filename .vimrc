@@ -102,6 +102,9 @@ Plugin 'lambdatoast/elm.vim'
 Plugin 'elixir-editors/vim-elixir'
 Plugin 'slashmili/alchemist.vim'
 
+" Ruby
+Plugin 'thoughtbot/vim-rspec'
+
 " Machinator
 Plugin 'damncabbage/machinator-vim'
 
@@ -802,4 +805,9 @@ function! Flow_get_type()
 endfunction
 command! FlowType call Flow_get_type()
 nnoremap <Leader>t :FlowType<CR>
+" }}}
+
+" Ruby {{{
+let g:rspec_command = "!bundle exec rspec {spec}"
+nnoremap <Leader>rr :call RunNearestSpec()<CR>
 " }}}
