@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function forked_from() {
+function git_forked_from() {
   local BRANCH=${1:-origin/master}
   git merge-base "$BRANCH" HEAD
 }
 
-function files_changed() {
+function git_files_changed() {
   local BRANCH=${1:-origin/master}
   (
     set -e;
@@ -13,3 +13,8 @@ function files_changed() {
     git diff-tree --name-only -r "$FORK_SHA" HEAD;
   );
 }
+
+function git_recent_branches() {
+  git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:cyan)%(refname:short)%(color:reset) | %(committerdate:relative)%(color:reset) | %(subject)' | column -s '|' -t
+}
+alias grb="git_recent_branches"
