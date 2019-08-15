@@ -9,35 +9,42 @@ prompt_to_install () {
 
 (
   set -x;
-  brew install \
-    git vim ack ctags sox watch wget rename \
-    icu4c \
-    exiftool \
-    postgres \
-    ncdu \
-    gnu-sed \
-    coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc \
-    imagemagick \
-    tig \
-    terminal-notifier \
-    jq \
-    pv \
-    asdf \
-    direnv \
-    pstree \
-    shellcheck \
-    gpg # needed for asdf-nodejs
 
-  brew cask install \
-    caffeine \
-    sim-daltonism \
-    focuswriter \
-    karabiner-elements \
-    muzzle \
-    flux
+  PACKAGES=(
+    git vim ack ctags watch wget rename # the basics
+    coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc # a bunch of tools need these for compilation
+    sox # audio tools
+    icu4c # some library everything needs
+    exiftool # image tools
+    postgres
+    ncdu # Hard-disk space spelunking
+    gnu-sed # because BSD sed is still Bad™
+    imagemagick # convert anything to anything, badly
+    tig # git history viewer
+    terminal-notifier # macOS notifications
+    jq # JSON parser + queries
+    pv # pipe-viewer, for progress of copies and the like
+    asdf
+    direnv
+    pstree # 'pstree -p $$' is my "am I in a bash session in a vim session in a bash session" checker
+    shellcheck # sh/bash linter
+    fzf # fuzzy-finder, good for CLI tools
+    gpg # needed for asdf-nodejs
+  )
+  brew install "${PACKAGES[@]}"
+
+  CASK_PACKAGES=(
+    caffeine # keep the machine awake
+    sim-daltonism # colour-blindness/a11y tool
+    focuswriter # ignore the void for a while
+    karabiner-elements # messing with key bindings
+    muzzle # turn off notifications during talks/streams
+    flux # because Night Shift has bugs when you have multiple monitors
     # virtualbox
     # aws-vault
     # tunnelblick
+  )
+  brew cask install "${CASK_PACKAGES[@]}"
 )
 
 prompt_to_install "obs ('Open Broadcaster Software')" && (
