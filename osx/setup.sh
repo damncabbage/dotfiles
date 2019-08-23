@@ -30,6 +30,7 @@ prompt_to_install () {
     shellcheck # sh/bash linter
     fzf # fuzzy-finder, good for CLI tools
     gpg # needed for asdf-nodejs
+    httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
   )
   brew install "${PACKAGES[@]}"
 
@@ -40,6 +41,7 @@ prompt_to_install () {
     karabiner-elements # messing with key bindings
     muzzle # turn off notifications during talks/streams
     flux # because Night Shift has bugs when you have multiple monitors
+    glueprint # translucent always-on-top image hovering, when you're nostalgic for working at a design agency implementing pixel-perfect designs
     # virtualbox
     # aws-vault
     # tunnelblick
