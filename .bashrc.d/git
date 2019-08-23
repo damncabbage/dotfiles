@@ -17,4 +17,4 @@ function git_files_changed() {
 function git_recent_branches() {
   git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:cyan)%(refname:short)%(color:reset) | %(committerdate:relative)%(color:reset) | %(subject)' | column -s '|' -t
 }
-alias grb="git_recent_branches"
+alias grb="git_recent_branches | head -20"
