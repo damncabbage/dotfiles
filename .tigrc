@@ -52,7 +52,7 @@
 
 set blame-view	= date:default author:full file-name:auto id:yes,color line-number:no,interval=5 text
 set grep-view	= file-name:no line-number:yes,interval=1 text
-set main-view	= line-number:no,interval=5 id:no date:default author:full commit-title:yes,graph,refs,overflow=no
+set main-view	= line-number:no,interval=5 id:yes date:default author:full commit-title:yes,graph,refs,overflow=no
 set refs-view	= date:default author:full ref commit-title
 set stash-view	= line-number:no,interval=5 id:no date:default author:full commit-title
 set status-view	= line-number:no,interval=5 status:short file-name
@@ -144,7 +144,8 @@ set mouse-scroll		= 3		# Number of lines to scroll via the mouse
 #   %(diffargs)		The diff options from `diff-options` or `TIG_DIFF_OPTS`
 #   %(prompt)		Prompt for the argument value.
 
-bind main	C	?git cherry-pick %(commit)
+bind main	P	?git cherry-pick %(commit)
+bind main	C	?git checkout %(commit)
 bind status	C	!git commit
 bind stash	P	?git stash pop %(stash)
 bind stash	!	?git stash drop %(stash)
