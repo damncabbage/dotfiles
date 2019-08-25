@@ -10,3 +10,7 @@ function history_delete_last() {
     history -d "$LAST_NUM"
   )
 }
+
+# 'where am i'; I am a person who inevitably opens bash inside vim inside bash, and
+# I want a quick shortcut to figure this out.
+alias wai="pstree -p $$"
