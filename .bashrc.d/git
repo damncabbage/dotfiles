@@ -18,3 +18,12 @@ function git_recent_branches() {
   git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:cyan)%(refname:short)%(color:reset) | %(committerdate:relative)%(color:reset) | %(subject)' | column -s '|' -t
 }
 alias grb="git_recent_branches | head -20"
+
+function git_rebase_i_from_forked_from() {
+  printf "Rebasing from:\n  "
+  local GIT_FORKED_FROM;
+  GIT_FORKED_FROM=$(git_forked_from)
+  git show --format=oneline "$GIT_FORKED_FROM"
+  git rebase -i "$GIT_FORKED_FROM"
+}
+alias gri="git_rebase_i_from_forked_from"
