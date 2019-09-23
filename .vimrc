@@ -311,6 +311,7 @@ nnoremap <silent> <Leader><space> :CtrlP<CR>
 let g:ctrlp_max_files=0
 let g:ctrlp_show_hidden=1
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git)$' }
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " }}}
 
@@ -383,7 +384,7 @@ augroup haskell
   autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 augroup END
 
-" Return to last edit position when opening files (You want this!)
+" Return to last edit position when opening files
 augroup last_edit
   autocmd!
   autocmd BufReadPost *
@@ -419,7 +420,7 @@ nnoremap <leader>bn :bn<cr>
 noremap <leader>bd :Bd<cr>
 
 " fuzzy find buffers
-noremap <leader>b<space> :CtrlPBuffer<cr>
+noremap <leader>bb :CtrlPBuffer<cr>
 
 " }}}
 
@@ -524,6 +525,12 @@ nmap <silent> <Leader>rv <Plug>SetTmuxVars
 " }}}
 
 " NERDTree {{{
+
+" TODO: Evaluate this; look at netrw and/or vim-vinegar
+let NERDTreeHijackNetrw=1
+
+set wildignore+=*.swp,*.swo
+let NERDTreeRespectWildIgnore=1
 
 " Close nerdtree after a file is selected
 let NERDTreeQuitOnOpen = 1
