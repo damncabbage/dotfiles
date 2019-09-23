@@ -31,6 +31,7 @@ prompt_to_install () {
     fzf # fuzzy-finder, good for CLI tools
     gpg # needed for asdf-nodejs
     httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
+    pastel # colour tool
   )
   brew install "${PACKAGES[@]}"
 
