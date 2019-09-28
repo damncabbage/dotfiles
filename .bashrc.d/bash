@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function history_delete_last() {
+history_delete_last() {
   (
     set -e;
     set -o pipefail;
@@ -13,4 +13,4 @@ function history_delete_last() {
 
 # 'where am i'; I am a person who inevitably opens bash inside vim inside bash, and
 # I want a quick shortcut to figure this out.
-alias wai="pstree -p $$"
+alias wai='pstree -p $$'
