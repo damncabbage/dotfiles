@@ -32,6 +32,7 @@ prompt_to_install () {
     gpg # needed for asdf-nodejs
     httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
     pastel # colour tool
+    entr # file-watcher; use with pipes, eg. while true; do find . -name "*.js" | entr -dcs 'eslint'; done
   )
   brew install "${PACKAGES[@]}"
 
