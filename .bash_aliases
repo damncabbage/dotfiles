@@ -16,7 +16,7 @@ alias json="python -mjson.tool"
 # Add an "alert" alias for long running commands.  Use like so: sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-if ! command -q seq >/dev/null; then
+if ! command -v seq >/dev/null; then
   # OS X didn't have "seq" (a la "for ii in `seq 1 10`; do ... done" for looping from 1 to 10.)
   # Shim it instead. (TODO: Add skip as optional middle parameter, eg `seq 1 2 10` for 1 3 5...)
   alias seq="ruby -e 'Range.new((ARGV[0].to_i), (ARGV[1].to_i)).each { |i| puts i }'"
