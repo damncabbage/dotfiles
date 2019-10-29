@@ -12,8 +12,9 @@ humanTime () {
   HOUR=$(date +%l)
   MINUTES=$(date +%M)
   AM_PM=$(date +%p)
+  AM_PM_INITIALS=$(echo "$AM_PM" | tr 'a-z' 'A-Z' | sed 's/\([AP]\)M/\1.M./')
   if [ "$MINUTES" -eq "00" ]; then
-    echo "$HOUR o'clock $AM_PM"
+    echo "$HOUR o'clock $AM_PM_INITIALS"
   else
     echo "${HOUR}:${MINUTES}${AM_PM}"
   fi
@@ -48,7 +49,7 @@ if [ ! -z "${1:-}" ]; then
   EVERY=$1
   echo "Speaking every $EVERY minutes."
 else
-  echo "Defaulting to speaking $EVERY minutes."
+  echo "Defaulting to speaking every $EVERY minutes."
 fi
 
 while true; do

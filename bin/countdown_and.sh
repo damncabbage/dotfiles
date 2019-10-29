@@ -13,4 +13,4 @@ while [[ "$SECS" > 0 ]]; do
    SECS=$((SECS - 1));
 done
 
-($2);
+bash -c "$2"
