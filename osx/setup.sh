@@ -12,27 +12,40 @@ prompt_to_install () {
 
   PACKAGES=(
     git vim ack ctags watch wget rename # the basics
-    coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc # a bunch of tools need these for compilation
-    sox # audio tools
-    icu4c # some library everything needs
-    exiftool # image tools
-    postgres
-    ncdu # Hard-disk space spelunking
     gnu-sed # because BSD sed is still Bad™
-    imagemagick # convert anything to anything, badly
-    tig # git history viewer
-    terminal-notifier # macOS notifications
-    jq # JSON parser + queries
-    pv # pipe-viewer, for progress of copies and the like
+    exa # 'ls' but not awful
+
+    coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc # a bunch of tools need these for compilation
+    icu4c # some library everything needs
+
+    postgres
+
     asdf
-    direnv
-    pstree # 'pstree -p $$' is my "am I in a bash session in a vim session in a bash session" checker
-    shellcheck # sh/bash linter
-    fzf # fuzzy-finder, good for CLI tools
     gpg # needed for asdf-nodejs
-    httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
-    pastel # colour tool
+    shellcheck # sh/bash linter
+    tig # git history viewer
+
+    direnv # pull environment variables from .envrc files
     entr # file-watcher; use with pipes, eg. while true; do find . -name "*.js" | entr -dcs 'eslint'; done
+    fzf # fuzzy-finder, good for CLI tools
+    hexyl # hexdump but better
+    httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
+    hyperfine # benchmarking
+    jq # JSON parser + queries
+    mdcat # cat markdown
+    ncdu # Hard-disk space spelunking
+    pastel # colour tool
+    pstree # 'pstree -p $$' is my "am I in a bash session in a vim session in a bash session" checker
+    pv # pipe-viewer, for progress of copies and the like
+    ripgrep # ack/grep but fast and some bugs fixed
+    starship # prompt config
+
+    sox # audio tools
+
+    exiftool # image tools
+    imagemagick # convert anything to anything, badly
+
+    terminal-notifier # macOS notifications
   )
   brew install "${PACKAGES[@]}"
 
@@ -51,6 +64,11 @@ prompt_to_install () {
   brew cask install "${CASK_PACKAGES[@]}"
 )
 
+prompt_to_install "overcommit (Git Hooks Management)" && (
+  set -x;
+  gem install overcommit;
+)
+
 prompt_to_install "obs ('Open Broadcaster Software')" && (
   set -x;
   brew cask install obs;
@@ -62,21 +80,10 @@ prompt_to_install "slowquitapps" && (
   brew cask install slowquitapps;
 );
 
-prompt_to_install "docker" && (
-  set -x;
-  brew install docker docker-compose docker-machine xhyve docker-machine-driver-xhyve;
-  sudo chown root:wheel "$(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve";
-  sudo chmod u+s "$(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve";
-  docker-machine create default --driver xhyve --xhyve-experimental-nfs-share;
-  eval "$(docker-machine env default)";
-  echo "Docker started on: $(docker-machine ip default)";
-);
-
 cat <<-EOF
   Manually install:
   - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
   - GHC+Cabal <http://ghcformacosx.github.io/>
-  - Tunnelblick <https://code.google.com/p/tunnelblick/wiki/DownloadsEntry#Tunnelblick_Beta_Release>
 EOF
 
 # Pomodoro
