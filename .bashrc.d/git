@@ -29,3 +29,13 @@ git_rebase_i_from_forked_from() {
   git rebase -i "$GIT_FORKED_FROM"
 }
 alias gri="git_rebase_i_from_forked_from"
+
+# Cherry-pick last commit to multiple branches
+function git_cherry-pick_to() {
+  local sha;
+  sha=`git rev-parse HEAD`
+  for branch in "$@"; do
+    git checkout "$branch"
+    git cherry-pick "$sha"
+  done
+}
