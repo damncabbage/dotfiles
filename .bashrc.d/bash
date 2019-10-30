@@ -14,3 +14,28 @@ history_delete_last() {
 # 'where am i'; I am a person who inevitably opens bash inside vim inside bash, and
 # I want a quick shortcut to figure this out.
 alias wai='pstree -p $$'
+
+# eg.
+#  $ join_by "," 1 2 3
+#  1,2,3
+join_by () {
+  local IFS="$1";
+  shift;
+  echo "$*"
+}
+
+# eg.
+#   $ permutations0 A B | xargs -n 1 -0 echo
+#   A B
+#   B A
+permutations0 () {
+  ruby -e 'print ARGV.permutation.map {|x| x.join(" ") }.join("\0")' -- "$@"
+}
+
+urldecode() {
+  if [ -z "$1" ]; then
+    echo -e "$(sed 's/+/ /g;s/%\(..\)/\\x\1/g;')"
+  else
+    echo "$@" | echo -e "$(sed 's/+/ /g;s/%\(..\)/\\x\1/g;')"
+  fi
+}
