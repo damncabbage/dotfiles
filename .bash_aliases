@@ -23,8 +23,7 @@ if ! command -v seq >/dev/null; then
 fi
 
 if [ $IS_MAC ]; then
-	# Reset the sound after sleep + unsleep.
-	# (No, I don't know why OS X "su" needs the username specified to use -c.)
+	# Reset the sound when it sometimes goes to hell.
 	alias osxresetsound="sudo killall coreaudiod"
 
 	# Sometimes the Dock sticks around even when you're looking at a fullscreen'd app.
