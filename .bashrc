@@ -151,3 +151,13 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
   eval `$SSHAGENT $SSHAGENTARGS`
   trap "kill $SSH_AGENT_PID" 0
 fi
+
+
+# z
+# Most 'frecent' directories, eg.
+#   $ z foo         cd to most frecent dir matching foo
+#   $ z foo bar     cd to most frecent dir matching foo, then bar
+#   $ z -r foo      cd to highest ranked dir matching foo
+#   $ z -t foo      cd to most recently accessed dir matching foo
+#   $ z -l foo      list all dirs matching foo (by frecency)
+. ~/bin/z.sh
