@@ -42,6 +42,12 @@ else
   alias netconns="netstat -tapn"
 fi
 
+# Vim
+vis() {
+  DIR="${1:-.}"
+  vim -S "${DIR}/Session.vim"
+}
+
 # Today's journal log (with yesterday's log in a split pane)
 alias log='mkdir -p ~/logs && vim -O ~/logs/`date +%F`.txt ~/logs/`date -v-1d +%F`.txt'
 
@@ -56,6 +62,5 @@ alias d-c="docker-compose"
 alias trek="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14" # Infinite starship engine noise. :D
 alias weather="curl http://wttr.in/Sydney"
 alias minprompt='export PS1="\w$(__git_ps1)\$ "'
-alias vis="cd ~/build/tdsr; ./tdsr"
 
 alias pomo="thyme -r -b"
