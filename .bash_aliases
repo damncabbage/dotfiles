@@ -4,7 +4,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias ls="exa"
+#alias ls="exa"
 alias ll='ls -alF'
 
 alias be="bundle exec"
