@@ -143,6 +143,8 @@ if [ -d "$HOME/build/js/node_modules/.bin" ]; then
   export PATH="$PATH:$HOME/build/js/node_modules/.bin"
 fi
 
+# ripgrep config
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # SSH Agent
 SSHAGENT=/usr/bin/ssh-agent

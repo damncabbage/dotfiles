@@ -1,0 +1,5 @@
+--type-clear=ruby
+--type-add=ruby:*.{rb,haml,rake,gemspec}
+--type-add=ruby:.irbrc
+--type-add=ruby:Gemfile
+--type-add=ruby:Rakefile
