@@ -1,0 +1,11 @@
+#!/bin/bash -eu
+
+# Derived from https://github.com/twe4ked/dotfiles/commit/6f4a774b5ea1901c1321d21a696df22e50d0f577
+(
+  git_root="$(git rev-parse --show-toplevel)"
+  wd=$PWD
+  cd "$git_root" && while IFS= read -r file; do
+    absolute_path="${git_root}/${file}"
+    echo "${absolute_path#$wd/}"
+  done < <(git diff "$(git merge-base origin/HEAD HEAD).." --name-only | sort -u | xargs find 2> /dev/null)
+)
