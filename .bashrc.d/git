@@ -1,13 +1,25 @@
 #!/bin/bash
 
+alias gs="git status"
+
+gcwip() {
+  local message
+  if [ -z "$1" ]; then
+    message="WIP"
+  else
+    message="WIP: $@"
+  fi
+  git commit -m "$message"
+}
+
 # shellcheck disable=2120
-git_forked_from() {
+git-forked-from() {
   local BRANCH=${1-origin/master}
   git merge-base "$BRANCH" HEAD
 }
 alias gff='git show $(git_forked_from)'
 
-git_files_changed() {
+git-files-changed() {
   local BRANCH=${1:-origin/master}
   (
     set -e;
@@ -16,26 +28,54 @@ git_files_changed() {
   );
 }
 
-git_recent_branches() {
+git-recent-branches() {
   git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:cyan)%(refname:short)%(color:reset) | %(committerdate:relative)%(color:reset) | %(subject)' | column -s '|' -t
 }
-alias grb="git_recent_branches | head -20"
+alias grb="git-recent-branches | head -20"
 
 git_rebase_i_from_forked_from() {
   printf "Rebasing from:\n  "
   local GIT_FORKED_FROM;
-  GIT_FORKED_FROM=$(git_forked_from)
+  GIT_FORKED_FROM=$(git-forked-from)
   git show --format=oneline "$GIT_FORKED_FROM"
   git rebase -i "$GIT_FORKED_FROM"
 }
 alias gri="git_rebase_i_from_forked_from"
 
 # Cherry-pick last commit to multiple branches
-function git_cherry-pick_to() {
-  local sha;
-  sha=`git rev-parse HEAD`
-  for branch in "$@"; do
-    git checkout "$branch"
-    git cherry-pick "$sha"
-  done
+git-cherry-pick-to() {
+  (
+    set -e
+    [ -z "$1" ] && (echo "Usage: git-cherry-pick-to branch [branch [branch ...]]"; exit 1)
+    local sha;
+    sha=`git rev-parse HEAD`
+    for branch in "$@"; do
+      git checkout "$branch"
+      git cherry-pick "$sha"
+    done
+  )
+}
+
+git-cherry-pick-filtered-by-file() {
+  (
+    set -e
+    [ -z "$2" ] && (echo "Usage: git-cherry-pick-filtered-by-file SHA file-to-pick [file-to-pick [dir-to-pick ...]]"; exit 1)
+    local sha
+    sha=$1
+    shift
+    git show "$sha" -- "$@" | git apply --cached -
+  )
+}
+
+git-files-modified-on-branch() {
+  # Derived from https://github.com/twe4ked/dotfiles/commit/6f4a774b5ea1901c1321d21a696df22e50d0f577
+  (
+    set -e
+    git_root="$(git rev-parse --show-toplevel)"
+    wd=$PWD
+    cd "$git_root" && while IFS= read -r file; do
+      absolute_path="${git_root}/${file}"
+      echo "${absolute_path#$wd/}"
+    done < <(git diff "$(git merge-base origin/HEAD HEAD).." --name-only | sort -u | xargs find 2> /dev/null)
+  )
 }
