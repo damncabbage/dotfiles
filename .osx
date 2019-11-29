@@ -72,6 +72,9 @@ chflags nohidden ~/Library
 # Hides the desktop
 defaults write com.apple.finder CreateDesktop -bool false
 
+# Stop Spaces rearrangement based on use.
+defaults write com.apple.dock mru-spaces -bool false
+
 # Disable local Time Machine backups
 #sudo tmutil disablelocal
 
