@@ -22,7 +22,7 @@ if ! command -v seq >/dev/null; then
   alias seq="ruby -e 'Range.new((ARGV[0].to_i), (ARGV[1].to_i)).each { |i| puts i }'"
 fi
 
-if [ $IS_MAC ]; then
+if [ "${IS_MAC:-}" ]; then
 	# Reset the sound when it sometimes goes to hell.
 	alias osxresetsound="sudo killall coreaudiod"
 
@@ -30,13 +30,13 @@ if [ $IS_MAC ]; then
 	alias osxresetdock="killall Dock"
 fi
 
-if [ $IS_LINUX ]; then
+if [ "${IS_LINUX:-}" ]; then
   # Debian has an inconvenient name for its ack.
   alias ack="ack-grep"
 fi
 
 # Networking.
-if [ $IS_MAC ]; then
+if [ "${IS_MAC:-}" ]; then
   alias netconns="lsof -i | grep -E '(LISTEN|ESTABLISHED)'"
 else
   alias netconns="netstat -tapn"

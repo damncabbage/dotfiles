@@ -3,6 +3,9 @@
 
 /.bundle/cache
 
+/.vim/plugged
+/.vim/session
+
 /.vim/bundle
 /.vim/haskell/bin
 /.vim/haskell/data
