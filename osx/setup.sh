@@ -80,17 +80,19 @@ prompt_to_install "slowquitapps" && (
   brew cask install slowquitapps;
 );
 
-cat <<-EOF
-  Manually install:
-  - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
-  - GHC+Cabal <http://ghcformacosx.github.io/>
-EOF
-
 # Pomodoro
 prompt_to_install "thyme" && (
   set -x;
   sudo gem install thyme;
 );
+
+cat <<-EOF
+  Manually install:
+  - HazeOver (App Store)
+  - MacSVG (App Store)
+  - Spectacle?
+  - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
+EOF
 
 # CPU Temp tool
 mkdir -p ~/build
