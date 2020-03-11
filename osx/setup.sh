@@ -91,7 +91,9 @@ cat <<-EOF
   Manually install:
   - HazeOver (App Store)
   - MacSVG (App Store)
-  - Spectacle?
+  - VSCode <https://code.visualstudio.com/docs/setup/mac>
+    - With extensions, via ~/dotfiles/support/install_vscode_extensions.sh
+  - Spectacle? (App Store...?)
   - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
 EOF
 
