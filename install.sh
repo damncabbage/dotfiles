@@ -30,12 +30,13 @@ function action() {
 pushd `dirname $0` > /dev/null
 
 	# Can anyone say HACK?
-	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/*"
+	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/* User/settings.json"
 	TARGETDIR=$HOME
+	OVERRIDE_TARGETDIR=$TARGETDIR
 
 	for FILE in $FILES
 	do
-		# HACK:	It's caught up in the regex above, which is Not Great
+		# HACK: It's caught up in the regex above, which is Not Great
 		if [ $FILE == ".config" ]; then
 			continue
 		fi
@@ -51,6 +52,11 @@ pushd `dirname $0` > /dev/null
 			continue
 		fi
 
+		# HACK: One-off for the VSCode link buried deep in Library/Application Support/Code/User
+		if [ "$FILE" == "User/settings.json" ]; then
+			OVERRIDE_TARGETDIR="$HOME/Library/Application Support/Code"
+		fi
+
 		if [ -f ~/"$FILE" ] || [ -d ~/"$FILE" ]; then
 			if [ -L ~/"$FILE" ]; then
 				info "Already symlinked: $FILE"
@@ -60,14 +66,15 @@ pushd `dirname $0` > /dev/null
 
 		else
 			DIR=`dirname "$FILE"`
-			if [ ! -d "$TARGETDIR/$DIR" ]; then
-				mkdir -p "$TARGETDIR/$DIR"
+			if [ ! -d "$OVERRIDE_TARGETDIR/$DIR" ]; then
+				mkdir -p "$OVERRIDE_TARGETDIR/$DIR"
 				action $? "Created directory: $DIR"
 			fi
 
-			ln -s "`pwd`/$FILE" "$TARGETDIR/$DIR/"
+			ln -s "`pwd`/$FILE" "$OVERRIDE_TARGETDIR/$DIR/"
 			action $? "Linked: $FILE"
 		fi
+		OVERRIDE_TARGETDIR=$TARGETDIR
 	done
 
 popd > /dev/null

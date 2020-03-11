@@ -1,0 +1,43 @@
+{
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "window.zoomLevel": 0,
+  "editor.tabSize": 2,
+  "workbench.statusBar.feedback.visible": false, // The feedback icon is literally just a shortcut to Twitter. What the fuck.
+  "git.enabled": false,
+  // Give me screen space.
+  "editor.minimap.enabled": false, // RHS minimap
+  "editor.folding": false, // LHS Gutter 3 (see https://stackoverflow.com/questions/44912058/is-there-a-way-to-make-vscode-line-number-field-smaller-width/44920117)
+  "editor.formatOnSave": false,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false,
+  },
+  "eslint.run": "onSave",
+  "ruby.rubocop.onSave": false,
+  "elixirLS.dialyzerEnabled": false, // 🆒
+  // Theme + customisations:
+  "workbench.colorTheme": "fairyfloss",
+  "workbench.colorCustomizations": {
+    "editorLineNumber.foreground": "#9b82a0",
+    "editorLineNumber.activeForeground": "#e0aeae",
+  },
+  // TODO: Categorise
+  "files.trimTrailingWhitespace": true,
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "workbench.activityBar.visible": true,
+  "[elm]": {
+    "editor.tabSize": 4,
+    "editor.codeLens": false,
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "off",
+  },
+  "workbench.statusBar.visible": true,
+  "breadcrumbs.enabled": true,
+  "editor.scrollBeyondLastLine": false,
+  "vscode-neovim.neovimPath": "/usr/local/bin/nvim",
+  "liveshare.featureSet": "insiders" // neovim
+}
