@@ -21,10 +21,21 @@ humanTime () {
 }
 
 findNextMinuteIncrement () {
-  local INCR
-  local MINUTE
-  local SECOND
+  local INCR HOUR MINUTE SECOND PARK_FOR_N_SECONDS
   INCR=$1
+
+  # HACK
+  HOUR=$(date +%k)
+  if [ $HOUR -lt 9 ]; then
+    PARK_FOR_N_SECONDS=$(( (9 - $HOUR) * 60 * 60 ))
+  elif [ $HOUR -gt 17 ]; then
+    PARK_FOR_N_SECONDS=$(( (24 - $HOUR + 9) * 60 * 60 ))
+  fi
+  if [ ! -z "$PARK_FOR_N_SECONDS" ]; then
+    >&2 echo "Going silent until 9am; sleeping ${PARK_FOR_N_SECONDS} seconds (~$((PARK_FOR_N_SECONDS / 60 / 60)) hours)."
+    sleep "$PARK_FOR_N_SECONDS"
+  fi
+
   MINUTE=$(date +%M)
   SECOND=$(date +%S)
   bc -l <<< "scale=0; (${INCR} * 60) - ((${MINUTE} * 60 + ${SECOND}) % (${INCR} * 60))"
@@ -55,7 +66,7 @@ fi
 while true; do
   SLEEP_AMOUNT=$(findNextMinuteIncrement $EVERY)
   echo "The time is: $(date +%H:%M:%S)"
-  echo "... Sleeping ${SLEEP_AMOUNT} seconds ($((SLEEP_AMOUNT / 60)) minutes)."
+  echo "... Sleeping ${SLEEP_AMOUNT} seconds (~$((SLEEP_AMOUNT / 60)) minutes)."
   countdownForNSeconds $SLEEP_AMOUNT
 
   if shouldSpeak; then
