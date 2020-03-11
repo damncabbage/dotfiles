@@ -1,298 +1,103 @@
-" General {{{
+" TODO: Try
+" https://github.com/Roguelazer/neovim-fuzzy (from https://www.roguelazer.com/2019/04/vim-setup-2019/)
+" lightline, with settings from above.
+"   And https://www.reddit.com/r/vim/comments/45xk60/as_vimairline_got_heavier_i_switched_to/
+"   https://github.com/johncf/devenv/blob/002baa5/config/nvim/base/plugin-opts.vim#L1-L96
+" https://github.com/tpope/vim-surround
+" https://github.com/tpope/vim-obsession
+" https://github.com/dhruvasagar/vim-prosession
+" tpope/vim-abolish
+" https://github.com/tpope/vim-fugitive
+" https://github.com/markonm/traces.vim
+" https://github.com/airblade/vim-rooter
+" https://github.com/ycm-core/YouCompleteMe
+" https://prettier.io/docs/en/vim.html
+" https://github.com/dense-analysis/ale for eslint et al...?
+" 'exrc' with 'secure' for project-level .vimrc
+"   " Omnicomplete settings
+"   "filetype plugin on
+"   "set omnifunc=LanguageClient#textDocument_completion()
+" https://www.reddit.com/r/neovim/comments/3oeko4/post_your_fzfvim_configurations/
+" https://github.com/zenbro/dotfiles/blob/master/.nvimrc#L151-L187 ...?
+" https://statico.github.io/vim3.html ...?
 
-" use indentation for folds
-set foldmethod=indent
-set foldnestmax=5
-set foldlevelstart=99
-set foldcolumn=0
+" TODO: airline
 
+" vim-plug {{{
+call plug#begin('~/.vim/plugged')
 
-" Sets how many lines of history VIM has to remember
-set history=7000
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" Leader key timeout
-set tm=2000
-
-" Allow the normal use of "," by pressing it twice
-noremap ,, ,
-
-" Use par for prettier line formatting
-" set formatprg="PARINIT='rTbgqR B=.,?_A_a Q=_s>|' par\ -w72"
-
-" Use stylish haskell instead of par for haskell buffers
-" TODO: stylish-haskell doesn't compile.
-" autocmd FileType haskell let &formatprg="stylish-haskell"
-
-" Makefiles
-autocmd filetype make setlocal noexpandtab
-
-" Find custom built ghc-mod, codex etc
-"let $PATH = $PATH . ':' . expand("~/.vim/haskell/bin")
-
-" Kill the damned Ex mode.
-nnoremap Q <nop>
-
-" }}}
-
-" Vundle {{{
-
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/Vundle.vim'
-
-" Support bundles
-Plugin 'jgdavey/tslime.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'ervandew/supertab'
-"Plugin 'scrooloose/syntastic' " Syntax checker; a little too enthusiastic.
-Plugin 'moll/vim-bbye'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'vim-scripts/gitignore'
-
-" Git
-Plugin 'tpope/vim-fugitive'
-Plugin 'int3/vim-extradite'
-"Plugin 'airblade/vim-gitgutter'
-
-" Bars, panels, and files
-Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
-"Plugin 'majutsushi/tagbar'
-
-" Text manipulation
-"Plugin 'vim-scripts/Align'
-Plugin 'vim-scripts/Gundo'
-Plugin 'tpope/vim-commentary'
-Plugin 'godlygeek/tabular'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'tpope/tpope-vim-abolish' " Subvert, eg. :%S/foo/bar/, preserves case
-
-" Allow pane movement to jump out of vim into tmux
-Plugin 'christoomey/vim-tmux-navigator'
-
-" Haskell
-Plugin 'raichoo/haskell-vim'
-"Plugin 'enomsg/vim-haskellConcealPlus' " Unicode abbreviations of ->, true, forAll, etc.
-Plugin 'Twinside/vim-hoogle'
-"Plugin 'eagletmt/ghcmod-vim'
-"Plugin 'eagletmt/neco-ghc'
-
-" Purescript
-Plugin 'raichoo/purescript-vim'
-Plugin 'frigoeu/psc-ide-vim'
-
-" Elm
-Plugin 'lambdatoast/elm.vim'
-
-" Elixir
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'slashmili/alchemist.vim'
-
-" Ruby
-Plugin 'thoughtbot/vim-rspec'
-
-" Machinator
-Plugin 'damncabbage/machinator-vim'
-
-" TypeScript
-Plugin 'HerringtonDarkholme/yats.vim'
-
-" React
-Plugin 'amadeus/vim-jsx'
-Plugin 'amadeus/vim-xml'
+" A bunch of, uh, 'sensible' defaults.
+Plug 'tpope/vim-sensible', { 'commit': '5dc6eb2' }
 
 " Colorschemes
-"Plugin 'vim-scripts/wombat256.vim'
-Plugin 'tssm/fairyfloss.vim'
+Plug 'damncabbage/fairyfloss.vim' " Forked from tssm original; unfixed colour typo.
+
+" Files
+Plug 'scrooloose/nerdtree'
+"Plug 'dhruvasagar/vim-vinegar' " vim-vinegar for NERDTree
+
+" Undo graph
+Plug 'mbbill/undotree'
 
 " Session management
-Plugin 'thaerkh/vim-workspace'
+Plug 'tpope/vim-obsession'
+"Plug 'dhruvasagar/vim-prosession' " NOTE: depends on vim-obsession
 
-" Build
-Plugin 'neomake/neomake'
+" Language Support
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
-" Custom bundles
-if filereadable(expand("~/.vim.local/bundles.vim"))
-  source ~/.vim.local/bundles.vim
+" Generic tabbing
+Plug 'ervandew/supertab'
+
+" Multi-entry selection UI for both files and LanguageClient
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+" JSON
+Plug 'elzr/vim-json', { 'for': 'json' }
+
+" JS
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+
+" Typescript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'javascript.jsx', 'typescript'] }
+" TODO: Try:
+" \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml'] }
+" Because it's a little obnoxious with how it sets up Prettier.
+if hasmapto('<leader>p')
+  nunmap <buffer> <leader>p
 endif
 
-call vundle#end()
+" Ruby
+Plug 'thoughtbot/vim-rspec', { 'for': ['ruby'] }
 
+" Elixir
+Plug 'elixir-editors/vim-elixir'
+
+" Markdown
+Plug 'godlygeek/tabular' " eg. :Tab /,\zs  - must come *before* vim-markdown
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+
+" Writing
+Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'text'] }
+
+" Initialize plugin system
+call plug#end()
 " }}}
 
-" VIM user interface {{{
 
-" Indent/deindent v-selected lines, retaining selection for further indentation.
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+" Prelude {{{
 
-" Set 7 lines to the cursor - when moving vertically using j/k
-"set so=7
-set so=0
-
-" Turn on the WiLd menu
-set wildmenu
-" Tab-complete files up to longest unambiguous prefix
-set wildmode=list:longest,full
-
-" Always show current position
-set ruler
-"set number " Line Numbers
-
-" Show trailing whitespace
-highlight default BadWhitespace ctermbg=red guibg=red
-autocmd ColorScheme <buffer> highlight default BadWhitespace ctermbg=red guibg=red
-match BadWhitespace /\s\+$/
-"set list
-"" But only interesting whitespace
-"if &listchars ==# 'eol:$'
-"  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-"endif
-
-" Height of the command bar
-set cmdheight=1
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" Ignore case when searching
-"set ignorecase
-
-" When searching try to be smart about cases
-"set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-"set incsearch
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sound on errors
-set noerrorbells
-set vb t_vb=
-
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
-
-" Force redraw
-map <silent> <leader>r :redraw!<CR>
-
-" Turn mouse mode on
-nnoremap <leader>m :set mouse=a<cr>
-" to disable: set mouse-=a
-nnoremap <leader>M :set mouse-=a<cr>
-
-" Previous mouse settings:
-"" Turn mouse mode on
-"nnoremap <leader>ma :set mouse=a<cr>
-"" Turn mouse mode off
-"nnoremap <leader>mo :set mouse=<cr>
-"" Default to mouse mode on
-"set mouse=a
-
-" }}}
-
-" Colors and Fonts {{{
-
-" Enable syntax highlighting
-syntax enable
-
-" Colour-scheme w/ overrides
-colorscheme fairyfloss
-hi Underlined guifg=#ffffff guibg=NONE gui=underline cterm=none ctermfg=0
-
-"try
-"  "colorscheme wombat256mod
-"  colorscheme zenburn
-"  hi Visual    ctermbg=232 " Colourscheme hacks; originally 235.
-"  hi VisualNOS ctermbg=232
-"catch
-"endtry
-
-" Adjust signscolumn and syntastic to match wombat
-hi! link SignColumn LineNr
-hi! link SyntasticErrorSign ErrorMsg
-hi! link SyntasticWarningSign WarningMsg
-
-" Use pleasant but very visible search hilighting
-hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
-hi! link Visual Search
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Match wombat colors in nerd tree
-hi Directory guifg=#8ac6f2
-
-" Searing red very visible cursor
-hi Cursor guibg=red
-
-" Use same color behind concealed unicode characters
-hi clear Conceal
-
-" Don't blink normal mode cursor
-set guicursor=n-v-c:block-Cursor
-set guicursor+=n-v-c:blinkon0
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-  set guioptions-=T
-  set guioptions-=e
-  set guitablabel=%M\ %t
-endif
-set t_Co=256
-set termguicolors
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" Use large font by default in MacVim
-set gfn=Monaco:h19
-
-" }}}
-
-" Files, backups and undo {{{
-
-set undodir=~/.vim/undodir
-
-" Turn backup off, since most stuff is in Git anyway...
-set nobackup
-"set nowb
-"set noswapfile
+" Force sensible to load in, so we can override parts of it.
+runtime! plugin/sensible.vim
 
 " Source the vimrc file after saving it
 augroup sourcing
@@ -300,90 +105,39 @@ augroup sourcing
   autocmd bufwritepost .vimrc source $MYVIMRC
 augroup END
 
-" Open file prompt with current path
-nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+" Set <leader> to comma for all shortcuts.
+let mapleader = ","
+let g:mapleader = ","
+set tm=2000 " Leader key timeout
+" Allow the normal use of "," by pressing it twice.
+noremap ,, ,
 
-" Show undo tree
-nmap <silent> <leader>u :GundoToggle<CR>
+" Kill the damned Ex mode.
+nnoremap Q <nop>
 
-" Fuzzy find files
-nnoremap <silent> <Leader><space> :CtrlP<CR>
-let g:ctrlp_max_files=0
-let g:ctrlp_show_hidden=1
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git)$' }
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-" TODO: hidden buffers...?
-
-" }}}
-
-" Text, tab and indent related {{{
-
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 2 spaces
-set shiftwidth=2
-set tabstop=2
-
-" Line-wrap with gq
-set tw=500 " tw is textwidth
-"au FileType markdown setlocal tw=100 tabstop=2 expandtab shiftwidth=2 softtabstop=2
-au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
-au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
-au FileType elixir setlocal nosmarttab
-au FileType javascript setlocal nosmarttab
-
-" Avoid line-wrapping in the middle of a word.
-set lbr
-
-" Keep some space at the bottom of the window
-set scrolloff=3
-
-set ai "Auto indent
-"set si "Smart indent
-set wrap "Wrap lines
-
-" Pretty unicode haskell symbols
-let g:haskell_conceal_wide = 1
-let g:haskell_conceal_enumerations = 1
+" Map :W to :w because it's one of my most common typos.
+command! W write
 
 " }}}
 
-" Visual mode related {{{
 
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f', '')<CR>
-vnoremap <silent> # :call VisualSelection('b', '')<CR>
+" Shell {{{
+
+" Load in aliases+functions to make them available in a :!... command.
+let $BASH_ENV = "~/.vim/bash.sh"
 
 " }}}
 
-" Moving around, tabs, windows and buffers {{{
 
-"" Treat long lines as break lines (useful when moving around in them)
-"nnoremap j gj
-"nnoremap k gk
-"
-"noremap <c-h> <c-w>h
-"noremap <c-k> <c-w>k
-"noremap <c-j> <c-w>j
-"noremap <c-l> <c-w>l
+" Files, Backups and Undo {{{
 
-" Tab-shifting
-nnoremap mt :tabmove +1<cr>
-nnoremap mT :tabmove -1<cr>
+set nobackup
 
-" Disable highlight when <leader><cr> is pressed
-" but preserve cursor coloring
-nmap <silent> <leader><cr> :noh\|hi Cursor guibg=red<cr>
-augroup haskell
-  autocmd!
-  autocmd FileType haskell map <silent> <leader><cr> :noh<cr>:GhcModTypeClear<cr>:SyntasticReset<cr>
-  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-augroup END
+set undofile " Persist undo records.
+set undodir=~/.vim/undodir
+nnoremap <leader>u :UndotreeToggle<CR>
+let g:undotree_WindowLayout = 3
+let g:undotree_SetFocusWhenToggle = 1
 
 " Return to last edit position when opening files
 augroup last_edit
@@ -393,153 +147,120 @@ augroup last_edit
        \   exe "normal! g`\"" |
        \ endif
 augroup END
-" Remember info about open buffers on close
-set viminfo^=%
-
-" Open window splits in various places
-nmap <leader>sh :leftabove  vnew<CR>
-nmap <leader>sl :rightbelow vnew<CR>
-nmap <leader>sk :leftabove  new<CR>
-nmap <leader>sj :rightbelow new<CR>
-
-" Manually create key mappings (to avoid rebinding C-\)
-let g:tmux_navigator_no_mappings = 1
-
-"nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-"nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-"nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-"nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-
-" don't close buffers when you aren't displaying them
-"set hidden
-
-" previous buffer, next buffer
-nnoremap <leader>bp :bp<cr>
-nnoremap <leader>bn :bn<cr>
-
-" delete buffer without closing pane
-noremap <leader>bd :Bd<cr>
-
-" fuzzy find buffers
-noremap <leader>bb :CtrlPBuffer<cr>
+set viminfo^=% " Remember info about open buffers on close
 
 " }}}
 
-" Status line / Airline {{{
 
-" Always show the status line
-set laststatus=2
+" Visual {{{
 
-" Manually set extensions, as we have a custom neomake one to add.
-"let g:airline_extensions = ['term', 'ctrlp', 'robmake']
+set t_Co=256 " Say we can use 256 colours
+set termguicolors " Use the hex-code colours in colour-schemes (24-bit colours).
 
-let g:airline#extensions#neomake#enabled = 0
+colorscheme fairyfloss
+"hi Underlined guifg=#ffffff guibg=NONE gui=underline cterm=none ctermfg=0
 
-" 'robmake' is just a shitty fork that displays the error if *any* buffer has
-" a problem, and also removes the error/warning *count* because it's usually
-" always wrong.
-let g:airline#extensions#robmake#enabled = 1
-let airline#extensions#robmake#error_symbol = '誤' " 'E:'
-let airline#extensions#robmake#warning_symbol = '危' " 'W:'
+" Use visible search highlighting
+hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
+hi! link Visual Search
 
-" Make sure the error section always shows up.
-let g:airline#extensions#default#section_truncate_width = {
-    \ 'b': 79,
-    \ 'x': 60,
-    \ 'y': 88,
-    \ 'z': 45,
-    \ 'warning': 80,
-    \ }
-    "\ 'error': 80, " Don't shrink the error.
+" Show trailing whitespace
+highlight default BadWhitespace ctermbg=red guibg=red
+autocmd ColorScheme <buffer> highlight default BadWhitespace ctermbg=red guibg=red
+match BadWhitespace /\s\+$/
 
-let g:airline_theme_patch_func = 'AirlineThemePatch'
-function! AirlineThemePatch(palette)
-  if g:airline_theme == 'dark'
-    for mode in keys(a:palette)
-      let a:palette[mode]['airline_warning'] = [ '#ffffff', '#e8730d', 232, 166 ]
-      let a:palette[mode]['airline_error'] = [ '#ffffff', '#990000', 232, 160 ]
-    endfor
-  endif
-endfunction
-" }}}
-
-" Editing mappings {{{
-
-" Delete trailing white space on save
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-
-augroup whitespace
-  autocmd!
-  autocmd BufWrite *.hs :call DeleteTrailingWS()
-augroup END
+" Different background at the 85-column mark characters
+let &colorcolumn=85
+highlight ColorColumn ctermbg=235 guifg=fg guibg=#595272
+" To highlight from 85 onwards instead, use: let &colorcolumn=join(range(85,999),",")
 
 " }}}
 
-" Spell checking {{{
 
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+" Intra-buffer search {{{
 
-" }}}
+set noincsearch
+set hlsearch
 
-" Helper functions {{{
+" Highlight word at cursor without changing position
+map <silent> <Leader>h :
+  \:let view=winsaveview()<CR>
+  \*
+  \:call winrestview(view)<CR>
 
-function! CmdLine(str)
-  exe "menu Foo.Bar :" . a:str
-  emenu Foo.Bar
-  unmenu Foo
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-  let l:saved_reg = @"
-  execute "normal! vgvy"
-
-  let l:pattern = escape(@", '\\/.*$^~[]')
-  let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-  if a:direction == 'b'
-    execute "normal ?" . l:pattern . "^M"
-  elseif a:direction == 'gv'
-    call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-  elseif a:direction == 'replace'
-    call CmdLine("%s" . '/'. l:pattern . '/')
-  elseif a:direction == 'f'
-    execute "normal /" . l:pattern . "^M"
-  endif
-
-  let @/ = l:pattern
-  let @" = l:saved_reg
-endfunction
+" Search for selected text (in visual mode), forwards or backwards, using the
+" usual * and # keys.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " }}}
 
-" Slime {{{
 
-vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
-nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
-nmap <silent> <Leader>rv <Plug>SetTmuxVars
+" Selection {{{
+
+" Avoid pastes replacing the yanked text in the default register:
+vnoremap <leader>p "_dP
 
 " }}}
 
-" NERDTree {{{
 
-" TODO: Evaluate this; look at netrw and/or vim-vinegar
-let NERDTreeHijackNetrw=1
+" Folding and outlining {{{
+set nofoldenable
+" }}}
 
+
+" File-search / file opening {{{
+
+" Open file prompt with current path
+nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+
+set wildmenu
+set wildmode=list:longest,full " Tab-complete files up to longest unambiguous prefix
 set wildignore+=*.swp,*.swo
-let NERDTreeRespectWildIgnore=1
 
-" Close nerdtree after a file is selected
-let NERDTreeQuitOnOpen = 1
+""" FZF
+command! FzfModifiedOnBranch call fzf#run({
+\   'source': 'git-files-modified-on-branch',
+\   'sink': 'edit',
+\   'options': '-m +s --prompt="GitBranch> " --preview ''(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500''',
+\   'down': '40%'
+\ })
+" Search files, buffers ...
+nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+" ... commits and <file-in-current-buffer>-commits.
+nnoremap <silent> <leader>gcc :Commits<CR>
+nnoremap <silent> <leader>gbc :BCommits<CR>
+map <Leader>m :GFiles?<CR>
+map <Leader>M :FzfModifiedOnBranch<CR>
+map <Leader>d :Files %:h<CR>
+
+augroup fzf
+  autocmd!
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+" TODO: https://github.com/zenbro/dotfiles/blob/master/.nvimrc#L151-L187
+
+
+""" NERDTree
+let NERDTreeHijackNetrw=1
+let NERDTreeRespectWildIgnore=0
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1 " Close nerdtree after a file is selected
 
 function! IsNERDTreeOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
-
 function! ToggleFindNerd()
   if IsNERDTreeOpen()
     exec ':NERDTreeToggle'
@@ -548,274 +269,236 @@ function! ToggleFindNerd()
   endif
 endfunction
 
-" If nerd tree is closed, find current file, if open, close it
+" If NERDTree is closed, find current file, if open, close it
 nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
 nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
 
-" }}}
-
-" Alignment {{{
-
-"" Stop Align plugin from forcing its mappings on us
-"let g:loaded_AlignMapsPlugin=1
-"" Align on equal signs
-"map <Leader>a= :Align =<CR>
-"" Align on commas
-"map <Leader>a, :Align ,<CR>
-"" Align on pipes
-"map <Leader>a<bar> :Align <bar><CR>
-"" Prompt for align character
-"map <leader>ap :Align
-
-" Enable some tabular presets for Haskell
-"let g:haskell_tabular = 1
-
-" }}}
-
-" Tags {{{
-"""
-"""set tags=tags;/,codex.tags;/
-"""
-"""let g:tagbar_type_haskell = {
-"""    \ 'ctagsbin'  : 'hasktags',
-"""    \ 'ctagsargs' : '-x -c -o-',
-"""    \ 'kinds'     : [
-"""        \  'm:modules:0:1',
-"""        \  'd:data: 0:1',
-"""        \  'd_gadt: data gadt:0:1',
-"""        \  't:type names:0:1',
-"""        \  'nt:new types:0:1',
-"""        \  'c:classes:0:1',
-"""        \  'cons:constructors:1:1',
-"""        \  'c_gadt:constructor gadt:1:1',
-"""        \  'c_a:constructor accessors:1:1',
-"""        \  'ft:function types:1:1',
-"""        \  'fi:function implementations:0:1',
-"""        \  'o:others:0:1'
-"""    \ ],
-"""    \ 'sro'        : '.',
-"""    \ 'kind2scope' : {
-"""        \ 'm' : 'module',
-"""        \ 'c' : 'class',
-"""        \ 'd' : 'data',
-"""        \ 't' : 'type'
-"""    \ },
-"""    \ 'scope2kind' : {
-"""        \ 'module' : 'm',
-"""        \ 'class'  : 'c',
-"""        \ 'data'   : 'd',
-"""        \ 'type'   : 't'
-"""    \ }
-"""\ }
-"""
-"""" Generate haskell tags with codex and hscope
-""""map <leader>tg :!codex update --force<CR>:call system("git hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
-""""map <leader>tg :!hasktags --ignore-close-implementation --ctags .<CR>
-"""map <leader>tg :!codex update --force<CR>
-"""
-"""map <leader>tt :TagbarToggle<CR>
-
-"set csprg=~/.vim/haskell/bin/hscope
-"set csto=1 " search codex tags first
-"set cst
-"set csverb
-"nnoremap <silent> <C-\> :cs find c <C-R>=expand("<cword>")<CR><CR>
-"" Automatically make cscope connections
-"function! LoadHscope()
-"  let db = findfile("hscope.out", ".;")
-"  if (!empty(db))
-"    let path = strpart(db, 0, match(db, "/hscope.out$"))
-"    "echo db
-"    "echo path
-"    "echo "cs add " . db . " " . path
-"    set nocscopeverbose " suppress 'duplicate connection' error
-"    exe "cs add " . db . " " . path
-"    set cscopeverbose
-"  endif
-"endfunction
-""au BufEnter /*.hs call LoadHscope()
-
-" }}}
-
-" Git {{{
-
-let g:extradite_width = 60
-" Hide messy Ggrep output and copen automatically
-function! NonintrusiveGitGrep(term)
-  execute "copen"
-  " Map 't' to open selected item in new tab
-  execute "nnoremap <silent> <buffer> t <C-W><CR><C-W>T"
-  execute "silent! Ggrep " . a:term
-  execute "redraw!"
+" A little bit of vim-vinegar, but tied to NERDTree.
+function! s:vinegarette()
+  let fname = expand('%:t')
+  edit %:h
+  normal! gg
+  call search('\<'.fname.'\>')
 endfunction
-
-command! -nargs=1 GGrep call NonintrusiveGitGrep(<q-args>)
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gg :copen<CR>:GGrep
-nmap <leader>gl :Extradite!<CR>
-nmap <leader>gd :Gdiff<CR>
-nmap <leader>gb :Gblame<CR>
-
-function! CommittedFiles()
-  " Clear quickfix list
-  let qf_list = []
-  " Find files committed in HEAD
-  let git_output = system("git diff-tree --no-commit-id --name-only -r HEAD\n")
-  for committed_file in split(git_output, "\n")
-    let qf_item = {'filename': committed_file}
-    call add(qf_list, qf_item)
-  endfor
-  " Fill quickfix list with them
-  call setqflist(qf_list, '')
-endfunction
-
-" Show list of last-committed files
-nnoremap <silent> <leader>g? :call CommittedFiles()<CR>:copen<CR>
+nnoremap - :<C-U>call <SID>vinegarette()<CR>
 
 " }}}
 
-" Haskell Interrogation {{{
+
+" Line-wrapping {{{
+
+set linebreak   " Avoid line-wrapping in the middle of a word.
+set breakindent " Hanging indent soft-wrap ...
+set sbr=↪\      " ... prefixed by an arrow, and a space (to make it line up with a match 2-space indent).
+set breakindentopt=min:20,shift:0
+
+" }}}
+
+
+" Autocomplete {{{
 
 set completeopt+=longest
+let g:SuperTabDefaultCompletionType = '<c-x><c-p>' " Use buffer words as default tab completion
 
-" Use buffer words as default tab completion
-let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
+" }}}
 
-" But provide (neco-ghc) omnicompletion
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+
+" Buffers and Tabs {{{
+
+" Keep some space at the bottom of the window
+set scrolloff=2
+
+" Tab-shifting
+nnoremap mt :tabmove +1<cr>
+nnoremap mT :tabmove -1<cr>
+
+function! CloseHiddenBuffers()
+  let tpbl=[]
+  let closed = 0
+  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+  for buf in filter(range(1, bufnr('$')), 'buflisted(v:val) && index(tpbl, v:val)==-1')
+    if getbufvar(buf, '&mod') == 0
+      silent execute 'bdelete' buf
+      let closed += 1
+    endif
+  endfor
+  echo "Closed ".closed." hidden buffers"
+endfunction
+command! CloseHiddenBuffers :call CloseHiddenBuffers()
+
+" }}}
+
+
+" Language-server {{{
+
+" Required for operations modifying multiple buffers like rename.
+set hidden " Set a buffer hidden when abandoned.
+
+" TODO:
+"set signcolumn=yes " Stop the jarring sign column pop-in/out by keeping the sign column on at all times.
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['flow', 'lsp'],
+    \ 'javascript.jsx': ['flow', 'lsp'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
+    \ 'python': ['pyls'],
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ 'elixir': ['~/build/elixir/ls/language_server.sh'],
+    \ }
+" The above needs to have:
+"   npm install -g typescript-language-server
+"   gem install solargraph
+"   pip install python-language-server
+"   rustup component add rls --toolchain stable-x86_64-apple-darwin
+
+" Check the type under cursor
+nnoremap <silent> <leader>t :call LanguageClient_textDocument_hover()<CR>
+
+" Until LanguageClient plugin supports adding to the tag-stack, use this as a workaround
+" from a comment on an issue thread:
+"   https://github.com/autozimu/LanguageClient-neovim/issues/517#issuecomment-507564489
+" instead of just:
+"   nnoremap <silent> <leader>T :call LanguageClient_textDocument_definition()<CR>
+function! MyGoToDefinition(...) abort
+  " Get the current position
+  let l:fname = expand('%:p')
+  let l:line = line(".")
+  let l:col = col(".")
+  let l:word = expand("<cword>")
+
+  " Call the original function to jump to the definition
+  let l:result = LanguageClient_runSync(
+                  \ 'LanguageClient#textDocument_definition', {
+                  \ 'handle': v:true,
+                  \ })
+
+  " Get the position of definition
+  let l:jump_fname = expand('%:p')
+  let l:jump_line = line(".")
+  let l:jump_col = col(".")
+
+  " If the position is the same as previous, ignore the jump action
+  if l:fname == l:jump_fname && l:line == l:jump_line
+    return
   endif
-endif
 
-" Show types in completion suggestions
-let g:necoghc_enable_detailed_browse = 1
+  " Workaround: Jump to original file. If the function is in rust, there is a
+  " way to ignore the behaviour
+  if &modified
+    exec 'hide edit'  l:fname
+  else
+    exec 'edit' l:fname
+  endif
+  call cursor(l:line, l:col)
 
-" qualified/unQualified import line
-nmap <silent> <leader>hq :s/^import          /import qualified/<CR>:nohl<CR>
-nmap <silent> <leader>hQ :s/^import qualified/import          /<CR>:nohl<CR>
-vnoremap <silent> <leader>hq :s/^import          /import qualified/<CR>:nohl<CR>
-vnoremap <silent> <leader>hQ :s/import qualified/^import          /<CR>:nohl<CR>
+  " Store the original setting
+  let l:ori_wildignore = &wildignore
+  let l:ori_tags = &tags
 
-" Type of expression under cursor
-nmap <silent> <leader>ht :GhcModType<CR>
-" Insert type of expression under cursor
-nmap <silent> <leader>hT :GhcModTypeInsert<CR>
-" GHC errors and warnings
-nmap <silent> <leader>hc :SyntasticCheck ghc_mod<CR>
-" Haskell Lint
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['haskell'] }
-nmap <silent> <leader>hl :SyntasticCheck hlint<CR>
+  " Write a temp tags file
+  let l:temp_tags_fname = tempname()
+  let l:temp_tags_content = printf("%s\t%s\t%s", l:word, l:jump_fname,
+      \ printf("call cursor(%d, %d)", l:jump_line, l:jump_col+1))
+  call writefile([l:temp_tags_content], l:temp_tags_fname)
 
-" Hoogle the word under the cursor
-nnoremap <silent> <leader>hh :Hoogle<CR>
+  " Set temporary new setting
+  set wildignore=
+  let &tags = l:temp_tags_fname
 
-" Hoogle and prompt for input
-nnoremap <leader>hH :Hoogle
+  " Add to new stack
+  execute ":tjump " . l:word
 
-" Hoogle for detailed documentation (e.g. "Functor")
-nnoremap <silent> <leader>hi :HoogleInfo<CR>
+  " Restore original setting
+  let &tags = l:ori_tags
+  let &wildignore = l:ori_wildignore
 
-" Hoogle for detailed documentation and prompt for input
-nnoremap <leader>hI :HoogleInfo
-
-" Hoogle, close the Hoogle window
-nnoremap <silent> <leader>hz :HoogleClose<CR>
-
-" }}}
-
-" Conversion {{{
-
-function! Pointfree()
-  call setline('.', split(system('pointfree '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
+  " Remove temporary file
+  if filereadable(l:temp_tags_fname)
+    call delete(l:temp_tags_fname, "rf")
+  endif
 endfunction
-vnoremap <silent> <leader>h. :call Pointfree()<CR>
+nnoremap <silent> <leader>g :call MyGoToDefinition()<cr>
 
-function! Pointful()
-  call setline('.', split(system('pointful '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
+"let g:LanguageClient_diagnosticsSignsMax = 0
+"let g:LanguageClient_diagnosticsEnable = 1
+"let g:LanguageClient_useVirtualText = 0
+
+" TODO:
+"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"" Or map each action separately
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" }}}
+
+
+" Per-filetype settings {{{
+
+""" Defaults
+set expandtab " tab -> space
+set shiftwidth=2
+set tabstop=2
+" TODO: set smarttab?
+
+""" Indentation
+" Selectively disable indentexpr for some filetypes.
+function! DisableIndent()
+  set indentexpr&
 endfunction
-vnoremap <silent> <leader>h> :call Pointful()<CR>
+autocmd FileType markdown call DisableIndent()
 
-" }}}
+""" Formatting
+" Disable automatic formatting by default; only turn it on for JS-esque files.
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx Prettier
+nmap <leader>lp <Plug>(Prettier)
 
-" Workspaces {{{
-nnoremap <leader>w :ToggleWorkspace<CR>
-let g:workspace_session_directory = $HOME . '/.vim/sessions/'
-let g:workspace_session_disable_on_args = 1
-let g:workspace_autosave = 0
-" }}}
+""" Makefiles
+autocmd filetype make setlocal noexpandtab
 
-" Customization {{{
+""" Markdown
+au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
+""" Ruby
+" Run nearest spec under cursor.
+au FileType ruby setlocal nosmarttab
+let g:rspec_command = "!bundle exec rspec {spec}"
+nnoremap <leader>rr :call RunNearestSpec()<CR>
 
-" }}}
+""" Elm
+au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
-" Hanging indent soft-wrap
-set breakindent
-set breakindentopt=shift:2
+""" Elixir
+au FileType elixir setlocal nosmarttab
 
-" Nvim Compat
-command! -nargs=1 R execute ":! " <q-args>
-
-" PureScript
-map <leader>pg :!$HOME/bin/purescript-tags.sh<CR>
-
-
-" NeoMake {{{
-
-"let g:neomake_logfile = '/tmp/neomake.log'
-"let g:neomake_open_list = 2 " an error dialog that pops up, preserving cursor location
-let g:neomake_open_list = 0 " no dialog / loclist window.
-
-" Shortcut to open the loclist error window, if applicable:
-nnoremap <leader>e :lwindow<cr>
-
-""" Elixir, NeoMake
-augroup elixir
-  autocmd!
-  autocmd BufWritePost * Neomake
-augroup END
-"let g:alchemist_tag_disable = 1
+""" JSON
+let g:vim_json_syntax_conceal = 0
 
 """ JS
-let g:neomake_javascript_enabled_makers = ['flow'] ", 'eslint']
-let g:neomake_typescript_enabled_makers = ['tsc']
-let g:neomake_haskell_enabled_makers = []
-
-" }}}
-
-
-" JS {{{
-" Allow JSX in normal JS files
-let g:jsx_ext_required = 0
+au FileType javascript setlocal nosmarttab formatprg='prettier'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 augroup FiletypeGroup
   autocmd!
   au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 augroup END
+au FileType javascript.jsx setlocal nosmarttab formatprg='prettier'
+
+""" TS
+au BufNewFile,BufRead *.ts setlocal filetype=typescript
+au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+
 " }}}
 
-" Flow {{{
-" Get the Flow type at the current cursor position.
-function! Flow_get_type()
-  let pos = line('.').' '.col('.')
-  let path = ' --path '.fnameescape(expand('%'))
-  let cmd = 'node_modules/.bin/flow type-at-pos '.pos.path
-  let stdin = join(getline(1,'$'), "\n")
 
-  let output = 'FlowType: '.system(cmd, stdin)
-  let output = substitute(output, '\n$', '', '')
-  echo output
-endfunction
-command! FlowType call Flow_get_type()
-nnoremap <Leader>t :FlowType<CR>
+" {{{ Obsession/Prosession Session Management
+nnoremap <leader>w :Obsess<CR>
+nnoremap <leader>W :Obsess!<CR>
 " }}}
 
-" Ruby {{{
-let g:rspec_command = "!bundle exec rspec {spec}"
-nnoremap <Leader>rr :call RunNearestSpec()<CR>
+
+" {{{ Distraction-Free Writing (Goyo/Zen)
+let g:goyo_width = 110
 " }}}
