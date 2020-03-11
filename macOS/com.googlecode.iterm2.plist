@@ -202,7 +202,7 @@ New Tab with Current Profile</string>
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/osx</string>
+	<string>~/dotfiles/macOS</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -4788,7 +4788,7 @@ New Tab with Current Profile</string>
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/rob.howard/dotfiles/osx</string>
+	<string>/Users/rob.howard/dotfiles/macOS</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
