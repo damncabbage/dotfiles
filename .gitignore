@@ -18,3 +18,5 @@
 /.bashrc.d/*
 
 /parked
+
+/.config/bat/themes

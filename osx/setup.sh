@@ -25,6 +25,7 @@ prompt_to_install () {
     shellcheck # sh/bash linter
     tig # git history viewer
 
+    bat # cat with syntax highlighting
     direnv # pull environment variables from .envrc files
     entr # file-watcher; use with pipes, eg. while true; do find . -name "*.js" | entr -dcs 'eslint'; done
     fzf # fuzzy-finder, good for CLI tools
