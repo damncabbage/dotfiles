@@ -97,6 +97,13 @@ cat <<-EOF
   - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
 EOF
 
+cat <<-EOF
+  Manually configure:
+  - Scroll direction
+  - Shortcut keys for desktop left+right
+  - Shortcut keys for Automator actions (eg. leave meeting)
+EOF
+
 # CPU Temp tool
 mkdir -p ~/build
 (

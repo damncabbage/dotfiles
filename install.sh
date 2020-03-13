@@ -30,51 +30,58 @@ function action() {
 pushd `dirname $0` > /dev/null
 
 	# Can anyone say HACK?
-	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/* User/settings.json"
+	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/* User/settings.json Services/*"
 	TARGETDIR=$HOME
 	OVERRIDE_TARGETDIR=$TARGETDIR
 
 	for FILE in $FILES
 	do
-		# HACK: It's caught up in the regex above, which is Not Great
-		if [ $FILE == ".config" ]; then
-			continue
-		fi
+		# HACK: A bunch of exceptions.
+		case "$FILE" in
+			# It's caught up in the regex above, which is Not Great
+			.config) continue;;
 
-		# HACK: Ignore our repo .git if this is not a bare repo.
-		if [ $FILE == ".git" ] || [ $FILE == ".gitignore" ]; then
-			continue
-		fi
+			# Ignore our repo .git if this is not a bare repo.
+			.git) continue;;
+			.gitignore) continue;;
 
-		# HACK: Ignore files we'd never want to symlink. (This could be restricted
-		#       to files in git, but then it's a pain to add and test new things.)
-		if [ $FILE == "._.DS_Store" ] || [ $FILE == ".DS_Store" ]; then
-			continue
-		fi
+			# Ignore files we'd never want to symlink. (This could be restricted
+			# to files in git, but then it's a pain to add and test new things.)
+			._.DS_Store) continue;;
+			.DS_Store) continue;;
 
-		# HACK: One-off for the VSCode link buried deep in Library/Application Support/Code/User
-		if [ "$FILE" == "User/settings.json" ]; then
-			OVERRIDE_TARGETDIR="$HOME/Library/Application Support/Code"
-		fi
+			# One-off for the VSCode link buried deep in Library/Application Support/Code/User
+			User/settings.json)
+				OVERRIDE_TARGETDIR="$HOME/Library/Application Support/Code"
+				;;
 
-		if [ -f ~/"$FILE" ] || [ -d ~/"$FILE" ]; then
-			if [ -L ~/"$FILE" ]; then
+			# Automator actions.
+			Services/*)
+				OVERRIDE_TARGETDIR="$HOME/Library"
+				;;
+		esac
+
+		# Look, I know these variable names are awful.
+		TARGET_JUSTDIR="$OVERRIDE_TARGETDIR/$(dirname "$FILE")"
+		TARGET_FULL="$OVERRIDE_TARGETDIR/$FILE"
+		if [ -f "$TARGET_FULL" ] || [ -d "$TARGET_FULL" ]; then
+			if [ -L "$TARGET_FULL" ]; then
 				info "Already symlinked: $FILE"
 			else
 				error "Already present and is a regular file: $FILE"
 			fi
 
 		else
-			DIR=`dirname "$FILE"`
-			if [ ! -d "$OVERRIDE_TARGETDIR/$DIR" ]; then
-				mkdir -p "$OVERRIDE_TARGETDIR/$DIR"
-				action $? "Created directory: $DIR"
+			if [ ! -d "$TARGET_JUSTDIR" ]; then
+				mkdir -p "$TARGET_JUSTDIR"
+				action $? "Created directory: $TARGET_JUSTDIR"
 			fi
 
-			ln -s "`pwd`/$FILE" "$OVERRIDE_TARGETDIR/$DIR/"
+			ln -s "`pwd`/$FILE" "$TARGET_JUSTDIR/"
 			action $? "Linked: $FILE"
 		fi
 		OVERRIDE_TARGETDIR=$TARGETDIR
 	done
 
 popd > /dev/null
+# vim: set noexpandtab:
