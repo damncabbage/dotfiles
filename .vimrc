@@ -467,6 +467,8 @@ au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 au FileType ruby setlocal nosmarttab
 let g:rspec_command = "!bundle exec rspec {spec}"
 nnoremap <leader>rr :call RunNearestSpec()<CR>
+nnoremap <leader>rf :call RunCurrentSpecFile()<CR>
+nnoremap <leader>rl :call RunLastSpec()<CR>
 
 """ Elm
 au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
