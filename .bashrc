@@ -154,6 +154,8 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
   trap "kill $SSH_AGENT_PID" 0
 fi
 
+# Alias 'thefuck' to something more pleasant.
+eval $(thefuck --alias "please")
 
 # z
 # Most 'frecent' directories, eg.

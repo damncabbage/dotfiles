@@ -40,6 +40,7 @@ prompt_to_install () {
     pv # pipe-viewer, for progress of copies and the like
     ripgrep # ack/grep but fast and some bugs fixed
     starship # prompt config
+    thefuck # aliased as 'please'
 
     sox # audio tools
 

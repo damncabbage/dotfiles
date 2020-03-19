@@ -3,6 +3,10 @@
 *.swo
 *.swn
 *.swm
+Session*.vim
+
+# VS Code
+.vscode/settings.json
 
 # CTags
 /tags
