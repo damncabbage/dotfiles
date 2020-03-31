@@ -53,7 +53,7 @@
 					<key>source</key>
 					<string>on run argv
   set zoom to "zoom.us"
-  set wait to 0.5
+  set wait to 0.2
 
   log "activating zoom"
   tell application zoom to activate
