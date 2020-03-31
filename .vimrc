@@ -1,7 +1,7 @@
 " TODO: Try
 " Neovim 0.5 LSP support
 " https://github.com/terryma/vim-multiple-cursors
-" https://github.com/nathanaelkane/vim-indent-guides
+" https://github.com/nathanaelkane/vim-indent-guides or listchars (https://imgur.com/a/FiHC9Dy)
 " https://github.com/Roguelazer/neovim-fuzzy (from https://www.roguelazer.com/2019/04/vim-setup-2019/)
 " lightline, with settings from above.
 "   And https://www.reddit.com/r/vim/comments/45xk60/as_vimairline_got_heavier_i_switched_to/

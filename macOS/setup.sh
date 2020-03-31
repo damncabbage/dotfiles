@@ -96,7 +96,7 @@ cat <<-EOF
   - VSCode <https://code.visualstudio.com/docs/setup/mac>
     - With extensions, via ~/dotfiles/support/install_vscode_extensions.sh
   - Spectacle? (App Store...?)
-  - Try <https://github.com/lwouis/alt-tab-macos> ...?
+  - Try <https://contexts.co/> or <https://github.com/lwouis/alt-tab-macos> ...?
   - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
 EOF
 
