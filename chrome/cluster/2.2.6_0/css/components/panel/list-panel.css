@@ -1,0 +1,72 @@
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 6px 0 6px;
+}
+
+.tools-container {
+  display: flex;
+  margin-top: 12px;
+  margin-left: 24px;
+  white-space: nowrap;
+}
+
+.action-tools {
+  display: flex;
+  box-shadow: inset -1px 0 0 rgba(121, 112, 112, 0.2);
+}
+
+.creation-tools {
+  display: flex;
+  box-shadow: inset -1px 0 0 rgba(121, 112, 112, 0.2);
+}
+
+.import-export-tools {
+  display: flex;
+  box-shadow: inset -1px 0 0 rgba(121, 112, 112, 0.2);
+}
+
+.sorting-tools {
+  display: flex;
+}
+
+.octicon {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+export-windows-button {
+  margin-left: 24px;
+  width: 24px;
+}
+
+column-button {
+  margin-right: 24px;
+  margin-left: 24px;
+  width: 24px;
+}
+
+theme-button {
+  margin-right: 24px;
+  width: 24px;
+}
+
+.separator {
+  width: 1px;
+  box-shadow: inset -1px 0 0 rgba(121, 112, 112, 0.2);
+  /*margin: 0 0px 0 24px;*/
+}
+
+merge-dropdown-button {
+  margin-right: 24px;
+  width: 24px;
+}
+
+expand-windows-button {
+  margin-left: 24px;
+}

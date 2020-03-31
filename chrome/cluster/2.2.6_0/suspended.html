@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cluster Suspendend Tab</title>
+<script type="text/javascript" src="/js/suspend.js"></script>
+<style>
+body {
+    background-color: #EFEFEF;
+    cursor: pointer;
+}
+.container {
+    width: 600px;
+    margin-top: 120px;
+}
+.container h1 {
+    display: inline-flex;
+    font-size: 50px;
+    color: #798682;
+    margin: 0;
+}
+.container h2 {
+    font-size: 40px;
+    color: #798682;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.tab-container {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    align-items: center;
+}
+#tab-icon {
+    display: inline-block;
+    padding: 3px;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-size: 32px;
+    height: 32px;
+    width: 32px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+#tab-url {
+    font-size: 22px;
+    color: #5f6563;
+}
+</style>
+
+</head>
+
+<body>
+    <div class='container center'>
+        <h1>This tab is suspended</h1>
+        <h2>Click anywhere to load</h2>
+        <div class='tab-container'>
+            <div id='tab-icon'></div>
+            <span id='tab-url'>https://stackoverflow.com</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+
+
+sync-button {
+  position: relative;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+sync-button .sync-user {
+  cursor: auto;
+  background-color: #fff !important;
+  border: none !important;
+}
+
+sync-button .sync-user .menu-item-text {
+  background-image: url(/res/icons/account-circle.svg);
+  background-size: 18px;
+  padding-left: 26px;
+}
+
+sync-button .menu-content {
+  border-radius: 2px;
+}
+
+.dark sync-button .sync-user .menu-item-text {
+  background-image: url(/res/icons/dark/account-circle.svg);
+  background-size: 18px;
+  padding-left: 26px;
+}
+
+.dark sync-button .menu-separator {
+  border-color: #343536;
+}
+
+.dark sync-button .sync-user {
+  background-color: #262627 !important;
+}
+
+.dark sync-button .menu-content {
+  background-color: #262627;
+  border-color: #343536;
+  color: #C4C7C9;
+}
+
+.dark sync-button .menu-content .menu-item {
+  border: none !important;
+}
+
+.dark sync-button .menu-content .menu-item:hover {
+  background-color: #3366864a !important;
+}

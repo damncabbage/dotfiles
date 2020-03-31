@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+  Copyright (c) 2017 Dag Holmberg. All rights reserved.
+  Use of this source code is governed by a GPL-style license that can be
+  found in the LICENSE file.
+-->
+<html>
+<head>
+<title>Save Window</title>
+<style type="text/css">
+
+
+</style>
+<script type="text/javascript" src="js/menu-save.js"></script>
+<link rel="stylesheet" type="text/css" href="">
+<style>
+
+body {
+  height: 100px;
+  width: 340px;
+  min-height: 100px;
+  min-width: 340px;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  margin: 5px 0 0 5px;
+  margin-top: 20px;
+}
+
+#window-name {
+  width: 250px;
+  border: 1px solid #888;
+  border-radius: 2px;
+  padding: 6px;
+}
+
+.container {
+  margin-top: 20px;
+  margin-left: 70px;
+}
+
+.select-buttons {
+  margin-top: 20px;
+  padding: 0 12px 0 6px;
+}
+
+.select-button {
+  color: #444444;
+  background: #F3F3F3;
+  border: 1px #DADADA solid;
+  padding: 5px 12px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.label-error {
+  color: #cc2323;
+}
+
+.error {
+  background-color: rgba(241, 48, 45, 0.25);
+}
+
+#save {
+  float: right;
+}
+
+#cancel {
+  float: left;
+}
+
+img {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+}
+
+</style>
+</head>
+
+<body>
+<img src='/res/icons/save32.png'>
+<div class='container'>
+
+  <form>
+    <label>Please enter a name to save window.</label>
+    <br>
+    <br>
+    <input name="window-name" id="window-name" placeholder="window name" type="text" maxlength="20" required autofocus>
+      <div class='select-buttons'>
+        <button type=button id="cancel" class='select-button' >Cancel</input>
+        <button type=submit id="save" class='select-button' tabindex='-1'>Save</button>
+      </div>
+  </form>
+</div>
+</body>
+</html>

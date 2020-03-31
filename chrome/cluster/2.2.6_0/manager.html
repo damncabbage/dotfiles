@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML>
+<!--
+██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗
+██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝
+██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗
+██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝
+╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗
+ ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+ You are in a maze of twisty passages, all alike.
+ 143346b39260a666be231218d96c78b7
+-->
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='description' content='Cluster is a Window and Tab Manager Chrome Extension that provides features to manage multiple open windows and tabs and easily save tabs and windows as sessions.'>
+    <meta name='keywords' content='window manager, tab manager, extension, session manager, tab saver, chrome extension, free, memory saver, productivity, tool, developer'>
+    <title>Window Manager</title>
+
+    <link rel="stylesheet" type="text/css" href="css/manager.css">
+    <link rel="stylesheet" type="text/css" href="css/icons.css">
+    <link rel="stylesheet" type="text/css" href="css/about.css">
+    <link rel="stylesheet" type="text/css" href="css/help.css">
+
+    <link rel="stylesheet" type="text/css" href="css/components/win.css">
+    <link rel="stylesheet" type="text/css" href="css/components/tab.css">
+    <link rel="stylesheet" type="text/css" href="css/components/hostname.css">
+    <link rel="stylesheet" type="text/css" href="css/components/active-win.css">
+    <link rel="stylesheet" type="text/css" href="css/components/panel/list-panel.css">
+    <link rel="stylesheet" type="text/css" href="css/components/panel/active-panel.css">
+    <link rel="stylesheet" type="text/css" href="css/components/panel/saved-panel.css">
+    <link rel="stylesheet" type="text/css" href="css/components/savewin-modal.css">
+    <link rel="stylesheet" type="text/css" href="css/components/rename-win-modal.css">
+    <link rel="stylesheet" type="text/css" href="css/components/sync-button.css">
+    <link rel="stylesheet" type="text/css" href="css/components/popup.css">
+
+    <link rel="stylesheet" type="text/css" href="css/widgets/select-button.css">
+    <link rel="stylesheet" type="text/css" href="css/widgets/dropdown-button.css">
+    <link rel="stylesheet" type="text/css" href="css/widgets/panel-button.css">
+    <link rel="stylesheet" type="text/css" href="css/widgets/switch.css">
+    <link rel="stylesheet" type="text/css" href="css/widgets/checkbox.css">
+    <link rel="stylesheet" type="text/css" href="css/widgets/search-field.css">
+    <link rel="stylesheet" type="text/css" href="css/widgets/tooltip.css">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
+  </head>
+
+  <body class='single-column'>
+    <nav id='navigation' class='changing-content' style='transform: translateX(0px)'>
+    <div class='nav-contents'>
+      <!-- <h1 id='nav-header'>Window Manager</h1> -->
+    <div id='nav-header' class='brand-logo'>
+      <a href="https://clusterwm.com" target='_blank'><img class="logo-icon" src="/res/icons/icon32.png">Cluster</a>
+    </div>
+      <ul class='nav-list'>
+        <li id='active-tab' class='nav-controller selected'>
+          <div class='nav-box'><a class='nav-anchor' href='#active'>Active Windows</a></div>
+        </li>
+        <li id='saved-tab' class='nav-controller'>
+          <div class='nav-box'><a class='nav-anchor' href='#saved'>Saved Windows</a></div>
+        </li>
+  <!--       <li id='closed-tab' class='nav-controller'>
+          <div class='nav-box'><a class='nav-anchor' href='#closed'>Closed Windows</a></div>
+        </li> -->
+        <li id='settings-tab' class='nav-controller'>
+          <div class='nav-box'><a class='nav-anchor' href='#settings'>Settings</a></div>
+        </li>
+        <li id='help-tab' class='nav-controller'>
+          <div class='nav-box'><a class='nav-anchor' href='#help'>Help</a></div>
+        </li>
+        <li id='about-tab' class='nav-controller'>
+          <div class='nav-box'><a class='nav-anchor' href='#about'>About</a></div>
+        </li>
+<!--         <li id='donate-tab' class='nav-controller'>
+          <div class='nav-box'><a class='nav-anchor' href='https://clusterwm.com/donate.html' target='_blank'>Donate</a></div>
+        </li> -->
+      </ul>
+    </div>
+    <div class='review-on-google' style='position: absolute;width: 100%;padding: 0 8px 0 8px;box-sizing: border-box;bottom: 12px;text-align: center;' hidden>
+      <a href='https://chrome.google.com/webstore/detail/ultimate-window-manager/aadahadfdmiibmdhfmpbeeebejmjnkef/reviews' target="_blank">
+        <img src='/res/images/google-review.png' style='max-width: 100%;'>
+      </a>
+    </div>
+    </nav>
+
+    <header>
+      <div id='header-panel'>
+          <!-- ActiveList Panel -->
+          <activelist-panel id='activelist-panel' class='panel active'>
+
+            <div class='flex-container'>
+              <input id='active-search' class='search-field' placeholder="Search..." tabindex="1" type='search' maxlength="64" autofocus>
+              <div class='panel-notification'></div>
+            </div>
+
+            <div class='tools-container'>
+              <div class='creation-tools'>
+                <close-undo-button id='close-undo-button' class='panel-button tooltip tooltip-s' aria-label='Undo close' disabled>
+                  <div class='undo-icon icon-medium icon'></div>
+                </close-undo-button>
+                <close-tabs-button id='close-tabs-button' class='panel-button tooltip tooltip-s' aria-label='Close tabs' disabled>
+                  <div class='close-tabs-icon icon icon-medium'></div>
+                </close-tabs-button>
+              </div>
+
+              <div class='action-tools'>
+                <move-dropdown-button id='move-button' class='dropdown' disabled>
+                  <div class='dropdown-button' title='Move tabs' role='button'>
+                    <div class='move-icon icon-medium icon'></div>
+                  </div>
+                  <div class='dropdown-content right-menu'></div>
+                </move-dropdown-button>
+
+                <saveto-dropdown-button
+                  id='saveto-button'
+                  class='dropdown tooltip tooltip-s'
+                  aria-label='Save to'
+                  aria-popup='menu'
+                  role='button'
+                  disabled>
+                  <i class='folder-move-icon icon-medium icon'></i>
+                  <dropdown-filter-list role='menu'></dropdown-filter-list>
+                </saveto-dropdown-button>
+
+                <merge-dropdown-button class='merge-button dropdown' disabled>
+                  <div class='dropdown-button' title='Merge windows' role='button'>
+                    <div class='merge-icon icon-medium icon'></div>
+                  </div>
+                  <div class='dropdown-content left-menu'></div>
+                </merge-dropdown-button>
+              </div>
+
+              <div class='sorting-tools'>
+                <sort-dropdown-button id='sort-button' class='dropdown' >
+                  <div class='sort-button dropdown-button' title='Sort tabs' role='button'>
+                    <div class='sort-icon icon-large icon'></div>
+                  </div>
+                  <div class='dropdown-content left-menu'>
+                    <div class='no-icon' id='sort-asc' data-sort='0'>
+                      <i class='asc-icon icon-small icon'></i>
+                      <span>ascending</span>
+                    </div>
+                    <div class='no-icon' id='sort-desc' data-sort='1'>
+                      <i class='desc-icon icon icon-small'></i>
+                      <span>descending</span>
+                    </div>
+                    <div class='no-icon' id='sort-domain' data-sort='2'>
+                      <i class='sitemap-icon icon icon-small'></i>
+                      <span>domain</span>
+                    </div>
+                  </div>
+                </sort-dropdown-button>
+
+                <expand-windows-button
+                  id='expand-active-windows-button'
+                  class='panel-button tooltip tooltip-s'
+                  aria-label='Expand windows'>
+                  <i class="unfold-more-icon icon icon-medium"></i>
+                </expand-windows-button>
+
+                <column-button class='column-button panel-button tooltip tooltip-s' aria-label='Toggle column'>
+                  <i class='column-icon icon icon-medium'></i>
+                </column-button>
+
+                <theme-button class='theme-button panel-button tooltip tooltip-s' aria-label='Toggle theme'>
+                  <i class='theme-icon icon icon-medium'></i>
+                </theme-button>
+
+                <div class='separator'></div>
+
+                <sync-button class='sync-button panel-button' status='off'>
+                  <i class='sync-icon icon icon-large tooltip tooltip-s' aria-label='Enable sync'></i>
+                  <div class='menu-content'>
+                    <div class='sync-menu' hidden>
+                        <div class='sync-user menu-item'>
+                            <span class="menu-item-text">UserName</span>
+                        </div>
+                        <div class="menu-separator"></div>
+                        <div class='sync-purchase-license menu-item' hidden>
+                            <span class="menu-item-text">Buy license</span>
+                        </div>
+                        <div class='sync-signout menu-item'>
+                            <span class="menu-item-text">Sign out</span>
+                        </div>
+                    </div>
+                  </div>
+                </sync-button>
+
+              </div>
+            </div>
+
+
+          </activelist-panel>
+
+          <!-- SavedList Panel -->
+          <savedlist-panel id='savedlist-panel' class='panel'>
+
+            <div class='flex-container'>
+             <input id='saved-search' class='search-field' placeholder="Search..." tabindex="1" type='Search' maxlength="64" autofocus>
+              <div class='panel-notification'></div>
+            </div>
+
+            <div class='tools-container'>
+              <div class='creation-tools'>
+                <remove-undo-button id='remove-undo-button' class='panel-button tooltip tooltip-s' aria-label='Undo remove' disabled>
+                  <i class='undo-icon icon icon-medium'></i>
+                </remove-undo-button>
+                <remove-tabs-button id='remove-tabs-button' class='panel-button tooltip tooltip-s' aria-label='Remove tabs' disabled>
+                  <i class='close-tabs-icon icon icon-medium'></i>
+                </remove-tabs-button>
+              </div>
+
+              <div class='action-tools'>
+                <move-saved-dropdown-button id='move-saved-button' class='dropdown' title='Move tabs' disabled>
+                  <div class='dropdown-button' role='button'>
+                    <i class='move-icon icon-medium icon'></i>
+                    </div>
+                  <div class='dropdown-content left-menu icon-gray'></div>
+                </move-saved-dropdown-button>
+
+                <merge-dropdown-button class='merge-button dropdown' disabled>
+                  <div class='dropdown-button' title='Merge windows' role='button'>
+                    <i class='merge-icon icon-medium icon'></i>
+                  </div>
+                  <div class='dropdown-content left-menu icon-gray'></div>
+                </merge-dropdown-button>
+              </div>
+              <div class='import-export-tools'>
+                <export-windows-button class='dropdown'>
+                  <div class='dropdown-button' title='Export windows' role='button'>
+                    <i class='export-icon icon-medium icon'></i>
+                  </div>
+                  <div class='dropdown-content left-menu'>
+                    <div class='no-icon' data-export='csv'>Export as CSV</div>
+                    <div class='no-icon' data-export='json'>Export as JSON</div>
+                  </div>
+                </export-windows-button>
+                <import-windows-button class='panel-button tooltip tooltip-s' aria-label='Import Windows'>
+                  <i class='import-icon icon icon-medium'></i>
+                  <label for="windows-import" style='opacity:0;height:0;width:0;'></label>
+                  <input type="file" id="windows-import" name="windows-import" accept=".csv, .json" style='opacity:0;height:0;width:0;'>
+                </import-windows-button>
+              </div>
+
+              <div class='sorting-tools'>
+                <expand-windows-button
+                  id='expand-saved-windows-button'
+                  class='panel-button tooltip tooltip-s'
+                  aria-label='Expand windows'>
+                  <i class="unfold-more-icon icon icon-medium"></i>
+                </expand-windows-button>
+
+                <column-button class='column-button panel-button tooltip tooltip-s' aria-label='Toggle column'>
+                  <i class='column-icon icon icon-medium'></i>
+                </column-button>
+
+                <theme-button class='theme-button panel-button tooltip tooltip-s' aria-label='Toggle theme'>
+                  <i class='theme-icon icon icon-medium'></i>
+                </theme-button>
+                <div class='separator'></div>
+
+                <sync-button class='sync-button panel-button' status='off'>
+                  <i class='sync-icon icon icon-large tooltip tooltip-s' aria-label='Enable sync'></i>
+                  <div class='menu-content'>
+                    <div class='sync-menu' hidden>
+                      <div class='sync-user menu-item'>
+                          <span class="menu-item-text">UserName</span>
+                      </div>
+                      <div class="menu-separator"></div>
+                      <div class='sync-purchase-license menu-item' hidden>
+                          <span class="menu-item-text">Buy license</span>
+                      </div>
+                      <div class='sync-signout menu-item'>
+                          <span class="menu-item-text">Sign out</span>
+                      </div>
+                    </div>
+                  </div>
+                </sync-button>
+              </div>
+
+            </div>
+
+          </savedlist-panel>
+          <!-- Settings Panel -->
+          <div id='settings-panel' class='panel'>
+            <h1>Settings</h1>
+          </div>
+          <!-- About Panel -->
+          <div id='about-panel' class='panel'>
+            <h1>About</h1>
+          </div>
+          <!-- Help Panel -->
+          <div id='help-panel' class='panel'>
+            <h1>Help</h1>
+          </div>
+      </div>
+      <div class='divider'></div>
+    </header>
+
+    <main role='main'>
+    <!-- Active Windows Page -->
+      <div id='active-page' class='page active'>
+        <div id='scrolling-container'>
+          <active-list class='listbox'>
+            <div style='padding-top:20px;'>
+              <image style='vertical-align:middle; padding-right: 6px;' src='res/images/loading.svg'>
+              <span>Loading...</span>
+            </div>
+          </active-list>
+        </div>
+      </div>
+      <!-- Saved Windows Page -->
+      <div id='saved-page' class='page'>
+        <div id='scrolling-container'>
+          <saved-list class='listbox'>
+            <div style='padding-top:20px;'>
+              <image style='vertical-align:middle; padding-right: 6px;' src='res/images/loading.svg'/>
+              <span>Loading...</span>
+            </div>
+          </saved-list>
+        </div>
+      </div>
+      <!-- Settings Page -->
+      <div id='settings-page' class='page'>
+        <div class='extension-container'>
+          <div id='keyboard-settings' class='settings-container'>
+            <h2 class='settings-title'>Keyboard Shortcuts</h2>
+            <table class='settings-table'>
+              <tbody>
+                <tr>
+                  <td><p>Open Window Manager shortcut:</p></td>
+                  <td>
+                    <p id='open-manager-shortcut'>CMD + M</p>
+                  </td>
+                  <td>
+                    <a id='configure-shortcuts' href='#'>Configure</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id='general-settings' class='settings-container'>
+            <h2 class='settings-title'>General</h2>
+            <table class='settings-table'>
+              <tbody>
+                <tr>
+                  <td><p>Open manager as pinned:</p></td>
+                  <td>
+                    <div class="material-switch pull-right">
+                      <input id="pin-manager" name="pin manager" type="checkbox"/>
+                      <label for="pin-manager" class="label-primary"></label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><p>Disable suspend window tabs on open:</p></td>
+                  <td>
+                    <div class="material-switch pull-right">
+                      <input id="suspend-windows" name="toggle suspend" type="checkbox"/>
+                      <label for="suspend-windows" class="label-primary"></label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id='display-settings' class='settings-container'>
+            <h2 class='settings-title'>Display</h2>
+            <table class='settings-table'>
+              <tbody>
+                <tr>
+                  <td><p>Multiple columns on wide screen:</p></td>
+                  <td>
+                    <div class="material-switch pull-right">
+                      <input id="display-columns" name="display columns" type="checkbox"/>
+                      <label for="display-columns" class="label-primary"></label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><p>Dark theme:</p></td>
+                  <td>
+                    <div class="material-switch pull-right">
+                      <input id="dark-theme" name="toggle dark theme" type="checkbox"/>
+                      <label for="dark-theme" class="label-primary"></label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Help Page -->
+      <div id='help-page' class='page'>
+        <div class='extension-container'>
+          <h4 class='settings-title'>Contact</h4>
+          <p>For help, support or inquiry, please send an email to: <a href='mailto:support@clusterwm.com'>support@clusterwm.com</a></p>
+        </div>
+        <div class='extension-container'>
+          <h4 class='settings-title'>Keyboard Cheat Sheet</h4>
+          <table class='settings-table'>
+            <tbody>
+              <tr><td><kbd>Ctrl + M</kbd></td><td><p>Open Window Manager</p></td></tr>
+              <tr><td><kbd>Ctrl + M</kbd></td><td><p>Focus search field (in manager)</p></td></tr>
+              <tr><td><kbd>Ctrl + LMouse</kbd></td><td><p>Opens a new active tab</p></td></tr>
+              <tr><td><kbd>Tab</kbd></td><td><p>Traverse down</p></td></tr>
+              <tr><td><kbd>Shift  + Tab</kbd></td><td><p>Traverse up</p></td></tr>
+              <tr><td><kbd>↓</kbd></td><td><p>Enter focused window and focus first tab</p></td></tr>
+              <tr><td><kbd>↑</kbd></td><td><p>Traverse tabs up</p></td></tr>
+              <tr><td><kbd>↓</kbd></td><td><p>Traverse tabs down</p></td></tr>
+              <tr><td><kbd>→</kbd></td><td><p>Expand window</p></td></tr>
+              <tr><td><kbd>←</kbd></td><td><p>Collapse window</p></td></tr>
+              <tr><td><kbd>Space</kbd></td><td><p>Select window or tab</p></td></tr>
+              <tr><td><kbd>Enter</kbd></td><td><p>Open window or tab</p></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- About Page -->
+      <div id='about-page' class='page'>
+        <div class='extension-well'>
+          <div class='extension-item extension-image'>
+            <div class='extension-details'>
+
+              <div>
+                <h2 class="extension-title">Cluster - Window &#38; Tab Manager</h2>
+                <span class="extension-version">1.0.0</span>
+              </div>
+
+              <div class='extension-info'>
+                <p>If you like this extension please leave a review in the <a href='https://chrome.google.com/webstore/detail/ultimate-window-manager/aadahadfdmiibmdhfmpbeeebejmjnkef/reviews'>Chrome Web Store</a>.</p>
+                <p>For other issues, or suggestions about new features, <br>please send an email to <a href='mailto:support@clusterwm.com'>support@clusterwm.com</a></p>
+                <!-- <p class='author-note'>Thank you</p> -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class='extension-well notes'>
+          <h2 class='extension-title'>Contributions & Donations</h2>
+          <ul style='border-bottom: none;'>
+            <li><p>&#9679;&ensp; Kin Cho</p></li>
+          </ul>
+        </div>
+        <div class='extension-well notes'>
+          <h2 class='extension-title'>Roadmap</h2>
+          <ul style='border-bottom: none;'>
+            <li><p>&#9679;&ensp; Update drag & drop with dragging multiple tabs</p></li>
+            <li><p>&#9679;&ensp; Add more windows sorting options, e.g. by name, date, tabs, ect...</p></li>
+            <li><p>&#9679;&ensp; Add merge windows by drag & drop</p></li>
+            <li><p>&#9679;&ensp; Add search windows by name</p></li>
+            <li><p>&#9679;&ensp; Add additional list view for displaying windows (window-rows|tabs-rows)</p></li>
+            <li><p>&#9679;&ensp; Add "Closed Windows/-Tabs" list</p></li>
+            <li><p>&#9679;&ensp; Add label/tag saved windows</p></li>
+            <li><p>&#9679;&ensp; Update "undo" functionality</p></li>
+            <li><p>&#9679;&ensp; Add option to open saved window linked with active window (autosave)</p></li>
+            <li><p>&#9679;&ensp; Update Help section and add FAQ</p></li>
+            <li><p>&#9679;&ensp; And more...</p></li>
+          </ul>
+        </div>
+        <div class='extension-well notes'>
+          <h2 class='extension-title'>Changelog</h2>
+          <!--  Type of changes for changelog:
+              - Added for new features.
+              - Updated for UI changes.
+              - Changed for changes in existing functionality.
+              - Deprecated for soon-to-be removed features.
+              - Removed for now removed features.
+              - Fixed for any bug fixes.
+              - Security in case of vulnerabilities.
+          -->
+          <h4 class='note-version'>v2.2.3-2.2.6</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix URL not displaying real hostname with Great Suspender</p></li>
+            <li><p><span class='tag red'>fix</span>Fix Menu Open-Windows display wrong date</p></li>
+            <li><p><span class='tag green'>add</span>Add construct-style-sheets-polyfill module</p></li>
+            <li><p><span class='tag red'>fix</span>Fix window title cleared when overwriting saved window</p></li>
+            <li><p><span class='tag red'>fix</span>Fix update saved windows failed</p></li>
+            <li><p><span class='tag red'>fix</span>Fix users reporting multiple problems with Chrome writing to storage, temporarily disabling new features until issue can be resolved.</p></li>
+          </ul>
+          <h4 class='note-version'>v2.2.2</h4>
+          <ul>
+            <li><p><span class='tag red'>remove</span>Remove permissions from test</p></li>
+          </ul>
+          <h4 class='note-version'>v2.2.1</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix child property called before sanity check</p></li>
+            <li><p><span class='tag red'>fix</span>Fix no win refs should return empty array instead of null</p></li>
+            <li><p><span class='tag red'>fix</span>Fix import windows bug</p></li>
+            <li><p><span class='tag red'>fix</span>Fix lastError wrapped twice before logging</p></li>
+          </ul>
+          <h4 class='note-version'>v2.2.0</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add tab audio indicator button to mute/unmute audio</p></li>
+            <li><p><span class='tag green'>add</span>Add toolbar panel buttons to expand/collapse windows</p></li>
+            <li><p><span class='tag purple'>update</span>Update various manager UI styling</p></li>
+            <li><p><span class='tag red'>fix</span>Fix merging active windows calling old method</p></li>
+            <li><p><span class='tag red'>fix</span>Fix tab update event not passing changeInfo to client</p></li>
+            <li><p><span class='tag red'>fix</span>Fix method with potential of leaking memory</p></li>
+            <li><p><span class='tag red'>fix</span>Fix sync offline persistence bug</p></li>
+            <li><p><span class='tag green'>add</span>Add search filter to SaveTo button dropdown</p></li>
+            <li><p><span class='tag purple'>change</span>Change SendTabs button to SaveTo button</p></li>
+            <li><p><span class='tag green'>add</span>Add "Open in new window" window header panel button</p></li>
+            <li><p><span class='tag red'>remove</span>Remove large icon stylesheet</p></li>
+            <li><p><span class='tag purple'>update</span>Update some toolbar buttons to show state change</p></li>
+            <li><p><span class='tag purple'>change</span>Change icons for improved uniformity</p></li>
+            <li><p><span class='tag purple'>replace</span>Replace all icons with svg optimized</p></li>
+            <li><p><span class='tag purple'>update</span>Update open saved windows displays saved name in active windows list</p></li>
+            <li><p><span class='tag red'>fix</span>Fix bug causing event listeners to not be removed on reload</p></li>
+            <li><p><span class='tag green'>add</span>Add manager notifications in toolbar panel</p></li>
+            <li><p><span class='tag green'>add</span>Add feature to name active windows (doesn't persist chrome restore)</p></li>
+            <li><p><span class='tag green'>add</span>Add better code compression library</p></li>
+            <li><p><span class='tag purple'>change</span>Change to Webpack for development</p></li>
+            <li><p><span class='tag purple'>update</span>Update logging library and error tracking</p></li>
+            <li><p><span class='tag purple'>update</span>Update stricter security content policies</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.42</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix wrong css dependecy path</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.40</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add feature to sort tabs by hostname (Quick Sort) feature</p></li>
+            <li><p><span class='tag green'>add</span>Add feature to remove duplicate tabs</p></li>
+            <li><p><span class='tag green'>add</span>Add Google Review button (click button to hide)</p></li>
+            <li><p><span class='tag red'>fix</span>Fix status on auth button can fail to update</p></li>
+            <li><p><span class='tag red'>fix</span>Fix suspended tab url encoding/decoding</p></li>
+            <li><p><span class='tag red'>fix</span>Fix Hostnames visibleCount prop not a getter</p></li>
+            <li><p><span class='tag red'>fix</span>Fix prevent unnecessary calls to win hide/show (performance)</p></li>
+            <li><p><span class='tag red'>fix</span>Fix toolbar divider cut off on large screens</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.30</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix select all tabs in window after search selects filtered tabs</p></li>
+            <li><p><span class='tag purple'>update</span>Update tabs search</p></li>
+            <li><p><span class='tag red'>fix</span>Fix google auth not displaying account selection when only one account present</p></li>
+            <li><p><span class='tag red'>fix</span>Fix tabs exporter where decodeURI sometimes fails on certain urls</p></li>
+            <li><p><span class='tag red'>fix</span>Fix merge windows clear/apply not disabled on clear</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.28</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix localStorage lacking permissions for some users</p></li>
+            <li><p><span class='tag green'>add</span>Add feature to rename saved windows</p></li>
+            <li><p><span class='tag red'>fix</span>Fix error spamming when offline persistence fails</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.27</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add close-tabs-button to window header panel</p></li>
+            <li><p><span class='tag red'>fix</span>Fix library error wrapper causes manager load to fail</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.26</h4>
+          <ul>
+            <li><p><span class='tag purple'>change</span>Change document.registerElement (deprecated in april)</p></li>
+            <li><p><span class='tag red'>fix</span>Fix users logged out when no license is present</p></li>
+            <li><p><span class='tag red'>fix</span>Fix reduce number of Auth idToken calls</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.25</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix missing pin manager settings cause manager not to open</p></li>
+            <li><p><span class='tag red'>fix</span>Fix popup alert has dark bg in light mode</p></li>
+            <li><p><span class='tag red'>fix</span>Fix error when trying to focus search field when rel. tabs not active</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.24</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Hotfix error tracking</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.23</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix SHIFT+TAB when tab is focused doesn't shift focus to header</p></li>
+            <li><p><span class='tag green'>add</span>Add `CTRL/CMD + M` focus search field in manager tab</p></li>
+            <li><p><span class='tag purple'>update</span>Update manager to focus search field when visible</p></li>
+            <li><p><span class='tag red'>fix</span>Fix saved windows not sorted by last-modified</p></li>
+            <li><p><span class='tag green'>add</span>Add setting to open manager as pinned</p></li>
+            <li><p><span class='tag red'>fix</span>Fix some dark tab icons invisible with mix-blend-mode</p></li>
+            <li><p><span class='tag red'>fix</span>Fix saved pinned tabs is not set on open</p></li>
+            <li><p><span class='tag purple'>update</span>Set manager status state while loading</p></li>
+            <li><p><span class='tag red'>fix</span>Fix `onMessage` now expects response if callback present</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.22</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Update debug logger library</p></li>
+            <li><p><span class='tag purple'>change</span>Change default setting to suspend window tabs on open (see settings)</p></li>
+            <li><p><span class='tag purple'>update</span>Update unsuspend to unsuspend selected tabs (default is all)</p></li>
+            <li><p><span class='tag purple'>update</span>Update suspend to suspend selected tabs (default is all)</p></li>
+            <li><p><span class='tag purple'>change</span>Change suspend to use <a href='https://developers.google.com/web/updates/2015/09/tab-discarding'>chrome tab-discard</a> (still waiting on create discarded tabs)</p></li>
+            <li><p><span class='tag red'>fix</span>Fix bug causing wrong index placement when tab replaced</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.21</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add Planned Features & Updates (see above)</p></li>
+            <li><p><span class='tag green'>add</span>Add saved window by id with extension url: /open.html?id=winId</p></li>
+            <li><p><span class='tag red'>fix</span>Fix chrome bug causing stale window data to persistent</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.20</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add unsuspend window button to window header panel</p></li>
+            <li><p><span class='tag green'>add</span>Add unsuspend tabs to extension menu</p></li>
+            <li><p><span class='tag green'>add</span>Add clear button to merge tool</p></li>
+            <li><p><span class='tag red'>fix</span>Fix dropdown content should render content on open</p></li>
+            <li><p><span class='tag red'>fix</span>Fix close savewin-modal on button throws header error</p></li>
+            <li><p><span class='tag red'>remove</span>Remove old code</p></li>
+            <li><p><span class='tag purple'>update</span>Update sync error tracking breadcrumbs</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.19</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix sync migration check not passing error to handler</p></li>
+            <li><p><span class='tag green'>add</span>Add tools to merge active and saved windows</p></li>
+            <li><p><span class='tag green'>add</span>Add list indicator when tab is suspended</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.18</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add borders to nav and panel</p></li>
+            <li><p><span class='tag green'>add</span>Add display settings icons to toolbar panel</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.17</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add settings option to disable opening saved windows as suspended</p></li>
+            <li><p><span class='tag red'>fix</span>Fix registered chrome manager events sometimes gets unloaded on Mac</p></li>
+            <li><p><span class='tag purple'>update</span>Clean up event handlers</p></li>
+            <li><p><span class='tag purple'>update</span>Update Firebase and Firestore packages</p></li>
+            <li><p><span class='tag red'>Fix</span>Fix remove firestore deprecated timestampInSnapshots settings</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.16</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix various dark theme styling issues</p></li>
+            <li><p><span class='tag purple'>update</span>Update panel buttons and search field position</p></li>
+            <li><p><span class='tag purple'>update</span>Update save modal styling to with dark theme</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.15</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix manager sometimes fails to load when status contains stale inactive tabId</p></li>
+            <li><p><span class='tag red'>fix</span>Fix error tracking verbosity</p></li>
+            <li><p><span class='tag red'>fix</span>Fix about text color overwritten from dark theme</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.14</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add better error tracking</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.13</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Fix StorageArea this context not bound properly after Chrome v.71 update</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.12</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Add dark theme</p></li>
+            <li><p><span class='tag red'>fix</span>Window header date container width should be auto</p></li>
+            <li><p><span class='tag green'>add</span>Add tab count to window headers</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.11</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Window header title missing max-width for long names</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.1</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Open saved windows calling deprecated api</p></li>
+          </ul>
+          <h4 class='note-version'>v2.1.0</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Update website layout, more to come</p></li>
+            <li><p><span class='tag green'>add</span>Stripe to handle license payments to cover service cost and future development</p></li>
+            <li><p><span class='tag green'>add</span>Unload service listeners when manager unloads</p></li>
+            <li><p><span class='tag green'>add</span>Add logic for starting saved windows sync when user is authenticated</p></li>
+            <li><p><span class='tag green'>add</span>Better error tracking</p></li>
+            <li><p><span class='tag green'>add</span>Implement API to handle user authentication events</p></li>
+            <li><p><span class='tag green'>add</span>Add information and error alert modal to pass errors to the manager</p></li>
+            <li><p><span class='tag green'>add</span>Connect windows storage events with the realtime database service</p></li>
+            <li><p><span class='tag green'>add</span>Connect relatime database service with user auth service</p></li>
+            <li><p><span class='tag green'>add</span>Add realtime database service</p></li>
+            <li><p><span class='tag green'>add</span>Add user authentication service as a base for syncing tabs</p></li>
+          </ul>
+          <h4 class='note-version'>v2.0.9</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Help section layout</p></li>
+            <li><p><span class='tag purple'>update</span>About section layout</p></li>
+            <li><p><span class='tag red'>remove</span>Remove export buttons from settings section > tools</p></li>
+            <li><p><span class='tag green'>add</span>Add import windows toolbar button in Saved Windows</p></li>
+            <li><p><span class='tag green'>add</span>Add export all windows toolbar button in Saved Windows</p></li>
+            <li><p><span class='tag green'>add</span>Add xxport specific windows to CSV/JSON with dropdown button on windows</p></li>
+            <li><p><span class='tag purple'>change</span>Replaced CSV exporter module to allow importing exported windows</p></li>
+            <li><p><span class='tag purple'>update</span>Toolbar icons layout</p></li>
+            <li><p><span class='tag red'>fix</span>Hostname group sorting showing duplicate tab</p></li>
+          </ul>
+          <h4 class='note-version'>v2.0.8</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Toolbar icons layout</p></li>
+            <li><p><span class='tag red'>fix</span>Hostname group sorting showing duplicate tab</p></li>
+            <li><p><span class='tag green'>Add</span>Saved tabs includes their pinned state</p></li>
+          </ul>
+          <h4 class='note-version'>v2.0.7</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Hostname group removed itself when tab already in group on update</p></li>
+            <li><p><span class='tag red'>fix</span>ReplaceTab event controller error</p></li>
+            <li><p><span class='tag green'>Add</span>Add domain group removed with DELETE key</p></li>
+          </ul>
+          <h4 class='note-version'>v2.0.6</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Toolbar/window panel buttons layout</p></li>
+            <li><p><span class='tag green'>add</span>Suspend active windows tabs from window manager and menu</p></li>
+            <li><p><span class='tag green'>add</span>Add dropdown selection menu to save an active window to a previously saved window</p></li>
+            <li><p><span class='tag green'>add</span>Save/Send selected tabs to window toolbar button</p></li>
+            <li><p><span class='tag purple'>change</span>Shift + Click by itself selects all tabs from top</p></li>
+            <li><p><span class='tag red'>fix</span>Domain sorting failing to place tab correctly on updates</p></li>
+            <li><p><span class='tag red'>fix</span>DEL key not deleting all selected tabs when sorted by domain</p></li>
+            <li><p><span class='tag red'>remove</span>Remove active reference db index</p></li>
+            <li><p><span class='tag red'>remove</span>Remove window cache for linked windows</p></li>
+            <li><p><span class='tag red'>remove</span>Remove linking active named windows (too many Chrome special cases depending on version and OS)</p></li>
+          </ul>
+          <h4 class='note-version'>v1.9.6-2.0.5</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Increase min clickable area next to tab titles</p></li>
+            <li><p><span class='tag purple'>update</span>Display multiple columns on smaller screens</p></li>
+            <li><p><span class='tag green'>add</span>Open saved windows in suspended tabs (performance loads)</p></li>
+            <li><p><span class='tag red'>fix</span>Don't suspend chrome specific urls</p></li>
+              <li><p><span class='tag purple'>change</span>Saved windows start collapsed</p></li>
+            <li><p><span class='tag green'>add</span>New save window button in manager and menu</p>
+            <li><p><span class='tag green'>add</span>Window cache for tracking linked windows</p></li>
+            <li><p><span class='tag purple'>change</span>Replace autosync with open/save linked windows</p></li>
+            <li><p><span class='tag purple'>update</span>Prepare for adding cloud storage backup/sync</p></li>
+            <li><p><span class='tag red'>fix</span>DB upgrade version mismatch</p></li>
+            <li><p><span class='tag purple'>update</span>DB remove legacy store</p></li>
+            <li><p><span class='tag red'>fix</span>Suspended tab not filtering title on save</p></li>
+            <li><p><span class='tag purple'>change</span>Remove sessions permissions, not used</p></li>
+            <li><p><span class='tag green'>add</span>Add export saved windows</p></li>
+          </ul>
+          <h4 class='note-version'>v1.9.5-1.9.6</h4>
+          <ul>
+            <li><p><span class='tag purple'>change</span>Remove legacy storage converter</p></li>
+            <li><p><span class='tag red'>fix</span>Menu save fails, calling old name validation</p></li>
+            <li><p><span class='tag red'>fix</span>DEL key not working when tabs sorted by domain</p></li>
+          </ul>
+          <h4 class='note-version'>v1.9.2-1.9.4</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Remove tabs with DEL (Win) & BACKSPACE (Mac) - Thanks Tom</p></li>
+            <li><p><span class='tag red'>fix</span>Keyboard deletion for tabs selection</p></li
+            <li><p><span class='tag red'>fix</span>Hostname move tabs to new window re-creates tabs instead of moving</p></li>
+          </ul>
+          <h4 class='note-version'>v1.9.0-1.9.2</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Menu quick access active named windows</p></li>
+            <li><p><span class='tag green'>add</span>Multiple columns support</p></li>
+            <li><p><span class='tag green'>add</span>Add help page</p></li>
+            <li><p><span class='tag red'>fix</span>Manager eventListeners from app not unloaded</p></li>
+            <li><p><span class='tag red'>fix</span>Save window modal focus input field when openened</p></li>
+          </ul>
+          <h4 class='note-version'>v1.8.0-1.9.0</h4>
+          <ul>
+            <li><p><span class='tag purple'>change</span>Change storage to IndexedDB</p></li>
+            <li><p><span class='tag green'>add</span>Sync uses IndexedDB index for ref lookups</p></li>
+            <li><p><span class='tag red'>fix</span>IndexedDB catch transactions abort errors</p></li>
+            <li><p><span class='tag red'>fix</span>Re-link/sync run async map in parallel instead of serial</p></li>
+            <li><p><span class='tag green'>add</span>Autosync for saved windows</p></li>
+            <li><p><span class='tag green'>add</span>Re-sync active synced windows after chrome close</p></li>
+            <li><p><span class='tag green'>add</span>(LEGACY) Migrate over stored windows on update</p></li>
+            <li><p><span class='tag green'>add</span>Turn off sync for active windows</p></li>
+            <li><p><span class='tag green'>add</span>CTRL/CMD + Click opens saved window without sync</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.7.2-1.8.0</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Update views to use web components</p></li>
+            <li><p><span class='tag purple'>update</span>Better performance on multiple tab selection</p></li>
+            <li><p><span class='tag purple'>update</span>ActiveList UI</p></li>
+            <li><p><span class='tag purple'>update</span>SavedList UI</p></li>
+            <li><p><span class='tag purple'>update</span>Tool icons</p></li>
+            <li><p><span class='tag purple'>update</span>Hostname sorting UI</p></li>
+            <li><p><span class='tag green'>add</span>Hostname tooling</p></li>
+            <li><p><span class='tag green'>add</span>SavedList tooling</p></li>
+            <li><p><span class='tag green'>add</span>Window sync</p></li>
+            <li><p><span class='tag green'>add</span>Window sync tooling</p></li>
+            <li><p><span class='tag green'>add</span>Add ActiveList Undo feature</p></li>
+            <li><p><span class='tag green'>add</span>Add savedList Undo feature</p></li>
+            <li><p><span class='tag purple'>update</span>Search filter query on keypress</p></li>
+            <li><p><span class='tag green'>add</span>Search partial separated words</p></li>
+            <li><p><span class='tag red'>fix</span>Search index not updated correctly</p></li>
+            <li><p><span class='tag red'>fix</span>Hide new tabs when search filter active</p></li>
+            <li><p><span class='tag red'>fix</span>Search should not be case sensitive</p></li>
+            <li><p><span class='tag red'>fix</span>Increase saved windows character max length</p></li>
+            <li><p><span class='tag red'>fix</span>Drag & drop index off by 1</p></li>
+            <li><p><span class='tag red'>fix</span>More fixes and improvements, catch them all</p></li>
+            <li><p><span class='tag green'>add</span>Options when saving window</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.7.1</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Drag and drop index placement.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.7.0</h4>
+          <ul>
+            <li><p><span class='tag purple'>update</span>Changelog and version.</p></li>
+            <li><p><span class='tag red'>fix</span>Detached tab event removes tab early.</p></li>
+            <li><p><span class='tag red'>fix</span>Clear checkboxes on drag.</p></li>
+            <li><p><span class='tag green'>add</span>Drag and drop tabs between windows.</p></li>
+            <li><p><span class='tag green'>add</span>Drag and drop tabs in window.</p></li>
+            <li><p><span class='tag red'>fix</span>Win header box padding overflow on focus.</p></li>
+            <li><p><span class='tag purple'>update</span>Replace margin with padding between tabs.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.6.0</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Open tab in current window on: CTRL + CLICK</p></li>
+            <li><p><span class='tag purple'>update</span>Changelog styling.</p></li>
+            <li><p><span class='tag red'>fix</span>Open manager key shortcut reopens manager when exist open in same window.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.5.7</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Uninstall form questionare.</p></li>
+            <li><p><span class='tag red'>fix</span>Extend toolbar buttons margin.</p></li>
+            <li><p><span class='tag red'>fix</span>Reset search on backspace.</p></li>
+            <li><p><span class='tag red'>fix</span>Styling issue.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.4.7</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Double column render flow cut off.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.4.6</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Double column support for wide screen.</p></li>
+            <li><p><span class='tag green'>add</span>Move tabs to new window.</p></li>
+            <li><p><span class='tag green'>add</span>Search/filter windows tabs functionality.</p></li>
+            <li><p><span class='tag green'>add</span>Improved list event delegation.</p></li>
+            <li><p><span class='tag green'>add</span>Improved tab/window selection on mouse/keyboard click.</p></li>
+            <li><p><span class='tag green'>add</span>Improved sorting.</p></li>
+            <li><p><span class='tag green'>add</span>Master window checkbox.</p></li>
+            <li><p><span class='tag green'>add</span>Move between windows with TAB or SHIFT+TAB.</p></li>
+            <li><p><span class='tag green'>add</span>Move between tabs with UP/DOWN-ARROW.</p></li>
+            <li><p><span class='tag green'>add</span>Select tab with SPACE key alt. SHIFT+SPACE.</p></li>
+            <li><p><span class='tag green'>add</span>Collapse/expand window with LEFT/RIGHT key.</p></li>
+            <li><p><span class='tag green'>add</span>Remove tabs with DELETE or BACKSPACE(MAC) key.</p></li>
+            <li><p><span class='tag purple'>update</span>GUI better visibility.</p></li>
+            <li><p><span class='tag purple'>update</span>Saved-windows list window icon.</p></li>
+            <li><p><span class='tag purple'>change</span>Checkboxes remains visible.</p></li>
+            <li><p><span class='tag red'>fix</span>Tab url not displayed on hover.</p></li>
+            <li><p><span class='tag red'>fix</span>Tab toolbar buttons not disabled when tab selected and closed from browser.</p></li>
+            <li><p><span class='tag red'>fix</span>Forced render reflow occuring when clearing selection ranges.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.2.4 - 1.3.6</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Feature to save selected tabs, no tabs selected saves all tabs in window.</p></li>
+            <li><p><span class='tag purple'>update</span>Features listing.</p></li>
+            <li><p><span class='tag green'>add</span>New toolbar layout and icons.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.1.3 - 1.1.4</h4>
+          <ul>
+            <li><p><span class='tag red'>fix</span>Linked window state removed.</p></li>
+            <li><p><span class='tag red'>fix</span>Checkbox multi-select problem in descending view.</p></li>
+            <li><p><span class='tag red'>fix</span>Chrome closing before events have finished.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.0.1 - 1.0.3</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Sort tabs by domain.</p></li>
+            <li><p><span class='tag red'>fix</span>Style fixes.</p></li>
+          </ul>
+
+          <h4 class='note-version'>v1.0.0</h4>
+          <ul>
+            <li><p><span class='tag green'>add</span>Initial release.</p></li>
+          </ul>
+
+        </div>
+      </div>
+
+    <alert-popup hidden>
+      <div class='body'>
+        <div class='close-button panel-button' role='button'>
+          <i class='close-icon icon-xs icon'></i>
+        </div>
+        <div class='header info'>Information</div>
+        <div class='content'></div>
+      </div>
+
+    </alert-popup>
+
+    </main>
+
+    <footer></footer>
+
+    <script src='js/manager.js'></script>
+  </body>
+
+  <!-- Templates -->
+  <template id='active-hostname-header-template'>
+    <input class='hostname-checkbox' type="checkbox" focus-type="checkbox" tabindex="1">
+    <span class='hostname-icon'></span>
+    <span class='hostname-entry'>
+      <h4 class='hostname-title'></h4>
+    </span>
+    <div class='hostname-action-buttons'>
+      <span class='open-button panel-button'>
+        <i class='open-icon icon icon-xs' title='Open in new window'></i>
+      </span>
+    </div>
+    <span class='remove-button panel-button left'>
+      <i class='close-icon icon icon-xs' title='Close tabs'></i>
+    </span>
+    <collapse-win-button class='collapse-button panel-button left tooltip tooltip-s' aria-label='Collapse window'>
+      <i class='fold-icon icon icon-28-16'></i>
+    </collapse-button>
+    <!-- <span class='collapse-button fold-icon'></span> -->
+  </template>
+
+  <template id='active-win-header-template'>
+    <input class='win-checkbox' type="checkbox" focus-type="checkbox" tabindex="-1">
+    <span class='win-icon'></span>
+    <span class='win-entry'>
+      <h3 class='win-title'>
+        <span class='win-link'>
+          <a is='win-link' href='#' tabindex='1' aria-label='Show window' title='Show window'>Window</a>
+        </span>
+      </h3>
+    </span>
+    <span class='tab-count'></span>
+    <span class='tools-separator'></span>
+    <close-tabs-button
+      class='close-tabs-button panel-button tooltip tooltip-s'
+      aria-label='Close tabs'
+      role='button'
+      disabled
+    >
+      <i class='close-tabs-icon icon icon-xs'></i>
+    </close-tabs-button>
+    <open-in-new-win-button
+      class='open-in-new-win-button panel-button right tooltip tooltip-s'
+      aria-label='Open in new window'
+      disabled
+    >
+      <i class='open-icon icon icon-xs'></i>
+    </open-in-new-win-button>
+    <span class='tools-separator'></span>
+
+    <!-- TODO: Left to implement -->
+    <send-dropdown-button class='dropdown panel-button left' disabled hidden>
+      <div class='dropdown-button' title='Save to' role='button'>
+        <i class='folder-move-icon icon-xs icon'></i>
+      </div>
+      <div class='dropdown-content right-menu'></div>
+    </send-dropdown-button>
+
+    <save-as-button class='save-as-button panel-button tooltip tooltip-s' aria-label='Save window'>
+      <i class='folder-star-icon icon icon-xs'></i>
+    </save-as-button>
+    <savewin-modal hidden></savewin-modal>
+    <rename-win-button class='rename-win-button panel-button right tooltip tooltip-s' aria-label='Rename window' hidden>
+      <i class='rename-win-icon icon icon-14-16'></i>
+    </rename-win-button>
+    <rename-win-modal hidden></rename-win-modal>
+    <more-dropdown-button class='dropdown panel-button right'>
+      <div class='dropdown-button' title='More tools' role='button'>
+        <i class='more-icon icon-small icon'></i>
+      </div>
+      <div class='dropdown-content left-menu'>
+        <div class='no-icon' data-export='csv'>Export as CSV</div>
+        <div class='no-icon' data-export='json'>Export as JSON</div>
+        <div class='no-icon' data-type='remove-duplicates'>Remove Duplicates</div>
+        <div class='no-icon' data-type='quick-sort'>Quick Sort</div>
+      </div>
+    </more-dropdown-button>
+    <span class='tools-separator'></span>
+    <suspend-win-button class='suspend-button panel-button left tooltip tooltip-s' aria-label='Suspend tabs'>
+      <i class='suspend-icon icon icon-xs'></i>
+    </suspend-win-button>
+    <close-win-button class='close-button panel-button left tooltip tooltip-s' aria-label='Close window'>
+      <i class='close-icon icon icon-xs'></i>
+    </close-win-button>
+    <collapse-win-button class='collapse-button panel-button left tooltip tooltip-s' aria-label='Collapse window'>
+      <i class='fold-icon icon icon-28-16'></i>
+    </collapse-button>
+  </template>
+
+  <template id='active-tab-template'>
+    <active-tab id='' draggable='true' selected='false' suspended='false' audible='false' muted='false'>
+      <div class='tab-box'>
+        <input class='tab-checkbox' type="checkbox" focus-type="checkbox" tabindex="-1">
+        <span class='tab-icon'></span>
+        <span class='tab-entry'>
+          <span class='tab-title'>
+            <a is='tab-link' title='Show tab' href='#' tabindex='-1'></a>
+          </span>
+          <span class='tab-domain'></span>
+        </span>
+        <span class='tab-indicator'></span>
+        <span class='remove-button panel-button'>
+          <i class='close-icon icon icon-xs' title='Close tab'></i>
+        </span>
+        <mute-tab-button class='panel-button'>
+          <i class='icon audio-on-icon icon-xs'></i>
+          <i class='icon audio-off-icon icon-xs'></i>
+        </mute-tab-button>
+      </div>
+    </active-tab>
+  </template>
+
+  <template id='saved-win-header-template'>
+    <input class='win-checkbox' type="checkbox" focus-type="checkbox" tabindex="-1">
+    <span class='win-icon'></span>
+    <span class='win-entry'>
+      <h3 class='win-title'>
+        <span class='win-link'>
+          <a is='record-link' aria-label='Open window' title='Open window' href='#' tabindex='1'>Window</a>
+        </span>
+      </h3>
+    </span>
+    <span class='tab-count'></span>
+    <span class='tools-separator'></span>
+    <span class='win-date'></span>
+    <span class='tools-separator'></span>
+    <rename-win-button class='rename-win-button panel-button tooltip tooltip-s' aria-label='Rename window'>
+      <i class='rename-win-icon icon icon-14-16'></i>
+    </rename-win-button>
+    <rename-win-modal hidden></rename-win-modal>
+    <more-dropdown-button class='dropdown panel-button right'>
+        <div class='dropdown-button' title='More tools' role='button'>
+          <i class='more-icon icon-small icon'></i>
+        </div>
+        <div class='dropdown-content left-menu'>
+          <div class='no-icon' data-export='csv'>Export as CSV</div>
+          <div class='no-icon' data-export='json'>Export as JSON</div>
+        </div>
+    </more-dropdown-button>
+    <span class='tools-separator'></span>
+    <span class='remove-button panel-button left tooltip tooltip-s' aria-label='Remove window'>
+      <i class='remove-icon icon icon-xs'></i>
+    </span>
+    <collapse-win-button class='collapse-button panel-button left tooltip tooltip-s' aria-label='Collapse window'>
+      <i class='fold-icon icon icon-28-16'></i>
+    </collapse-button>
+  </template>
+
+  <template id='saved-tab-template'>
+    <saved-tab id='' draggable='true' selected='false'>
+      <div class='tab-box'>
+        <input class='tab-checkbox' type="checkbox" focus-type="checkbox" tabindex="-1">
+        <span class='tab-icon'></span>
+        <span class='tab-entry'>
+          <span class='tab-title'>
+            <a title='Open tab' href='#' tabindex='-1'></a>
+          </span>
+          <span class='tab-domain'></span>
+        </span>
+        <span class='remove-button panel-button'>
+          <i class='close-icon icon icon-xs' title='Remove tab'></i>
+        </span>
+      </div>
+    </saved-tab>
+  </template>
+
+  <template id='savewin-modal-template'>
+    <div class='modal-content'>
+      <form class='savewin-form'>
+        <div class='top-content'>
+          <label>Save new window or overwrite</label>
+            <div class='save-selector select'>
+              <select>
+                <option value='new'>New Window</option>
+              </select>
+            </div>
+          <input name='window-name' class='save-input-form' placeholder='Window Name' type='text' maxlength='64' required autofocus>
+          <div class='checkbox-group'>
+            <div class='select-checkbox'>
+              <input class="close-win-checkbox" type="checkbox" focus-type="checkbox" tabindex="-1">
+              <span>Close on save</span>
+            </div>
+          </div>
+        </div>
+        <div class='button-group'>
+          <div class='select-buttons'>
+            <button type=button class='cancel-form-button select-button'>Cancel</button>
+              <button type=submit class='save-form-button select-button'>Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </template>
+
+<!--
+ Name: Cluster - Window & Tab Manager
+ Copyright (c) 2017 Dag Holmberg. All rights reserved.
+-->
+</html>

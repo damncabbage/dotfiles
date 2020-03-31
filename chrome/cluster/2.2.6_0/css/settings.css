@@ -1,0 +1,41 @@
+
+body {
+  display: block;
+  cursor:default;
+  color: rgb(48, 57, 66);
+  margin: 0;
+  min-height: 616px;
+  /* text-align: -webkit-center; */
+  background: rgb(255, 255, 255);
+  -webkit-margin-start: 155px;
+  font-size: 0.85em;
+  /*font-size: 82%;*/
+}
+
+body header {
+  background-image: -webkit-linear-gradient(white, white 40%, rgba(255, 255, 255, 0.92));
+  left: 155px;
+  max-width: 718px;
+  min-width: 600px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+
+body header h1 {
+  margin: 0;
+  padding: 21px 0 14px;
+  width: 670px;
+  min-width: 160px;
+}
+
+main {
+  max-width: 960px;
+}
+
+.divider {
+  min-width: 600px;
+  max-width: 718px;
+  border-bottom: 1px solid #eee;
+}

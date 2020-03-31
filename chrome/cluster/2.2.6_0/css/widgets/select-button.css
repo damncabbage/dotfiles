@@ -1,0 +1,48 @@
+.select-button {
+  color: #444444;
+  background: #F3F3F3;
+  border: 1px #DADADA solid;
+  padding: 5px 12px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.dark .select-button {
+  color: #C4C7C9;
+  background: #242020;
+  border: 1px #343536 solid;
+}
+
+.select-button:active {
+  box-shadow: inset 1px 1px 1px #DFDFDF;
+  opacity: 0.6;
+}
+
+.select-button:hover {
+  border: 1px #C6C6C6 solid;
+  background: #F7F7F7;
+}
+
+.select-button[disabled]:hover {
+  background: #F3F3F3;
+  border: 1px #DADADA solid;
+}
+
+.dark .select-button:hover {
+  background: #242020;
+}
+
+.dark .select-button[disabled]:hover {
+  background: #242020;
+  border: 1px #343536 solid;
+}
+
+.select-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+

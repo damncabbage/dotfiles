@@ -1,0 +1,6 @@
+.tools-separator {
+  display: flex;
+  box-shadow: inset -1px 0 0 rgba(121, 112, 112, 0.2);
+  height: 18px;
+  min-width: 1px;
+}

@@ -30,7 +30,7 @@ function action() {
 pushd `dirname $0` > /dev/null
 
 	# Can anyone say HACK?
-	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/* User/settings.json Services/*"
+	FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/* User/settings.json Services/* chrome/*"
 	TARGETDIR=$HOME
 	OVERRIDE_TARGETDIR=$TARGETDIR
 
@@ -59,6 +59,10 @@ pushd `dirname $0` > /dev/null
 			Services/*)
 				OVERRIDE_TARGETDIR="$HOME/Library"
 				;;
+
+			# Local unpacked extensions
+			chrome/*)
+				OVERRIDE_TARGETDIR="$HOME/build"
 		esac
 
 		# Look, I know these variable names are awful.

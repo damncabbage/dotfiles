@@ -1,0 +1,79 @@
+rename-win-modal {
+  display: block;
+  position: relative;
+}
+
+rename-win-modal .modal-content {
+  position: absolute;
+  box-sizing: border-box;
+  right: 0;
+  left: auto;
+  top: 14px;
+  z-index: 100;
+  width: 320px;
+  margin-top: 2px;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(27,31,35,0.15);
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+}
+
+.dark rename-win-modal .modal-content {
+  background-color: #1A1A1B;
+  border-color: #343536;
+}
+
+rename-win-modal .modal-content .top-content {
+  padding: 16px 16px;
+}
+
+rename-win-modal .modal-content label {
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: block;
+}
+
+rename-win-modal .rename-input-form {
+  width: 97%;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  min-height: 24px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  padding-left: 6px;
+  outline: 0;
+}
+
+.dark rename-win-modal .rename-input-form {
+  background-color: #1A1A1B;
+  border-color: #343536;
+  color: #C4C7C9;
+}
+
+.dark rename-win-modal .rename-input-form:focus {
+  background-color: #0c0c0c;
+}
+
+rename-win-modal .button-group {
+  border-top: 1px solid #e1e4e8;
+}
+
+.dark rename-win-modal .button-group {
+  border-top: 1px solid #343536;
+}
+
+rename-win-modal .button-group .select-buttons {
+  padding: 16px 16px;
+  margin-bottom: 20px;
+}
+
+rename-win-modal .cancel-form-button {
+  float: left;
+}
+
+rename-win-modal .save-form-button {
+  float: right;
+}

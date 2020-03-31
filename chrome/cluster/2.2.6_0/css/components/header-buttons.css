@@ -1,0 +1,97 @@
+.win .header .header-button {
+  display: flex;
+  cursor: pointer;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.win .header .header-button[disabled] .icon-button {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.win .header .header-button[disabled] .icon-button:hover {
+  opacity: 0.4;
+}
+
+.win .header .header-button:not([disabled]) .icon-button {
+  opacity: 0.75;
+}
+
+.win .header .header-button:not([disabled]) .icon-button:hover {
+  opacity: 1;
+}
+
+.win .header .header-button:not([disabled]) .icon-button:active {
+  opacity: 0.6;
+}
+
+.win .header .header-button.right {
+  margin-left: 0;
+  margin-right: 16px;
+}
+
+.win .header .header-button.left {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+save-as-button .save-as-icon {
+  background-image: url('/res/icons/save.svg');
+}
+
+.dark save-as-button .save-as-icon {
+  background-image: url('/res/icons/dark/save.svg');
+}
+
+suspend-win-button .suspend-icon {
+  background-image: url('/res/icons/paus.svg');
+}
+
+.dark suspend-win-button .suspend-icon {
+  background-image: url('/res/icons/dark/paus.svg');
+}
+
+unsuspend-win-button .unsuspend-icon {
+  background-image: url('/res/icons/play-24px.svg');
+}
+
+.dark unsuspend-win-button .unsuspend-icon {
+  background-image: url('/res/icons/dark/play-24px.svg');
+}
+
+close-win-button .close-icon {
+  background-image: url('/res/icons/close.svg');
+}
+
+.dark close-win-button .close-icon {
+  background-image: url('/res/icons/dark/close.svg');
+}
+
+collapse-win-button {
+  cursor: pointer;
+}
+
+collapse-win-button[disabled] {
+  opacity: 0.4;
+}
+
+collapse-win-button[disabled]:hover {
+  opacity: 0.4;
+}
+
+more-dropdown-button .more-icon {
+  background-image: url('/res/icons/more-24px.svg');
+}
+
+.dark more-dropdown-button .more-icon {
+  background-image: url('/res/icons/dark/more-24px.svg');
+}
+
+rename-win-button .rename-win-icon {
+  background-image: url('/res/icons/pencil.svg');
+}
+
+.dark rename-win-button .rename-win-icon {
+  background-image: url('/res/icons/dark/pencil.svg');
+}

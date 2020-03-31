@@ -1,0 +1,172 @@
+/* Window */
+/* color: rgb(115, 119, 122); */
+
+
+
+.win {
+  display: block;
+  max-width: 718px;
+  padding: 4px;
+}
+
+.win .header .win-entry .win-title {
+  display: inline;
+}
+
+.win .header[focused] {
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.win[collapsed='true'] .header {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.win-date {
+  text-align: right;
+  line-height: 18px;
+  color: rgb(115, 119, 122);
+  font-size: 12px;
+  width: auto;
+  white-space: nowrap;
+  margin-right: 16px;
+  margin-left: 16px
+}
+
+.tab-count {
+  line-height: 18px;
+  font-size: 12px;
+  text-align: right;
+  margin-right: 16px;
+  color: rgb(115, 119, 122);
+  user-select: none;
+}
+
+.dark .tab-count {
+  /*color: #386F88;*/
+  color: #B76B42;
+}
+
+.win .win-icon {
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: 22px;
+  flex-shrink: 0;
+  height: 22px;
+  width: 22px;
+}
+
+.win[sync='true'] .header .win-icon {
+  background-image: url('/res/icons/chrome-blue.png') !important;
+}
+
+.win .header .win-link a:focus {
+  outline: none;
+}
+
+/* Header */
+
+.win .header .win-entry .win-link > a {
+  color: rgb(48, 57, 66);
+  margin: 2px;
+  padding: 2px;
+  text-decoration: none;
+  /*font-weight: 500*/;
+}
+
+.dark .win .header .win-entry .win-link > a {
+  color: #C4C7C9;
+}
+
+.win .header .win-entry .win-link > a:hover {
+  text-decoration: underline;
+}
+
+.win .header {
+  align-items: center;
+  display: flex;
+  min-height: 2.8em;
+  background-color: rgb(240, 240, 240);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid rgba(27,31,35,0.15);
+  -webkit-padding-end: 12px;
+  -webkit-padding-start: 12px;
+}
+
+.dark .win .header input[type='checkbox'] {
+  /*background-color: #4a4444 !important;*/
+  background-color: #222222 !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(82, 76, 76, 0.75) !important;
+}
+
+.dark .win .header {
+  background-color: #141415;
+  border: 1px solid #343536;
+}
+
+.win .header[checked] {
+  background-color: #abefcd8c;
+}
+
+.dark .win .header[checked] {
+  background-color: #1762904d;
+}
+
+.win .header .win-entry {
+  white-space: nowrap;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 0 10px 0;
+  margin: 0;
+  margin-left: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/** Buttons */
+
+.win .header .panel-button {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.win .header .panel-button.right, .win .hostname-header .panel-button.right {
+  margin-left: 0;
+  margin-right: 16px;
+}
+
+.win .header .panel-button.left, .win .hostname-header .panel-button.left {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+/* Tabs */
+
+.tabs {
+  display: block;
+  padding: 0;
+  border: 1px solid #d1d5da;
+  border-top: none;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.dark .tabs {
+  border: 1px solid #343536;
+  border-top: none;
+}
+
+/* Hostnames */
+
+.win[sort='2'] .header {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.hostnames {
+  display: block;
+  margin-top: 12px;
+  margin-left: 12px;
+}
+

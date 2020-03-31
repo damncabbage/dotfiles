@@ -1,0 +1,99 @@
+.extension-container {
+  margin: 12px 0;
+  padding: 12px;
+  max-width: 600px;
+}
+
+.extension-well {
+  margin: 12px 0;
+  padding: 12px;
+  max-width: 600px;
+  border-bottom: 1px solid #eee;
+}
+
+.extension-image {
+  background-image: url('/res/icons/icon48.png');
+  background-repeat: no-repeat;
+  background-size: 48px;
+  min-height: 48px;
+  flex-shrink: 0;
+}
+
+.extension-details {
+  padding-left: 60px;
+  padding-top: 6px;
+}
+
+.extension-title {
+  color: rgb(48, 57, 66);
+  display: inline;
+  font-size: 1.2em;
+  font-weight: 500;
+  padding-right: 20px;
+}
+
+.extension-info {
+  font-size: 1em;
+  margin: 5px 0;
+  white-space: normal;
+  color: rgb(115, 119, 122);
+}
+
+.extension-info, .extension-well p {
+  line-height: 1.8em;
+}
+
+.extension-version {
+  color: rgb(115, 119, 122);
+  padding-right: 20px;
+}
+
+.author-note {
+  color: rgb(48, 57, 66)
+}
+
+/** Changelog */
+.tag {
+  padding: 2px 5px 2px;
+  border-radius: 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: white;
+  margin-right: 6px;
+}
+.tag.green {
+  background: #76bf73;
+}
+.tag.red {
+  background: #e88a8a;
+  padding: 2px 9px 2px;
+}
+.tag.purple {
+  background: #7151d2;
+}
+.notes ul {
+  padding: 0px 12px 12px 12px;
+  border-bottom: 1px solid #eee;
+  list-style: none;
+}
+.notes li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+.notes .extension-title {
+  display: flex;
+  margin-left: 12px;
+}
+.note-version {
+  padding: 5px 12px;
+  max-width: 120px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  color: #777;
+}
+
+.dark .extension-title, .dark .extension-info {
+  color: #C4C7C9 !important;
+}

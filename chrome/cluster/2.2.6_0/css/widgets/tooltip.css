@@ -1,0 +1,145 @@
+.tooltip {
+  position: relative;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tooltip:active:after, .tooltip:active:before, .tooltip:focus:after, .tooltip:focus:before, .tooltip:hover:after, .tooltip:hover:before {
+  animation-delay: .4s;
+  animation-duration: .1s;
+  animation-fill-mode: forwards;
+  animation-name: fade-in;
+  animation-timing-function: ease-in;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.tooltip[aria-expanded=true]:after, .tooltip[aria-expander=true]:before {
+  display: none;
+}
+
+.tooltip:before {
+  border: 6px solid transparent;
+  color: #1b1f23;
+  content: "";
+  height: 0;
+  width: 0;
+  z-index: 1000001;
+}
+
+.tooltip-s:before, .tooltip-se:before, .tooltip-sw:before {
+  border-bottom-color: #1b1f23;
+  bottom: -12px;
+  margin-right: -6px;
+  right: 50%;
+  top: auto;
+}
+
+.tooltip-n:before, .tooltip-ne:before, .tooltip-nw:before {
+  border-top-color: #1b1f23;
+  bottom: auto;
+  margin-right: -6px;
+  right: 50%;
+  top: -12px;
+}
+
+.tooltip-w:before {
+  border-left-color: #1b1f23;
+  bottom: 50%;
+  left: -12px;
+  margin-top: -6px;
+  top: 50%;
+}
+
+.tooltip-e:before {
+  border-right-color: #1b1f23;
+  bottom: 50%;
+  margin-top: -6px;
+  right: -12px;
+  top: 50%;
+}
+
+
+.tooltip:after, .tooltip:before {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.tooltip:after {
+  -webkit-font-smoothing: subpixel-antialiased;
+  background: #1b1f23;
+  border-radius: 3px;
+  color: #fff;
+  content: attr(aria-label);
+  letter-spacing: normal;
+  padding: .5em .75em;
+  font-size: 13.6px;
+  font-weight: normal;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: pre;
+  word-wrap: break-word;
+  z-index: 1000000;
+}
+
+.tooltip-n:after, .tooltip-ne:after, .tooltip-nw:after {
+  bottom: 100%;
+  margin-bottom: 12px;
+  right: 50%;
+}
+
+.tooltip-s:after, .tooltip-se:after, .tooltip-sw:after {
+  margin-top: 12px;
+  right: 50%;
+  top: 100%;
+}
+
+.tooltip-nw:after {
+  margin-right: -16px;
+}
+
+.tooltip-n:after, .tooltip-s:after {
+  transform: translateX(50%);
+}
+
+.tooltip-e:after {
+  bottom: 50%;
+  left: 100%;
+  transform: translateY(50%);
+  margin-left: 12px;
+}
+
+.tooltip-w:after {
+  bottom: 50%;
+  margin-right: 12px;
+  right: 100%;
+  transform: translateY(50%);
+}
+
+.tooltip-se:after {
+  left: 50%;
+  margin-left: -16px;
+  right: auto;
+}
+
+.tooltip-sw:after {
+  margin-right: -16px;
+}
+
+.tooltip-ne:after {
+  left: 50%;
+  margin-left: -16px;
+  right: auto;
+}
+

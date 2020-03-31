@@ -1,0 +1,169 @@
+.savedwin-container {
+  display: flex;
+}
+
+savewin-modal {
+  display: block;
+  position: relative;
+}
+
+savewin-modal .modal-content {
+  position: absolute;
+  box-sizing: border-box;
+  right: 0;
+  left: auto;
+  top: 14px;
+  z-index: 100;
+  width: 320px;
+  margin-top: 2px;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(27,31,35,0.15);
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(27,31,35,0.15);
+}
+
+.dark savewin-modal .modal-content {
+  background-color: #1A1A1B;
+  border-color: #343536;
+}
+
+savewin-modal .modal-content .top-content {
+  padding: 16px 16px;
+}
+
+savewin-modal .modal-content label {
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: block;
+}
+
+savewin-modal .save-input-form {
+  width: 97%;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  min-height: 24px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  padding-left: 6px;
+  margin-top: 20px;
+  outline: 0;
+}
+
+.dark savewin-modal .save-input-form {
+  background-color: #1A1A1B;
+  border-color: #343536;
+  color: #C4C7C9;
+}
+
+.dark savewin-modal .save-input-form:focus {
+  background-color: #0c0c0c;
+}
+
+savewin-modal .modal-content .checkbox-group {
+  margin-top: 12px;
+  display: flex;
+}
+
+savewin-modal .modal-content .select-checkbox {
+  width: 120px;
+  margin-left: auto;
+}
+
+savewin-modal .button-group {
+  border-top: 1px solid #e1e4e8;
+}
+
+.dark savewin-modal .button-group {
+  border-top: 1px solid #343536;
+}
+
+savewin-modal .button-group .select-buttons {
+  padding: 16px 16px;
+  margin-bottom: 20px;
+}
+
+savewin-modal .cancel-form-button {
+  float: left;
+}
+
+savewin-modal .save-form-button {
+  float: right;
+}
+
+/* Custom Select Dropdown */
+
+/* Reset Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #d1d5da !important;
+  background: #fff;
+  background-image: none;
+}
+
+.dark select {
+  border: 1px solid #343536 !important;
+  background-color: #1A1A1B;
+  color: #C4C7C9;
+}
+
+/* Custom Select */
+
+.select {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 32px;
+  line-height: 31px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+select {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #000;
+  cursor: pointer;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 8px;
+  background: #dcdcdc;
+  pointer-events: none;
+}
+
+.dark .select:after {
+  border: 1px solid #343536 !important;
+  background-color: #1A1A1B;
+  color: #C4C7C9;
+}
+
+/* Transition */
+.select:hover::after {
+  color: #a9a9a9;
+}
+
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}

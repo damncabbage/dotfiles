@@ -1,0 +1,30 @@
+.search-field {
+  width: 260px;
+  min-width: 260px;
+  min-height: 30px;
+  border: 1px solid #dfe2e5;
+  border-radius: 3px;
+  padding: 6px;
+  margin-top: 6px;
+  font-size: 0.875em;
+  padding-left:30px;
+  background-image:url(/res/icons/search.svg);
+  background-repeat: no-repeat;
+  background-position: 4px center;
+  background-size: 20px;
+}
+
+.search-field:focus {
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.dark .search-field {
+  border: 1px solid #343536;
+  background-color: #1A1A1B;
+  color: #C4C7C9;
+  background-image:url(/res/icons/dark/search.svg);
+}
+
+.dark .search-field:focus {
+  background-color: #0c0c0c;
+}

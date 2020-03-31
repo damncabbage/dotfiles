@@ -1,0 +1,37 @@
+.panel-button {
+  display: flex;
+  cursor: pointer;
+}
+
+.panel-button .icon {
+	opacity: 0.75;
+}
+
+.panel-button .icon:hover {
+	opacity: 1;
+}
+
+.panel-button .icon:active {
+	opacity: 0.6;
+}
+
+.panel-button[disabled] .icon {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.panel-button[disabled] .icon:hover {
+  opacity: 0.4;
+}
+
+.panel-button:not([disabled]) .icon {
+  opacity: 0.75;
+}
+
+.panel-button:not([disabled]) .icon:hover {
+  opacity: 1;
+}
+
+.panel-button:not([disabled]) .icon:active {
+  opacity: 0.6;
+}

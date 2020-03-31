@@ -1,0 +1,115 @@
+.icon-xs {
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  flex-shrink: 0;
+  height: 16px;
+  width: 16px;
+}
+
+.icon-small {
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  flex-shrink: 0;
+  height: 18px;
+  width: 18px;
+}
+
+.icon-medium {
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  flex-shrink: 0;
+  height: 22px;
+  width: 22px;
+}
+
+.icon-large {
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: center;
+  flex-shrink: 0;
+  height: 24px;
+  width: 24px;
+}
+
+.close-icon {
+  background-image: url("/res/icons/close.svg");
+}
+
+.dark .close-icon {
+  background-image: url("/res/icons/dark/close.svg");
+}
+
+.remove-icon {
+  background-image: url("/res/icons/remove.svg");
+}
+
+.dark .remove-icon {
+  background-image: url("/res/icons/dark/remove.svg");
+}
+
+.rename-icon {
+  background-image: url("/res/icons/pencil.svg");
+}
+
+.dark .rename-icon {
+  background-image: url("/res/icons/dark/pencil.svg");
+}
+
+.theme-icon {
+  background-image: url("/res/icons/sun-24px.svg"); 
+}
+
+.dark .theme-icon {
+  background-image: url("/res/icons/dark/sun-24px.svg"); 
+}
+
+.column-icon {
+  background-image: url("/res/icons/column-24px.svg"); 
+}
+
+.dark .column-icon {
+  background-image: url("/res/icons/dark/column-24px.svg");  
+}
+
+.fold-icon {
+  background-image: url("/res/icons/fold-down.png");
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  flex-shrink: 0;
+  height: 12px;
+  width: 12px;
+  /*margin-left: 6px;*/
+  opacity: 0.8;
+}
+
+.fold-icon:hover {
+  opacity: 1.0;
+}
+
+.unfold-icon {
+  background-image: url("/res/icons/fold-right.png");
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  flex-shrink: 0;
+  height: 12px;
+  width: 12px;
+  /*margin-left: 6px;*/
+  opacity: 0.8;
+}
+
+.unfold-icon:hover {
+  opacity: 1.0;
+}
+
+.collapse-button {
+  cursor: pointer;
+}
