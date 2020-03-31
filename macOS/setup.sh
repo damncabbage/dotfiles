@@ -33,6 +33,7 @@ prompt_to_install () {
     httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
     hyperfine # benchmarking
     jq # JSON parser + queries
+    gron # Greppable JSON
     mdcat # cat markdown
     ncdu # Hard-disk space spelunking
     pastel # colour tool
