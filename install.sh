@@ -3,6 +3,8 @@
 # Symlinks the contents of the dotfiles path into 
 #
 
+# TODO: Replace with a freshrc or something.
+
 function info() {
   echo -e "\033[0;33m --\033[m $*"
 }
