@@ -3,3 +3,44 @@
 blast () { terminal-notifier -message "$1"; say "$1"; }
 lrun () { "$@" && blast "'$1' finished" || blast "'$1' failed"; }
 prun () { wait "$1" && blast "'$1' finished" || blast "'$1' failed"; }
+
+stash_in () {
+  local target_dir="$1"
+  if [ ! -d "$1" ]; then
+    echo "The 'stash in' directory \"$1\" doesn't exist; was this a mistake?"
+    return 1
+  fi
+
+  shift
+  local res=0
+  for f in "$@"; do
+    if [ "$res" -gt 0 ]; then
+      return "$res"
+    fi
+    echo "  \"$f\" => \"${target_dir}/$(dirname "$f")/\""
+    mkdir -p "${target_dir}/$(dirname "$f")" && mv -i "$f" "${target_dir}/$(dirname "$f")/"
+    res=$?
+  done
+
+  local cleanup_dirs=()
+  for f in "$@"; do
+    local d; d=$(dirname "$f")
+    if [ -z "$(ls -A "$d" 2>/dev/null)" ]; then
+      cleanup_dirs+=("$d")
+    fi
+  done
+  if [ "${#cleanup_dirs[@]}" -gt 0 ]; then
+    echo
+    echo "These directories were empty:"
+    echo "${cleanup_dirs[@]}"
+    echo "... Should they be cleaned up? (y/N)"
+    local prompt
+    read -r prompt
+    if [ "$(echo "$prompt" | grep -c -i "y")" -eq 1 ]; then
+      for d in "${cleanup_dirs[@]}"; do
+        echo "  rmdir \"$d\""
+        rmdir "$d"
+      done
+    fi
+  fi
+}
