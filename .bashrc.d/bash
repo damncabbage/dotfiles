@@ -39,3 +39,21 @@ urldecode() {
     echo "$@" | echo -e "$(sed 's/+/ /g;s/%\(..\)/\\x\1/g;')"
   fi
 }
+
+# mv with an interactive second arg, eg.
+#   $ mvv foo/bar/baz
+#   foo/bar/baz^Hck^M
+# ... moves foo/bar/baz to foo/bar/back
+function mvv() {
+  if [ "$#" -ne 1 ]; then
+    command mv "$@"
+    return
+  fi
+  if [ ! -f "$1" ]; then
+    command file "$@"
+    return
+  fi
+
+  read -ei "$1" newfilename
+  mv -v "$1" "$newfilename"
+}
