@@ -118,8 +118,8 @@ noremap ,, ,
 " Kill the damned Ex mode.
 nnoremap Q <nop>
 
-" Map :W to :w because it's one of my most common typos.
-command! W write
+" Write without auto-formatters or other autocommand-driven actions.
+command! W :noautocmd write
 
 " }}}
 
