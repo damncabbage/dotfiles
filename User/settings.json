@@ -13,12 +13,17 @@
   "[javascript]": {
     "editor.formatOnSave": true,
   },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+  },
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
   },
+
   "eslint.run": "onSave",
   "ruby.rubocop.onSave": false,
   "elixirLS.dialyzerEnabled": false, // 🆒
+
   // Theme + customisations:
   "workbench.colorTheme": "fairyfloss",
   "workbench.colorCustomizations": {
