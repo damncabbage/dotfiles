@@ -27,3 +27,6 @@ Thumbs.db
 /vendor/bundle
 /vendor/bundler
 /.bundle
+
+# Buildkite
+/.buildkite/name

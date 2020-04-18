@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -eu
+
+# With credit to https://github.com/quintrino/dotfiles/blob/master/config/git/cc_menu
+cc_menu() {
+  local origin=$1
+  local push_url=$2
+
+  local bk_token=$CC_BUILDKITE_TOKEN
+  local bk_org=$CC_BUILDKITE_ORG
+  local gh_org=$CC_GITHUB_ORG
+
+  local push_org=$(cut -f2 -d':' <<<"$(dirname "$(git config --get remote.origin.url)")") # cursed
+  local push_repo=$(basename -s .git "$(git config --get remote.origin.url)")
+
+  # Buildkite project names are wildly inconsistent and not machine-guessable;
+  # encode them in a file. Default to the repo name just in case it's right.
+  local bk_name="$push_repo"
+  local bk_name_file="./.buildkite/name"
+  if [ -f "$bk_name_file" ]; then
+    bk_name=$(cat "$bk_name_file")
+  fi
+
+  if [ "$gh_org" != "$push_org" ]; then
+    return # Not the org we want to keep track of; bail out.
+  fi
+
+  local branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD 2>/dev/null)
+  local url_encoded_branch; url_encoded_branch=$(sed -e 's/\//%2F/g' <<<"$branch")
+
+  if ! defaults read net.sourceforge.cruisecontrol.CCMenu Projects | grep -qF "${push_repo} ($branch)"; then
+    (ps aux | grep -v "grep" | grep -q "CCMenu") && killall CCMenu
+
+    # Remove the initial '(' line, then prepend the config block for the project to the list:
+    defaults write net.sourceforge.cruisecontrol.CCMenu Projects "(
+      { displayName = \"$bk_name ($branch)\";
+        projectName = \"$bk_name ($branch)\";
+        serverUrl = \"https://cc.buildkite.com/${bk_org}/${push_repo}.xml?access_token=${bk_token}&branch=${url_encoded_branch}\";
+      },
+      $(defaults read net.sourceforge.cruisecontrol.CCMenu Projects | tail -n +2)
+    "
+
+    open -g /Applications/CCMenu.app
+  fi
+}
+
+### Run ###
+cc_menu "$@"

@@ -92,7 +92,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-# Git Prompt
+# Git
+
+## Git Prompt
 #export GIT_PS1_SHOWCOLORHINTS='y'
 #export GIT_PS1_SHOWUPSTREAM='auto'
 #export GIT_PS1_DESCRIBE_STYLE='contains'
@@ -101,6 +103,10 @@ fi
 #export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
 export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
+
+## Hook installation
+export GIT_TEMPLATE_DIR="$(undercommit template-dir)"
+
 
 # rbenv
 #if [ -d "$HOME/.rbenv" ] ; then

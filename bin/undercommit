@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+set -eu
+
+CONFIG_HOME_DIR="${HOME}/.config/undercommit"
+TEMPLATE_DIR="${CONFIG_HOME_DIR}/template"
+TEMPLATE_HOOKS_DIR="${TEMPLATE_DIR}/hooks"
+HOOK_IDENTIFICATION_STANZA="### UNDERCOMMIT HOOK ###"
+
+: ${DRYRUN:=}
+carefully() {
+  if [ -z "$DRYRUN" ]; then
+    "$@"
+  else
+    echo >&2 "$@"
+  fi
+}
+
+usage() {
+  local cmd; cmd=$(basename "$0")
+  echo "Usage: $cmd [ template-dir | install | uninstall ]"
+  echo
+  echo "Optional dry-run mode: DRYRUN=1 $cmd ..."
+  exit 2
+}
+
+look_for_git() {
+  (
+    initial_dir=${1:-$PWD}
+    current_dir=$initial_dir
+    while [ "$current_dir" != "/" ]; do
+      if [ -d ".git" ]; then
+        echo "${current_dir}/.git"
+        return 0
+      else
+        cd ..
+        current_dir=$(pwd)
+      fi
+    done
+    echo >&2 "Couldn't find a .git directory in '$initial_dir' or parent paths."
+    exit 1
+  )
+}
+
+# eg.
+#   for_each_file ./my/path ls
+#   for_each_file ./my/path rm -i
+#   for_each_file ./my/path my_function
+#   for_each_file ./my/path my_function "with an arg"
+#   for_each_file ./my/path my_function "with an arg" "and another"
+#   for_each_file ./my/path -name "*find*options*.txt" -- rm -i
+for_each_file() {
+  local in_path=$1; shift
+
+  # Everything before the --, if present.
+  local first_args=()
+  while [ ! -z "${1:-}" ]; do
+    if [ "$1" == '--' ]; then
+      shift
+      break
+    fi
+    first_args+=("$1")
+    shift
+  done
+
+  # Everything after.
+  local second_args=("$@")
+
+  if [ "${#second_args[@]}" -gt 0 ]; then
+    local find_args=("${first_args[@]+"${first_args[@]}"}")
+    local action_with_args=("${second_args[@]}")
+  elif [ "${#first_args[@]}" -gt 0 ]; then
+    local find_args=()
+    local action_with_args=("${first_args[@]}")
+  else
+    echo >&2 "Missing argument: command/function to run for each file."
+  fi
+
+  local file
+  while IFS= read -r file; do
+    "${action_with_args[@]}" "$file"
+  done < <(find "$in_path" -type f "${find_args[@]+"${find_args[@]}"}")
+}
+
+is_undercommit_file() {
+  local file_with_path=$1
+  [ "$(grep -c "$HOOK_IDENTIFICATION_STANZA" "$file_with_path")" -gt 0 ]
+}
+
+install_file() {
+  local git_hooks_path=$1
+  local source_file_with_path=$2
+
+  local file_name; file_name=$(basename "$source_file_with_path")
+  local target_file_with_path="${git_hooks_path}/${file_name}"
+  if [ -f "$target_file_with_path" ]; then
+    if is_undercommit_file "$target_file_with_path"; then
+      echo "Overwriting undercommit file..."
+    else
+      echo "Backing up existing file..."
+      local tmpfile; tmpfile=$(carefully mktemp "${target_file_with_path}.undercommit_backup.XXXXXX")
+      carefully mv -v "$target_file_with_path" "$tmpfile"
+    fi
+  fi
+  echo "Copying from template..."
+  carefully cp -v "$source_file_with_path" "$target_file_with_path"
+  carefully tee -a "$target_file_with_path" <<<"$HOOK_IDENTIFICATION_STANZA" >/dev/null
+}
+
+uninstall_file() {
+  local git_hooks_path=$1
+  local hook_file_with_path=$2
+
+  local hook_file; hook_file=$(basename "$hook_file_with_path")
+  local target_file_with_path="${git_hooks_path}/${hook_file}"
+
+  if [ -f "$target_file_with_path" ] && is_undercommit_file "$target_file_with_path"; then
+    echo "Removing undercommit hook file..."
+    carefully rm -v "$target_file_with_path"
+  fi
+}
+
+restore_backup() {
+  local source_file_with_path=$1
+  local target_file_with_path=${1/.undercommit_backup.*}
+
+  if [ -f "$target_file_with_path" ] && \
+    ! is_undercommit_file "$target_file_with_path"
+  then
+    echo "Can't uninstall non-undercommit git hook file! Tried to perform the following copy:"
+    echo "$source_file_with_path -> $target_file_with_path"
+    exit 3
+  fi
+
+  echo "Restoring original file..."
+  carefully mv -v "$source_file_with_path" "$target_file_with_path"
+}
+
+if [ -z "${1:-}" ]; then
+  usage
+  exit 1
+fi
+
+case "${1:-}" in
+  template-dir)
+    echo "$TEMPLATE_DIR"
+    ;;
+  install)
+    hooks_path="$(look_for_git)/hooks"
+    mkdir -p "$hooks_path"
+    for_each_file "$TEMPLATE_HOOKS_DIR" -- install_file "$hooks_path"
+    echo "Done."
+    ;;
+  uninstall)
+    hooks_path="$(look_for_git)/hooks"
+    for_each_file "$TEMPLATE_HOOKS_DIR" -- uninstall_file "$hooks_path"
+    for_each_file "$hooks_path" -name "*.undercommit_backup.*" -- restore_backup
+    echo "Done."
+    ;;
+  --help)
+    usage
+    ;;
+  *)
+    echo "Unexpected command: $1"
+    usage
+    ;;
+esac
