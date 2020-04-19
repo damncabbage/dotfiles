@@ -28,5 +28,6 @@ Thumbs.db
 /vendor/bundler
 /.bundle
 
-# Buildkite
-/.buildkite/name
+# Buildkite info
+/.buildkite/display_name
+/.buildkite/slug
