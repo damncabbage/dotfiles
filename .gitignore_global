@@ -28,6 +28,9 @@ Thumbs.db
 /vendor/bundler
 /.bundle
 
+# Python
+__pycache__
+
 # Buildkite info
 /.buildkite/display_name
 /.buildkite/slug
