@@ -67,11 +67,6 @@ prompt_to_install () {
   brew cask install "${CASK_PACKAGES[@]}"
 )
 
-prompt_to_install "overcommit (Git Hooks Management)" && (
-  set -x;
-  gem install overcommit;
-)
-
 prompt_to_install "obs ('Open Broadcaster Software')" && (
   set -x;
   brew cask install obs;
