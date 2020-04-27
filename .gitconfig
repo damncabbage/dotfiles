@@ -46,6 +46,8 @@
   pc = push origin HEAD
   pcf = push origin HEAD --force-with-lease
   sync = "!f() { if [ -z \"$1\" ]; then echo 'Usage: git sync [remote] my-branch-to-sync'; exit 1; fi; local remote branch; if [ -z \"$2\" ]; then remote=origin; branch=$1; else remote=$1; branch=$2; fi; git fetch \"$remote\" \"${branch}:${branch}\"; }; f"
+  nb = !"git checkout -b"
+  nbo = "!f() { set -u; git fetch origin && git checkout -b \"$1\" origin/master; }; f"
 
   s = status
   d = difftool -t vimdiff

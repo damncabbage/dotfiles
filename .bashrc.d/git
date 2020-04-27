@@ -3,6 +3,10 @@
 alias gs="git status"
 alias gap="git add -p"
 
+alias tig="echo Remember 'tig status', 'tig blame', and 'If you press t on a commit in the history view, you will open the tree view.' && read && tig"
+alias tigs="tig status"
+alias tigb="tig blame"
+
 gcwip() {
   local message
   if [ -z "$1" ]; then
