@@ -180,6 +180,10 @@ highlight default BadWhitespace ctermbg=red guibg=red
 autocmd ColorScheme <buffer> highlight default BadWhitespace ctermbg=red guibg=red
 match BadWhitespace /\s\+$/
 
+" Show tabs and nbsp, extends+precedes for no-wrapping buffers. (TODO: trail:\❡, maybe)
+set listchars=tab:⇛\ ,extends:→,precedes:→,nbsp:\◦
+set list
+
 " Different background at the 85-column mark characters
 let &colorcolumn=85
 highlight ColorColumn ctermbg=235 guifg=fg guibg=#595272
