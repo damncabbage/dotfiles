@@ -32,6 +32,9 @@ call plug#begin('~/.vim/plugged')
 " A bunch of, uh, 'sensible' defaults.
 Plug 'tpope/vim-sensible', { 'commit': '5dc6eb2' }
 
+" A pair of commands (Sayonara + ...ra!) that handle both buffer deletion and window-closing.
+Plug 'mhinz/vim-sayonara'
+
 " Colorschemes
 Plug 'damncabbage/fairyfloss.vim' " Forked from tssm original; unfixed colour typo.
 
@@ -117,6 +120,10 @@ noremap ,, ,
 
 " Kill the damned Ex mode.
 nnoremap Q <nop>
+
+" Have :q do a combo of bdelete + close window, and :wq write then do the same.
+cnoreabbrev wq w<bar>Sayonara
+cnoreabbrev  q       Sayonara
 
 " Write without auto-formatters or other autocommand-driven actions.
 command! W :noautocmd write
@@ -236,7 +243,7 @@ command! FzfModifiedOnBranch call fzf#run({
 \   'options': '-m +s --prompt="GitBranch> " --preview ''(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500''',
 \   'down': '40%'
 \ })
-" Search files, buffers ...
+" Search files (names), file contents, buffers ...
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 " ... commits and <file-in-current-buffer>-commits.
