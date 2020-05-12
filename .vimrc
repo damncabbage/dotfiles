@@ -238,6 +238,8 @@ set wildmode=list:longest,full " Tab-complete files up to longest unambiguous pr
 set wildignore+=*.swp,*.swo
 
 """ FZF
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 command! FzfModifiedOnBranch call fzf#run({
 \   'source': 'git-files-modified-on-branch',
 \   'sink': 'edit',
@@ -246,6 +248,7 @@ command! FzfModifiedOnBranch call fzf#run({
 \ })
 " Search files (names), file contents, buffers ...
 nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <C-F> :Rg<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 " ... commits and <file-in-current-buffer>-commits.
 nnoremap <silent> <leader>gcc :Commits<CR>
