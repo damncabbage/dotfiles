@@ -19,7 +19,6 @@ case "$COMMIT_SOURCE,$SHA1" in
 
   # Messages are one line messages you decide how to handle
   message,)
-    echo 2
   ;;
 
   # Merge commits

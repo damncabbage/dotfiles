@@ -3,7 +3,7 @@
 alias gs="git status"
 alias gap="git add -p"
 
-alias tig="echo Remember 'tig status', 'tig blame', and 'If you press t on a commit in the history view, you will open the tree view.' && read && tig"
+alias tig="echo \"Remember 'tig status', 'tig blame', 'press [t] on a commit in the history view to open tree view', and 'in blame, press [,] for back-in-history, and [<] for back-to-previous-state'.\"  && read && tig"
 alias tigs="tig status"
 alias tigb="tig blame"
 
@@ -42,7 +42,7 @@ git_rebase_i_from_forked_from() {
   printf "Rebasing from:\n  "
   local GIT_FORKED_FROM;
   GIT_FORKED_FROM=$(git-forked-from)
-  git show --format=oneline "$GIT_FORKED_FROM"
+  git show --format=oneline --no-patch "$GIT_FORKED_FROM"
   git rebase -i "$GIT_FORKED_FROM"
 }
 alias gri="git_rebase_i_from_forked_from"
