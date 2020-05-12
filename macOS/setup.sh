@@ -62,6 +62,7 @@ prompt_to_install () {
     flux # because Night Shift has bugs when you have multiple monitors
     glueprint # translucent always-on-top image hovering, when you're nostalgic for working at a design agency implementing pixel-perfect designs
     keycastr # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up
+    sonic-visualiser # See also: Sonance
     # virtualbox
     # aws-vault
     # tunnelblick
