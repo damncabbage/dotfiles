@@ -42,6 +42,7 @@ prompt_to_install () {
     ripgrep # ack/grep but fast and some bugs fixed
     starship # prompt config
     thefuck # aliased as 'please'
+    asciinema # record terminal sessions to share + play back later
 
     sox # audio tools
 
@@ -60,6 +61,7 @@ prompt_to_install () {
     muzzle # turn off notifications during talks/streams
     flux # because Night Shift has bugs when you have multiple monitors
     glueprint # translucent always-on-top image hovering, when you're nostalgic for working at a design agency implementing pixel-perfect designs
+    keycastr # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up
     # virtualbox
     # aws-vault
     # tunnelblick
