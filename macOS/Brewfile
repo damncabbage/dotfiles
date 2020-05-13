@@ -1,0 +1,98 @@
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "dteoh/sqa"
+
+# The basics:
+brew "git"
+brew "vim"
+brew "ack"
+brew "ctags"
+brew "watch"
+brew "wget"
+brew "rename"
+
+brew "gnu-sed" # because BSD sed is still Bad™
+brew "exa" # 'ls' but not awful
+
+# A bunch of tools need these for compilation:
+brew "coreutils"
+brew "automake"
+brew "autoconf"
+brew "openssl"
+brew "libyaml"
+brew "readline"
+brew "libxslt"
+brew "libtool"
+brew "unixodbc"
+brew "icu4c" # some library everything needs
+
+brew "asdf"
+brew "gpg" # needed for asdf-nodejs
+brew "shellcheck" # sh/bash linter
+
+brew "tig" # git history viewer
+
+brew "bat" # cat with syntax highlighting
+brew "mdcat" # cat markdown
+
+brew "direnv" # pull environment variables from .envrc files
+brew "starship" # prompt config
+
+brew "hexyl" # hexdump but better
+brew "httpie" # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
+brew "hyperfine" # benchmarking
+brew "jq" # JSON parser + queries
+brew "gron" # Greppable JSON
+brew "pv" # pipe-viewer, for progress of copies and the like
+
+brew "fzf" # fuzzy-finder, good for CLI tools
+brew "ripgrep" # ack/grep but fast and some bugs fixed
+
+brew "pastel" # colour tool
+
+brew "ncdu" # Hard-disk space spelunking
+brew "pstree" # 'pstree -p $$' is my "am I in a bash session in a vim session in a bash session" checker
+brew "entr" # file-watcher; use with pipes, eg. while true; do find . -name "*.js" | entr -dcs 'eslint'; done
+brew "thefuck" # aliased as 'please'
+
+brew "asciinema" # record terminal sessions to share + play back later
+
+brew "sox" # audio tools
+brew "ffmpeg" # video tools
+brew "exiftool" # image tools
+brew "imagemagick" # convert anything to anything, badly
+brew "youtube-dl" # download (most) things
+
+brew "terminal-notifier" # macOS notifications
+
+
+cask_args appdir: "/Applications"
+
+cask "caffeine" # keep the machine awake
+cask "karabiner-elements" # messing with key bindings
+cask "muzzle" # turn off notifications during talks/streams
+cask "flux" # because Night Shift has bugs when you have multiple monitors
+cask "rectangle" # window management
+cask "slowquitapps"
+
+cask "aws-vault"
+cask "visual-studio-code"
+cask "glueprint" # translucent always-on-top image hovering, when you're nostalgic for working at a design agency implementing pixel-perfect designs
+cask "sim-daltonism" # colour-blindness/a11y tool
+
+cask "keycastr" # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up
+cask "sonic-visualiser" # real-time spectral analysis tool
+cask "typora" # ignore the void for a while
+
+# Possibly needed:
+#cask "virtualbox"
+#case "tunnelblick"
+#brew "postgres"
+
+
+mas "Boxy", id: 611658502 # Boxy SVG
+mas "Calendarique", id: 1040634920
+mas "Connect", id: 1352696344
+mas "Fenêtre", id: 1288451627
+mas "HazeOver", id: 430798174
+mas "Sonance", id: 423666302

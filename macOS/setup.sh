@@ -1,122 +1,41 @@
 #!/bin/bash -eux
 
-prompt_to_install () {
-  echo "Install '${1}'?";
-  local PROMPT;
-  read -r PROMPT;
+prompt_to_install() {
+  local name="$1"
+  local cmd="${2:-}"
+  if [ ! -z "$cmd" ] && command -v "$cmd" >/dev/null; then
+    echo "'$name' already installed."
+    return
+  fi
+
+  echo "Install '$name'?";
+  local prompt;
+  read -r prompt;
   [[ "$(echo "$PROMPT" | grep -c -i 'y')" -eq 1 ]];
 }
 
-(
+prompt_to_install "Homebrew" "brew" && (
   set -x;
-
-  PACKAGES=(
-    git vim ack ctags watch wget rename # the basics
-    gnu-sed # because BSD sed is still Bad™
-    exa # 'ls' but not awful
-
-    coreutils automake autoconf openssl libyaml readline libxslt libtool unixodbc # a bunch of tools need these for compilation
-    icu4c # some library everything needs
-
-    postgres
-
-    asdf
-    gpg # needed for asdf-nodejs
-    shellcheck # sh/bash linter
-    tig # git history viewer
-
-    bat # cat with syntax highlighting
-    direnv # pull environment variables from .envrc files
-    entr # file-watcher; use with pipes, eg. while true; do find . -name "*.js" | entr -dcs 'eslint'; done
-    fzf # fuzzy-finder, good for CLI tools
-    hexyl # hexdump but better
-    httpie # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
-    hyperfine # benchmarking
-    jq # JSON parser + queries
-    gron # Greppable JSON
-    mdcat # cat markdown
-    ncdu # Hard-disk space spelunking
-    pastel # colour tool
-    pstree # 'pstree -p $$' is my "am I in a bash session in a vim session in a bash session" checker
-    pv # pipe-viewer, for progress of copies and the like
-    ripgrep # ack/grep but fast and some bugs fixed
-    starship # prompt config
-    thefuck # aliased as 'please'
-    asciinema # record terminal sessions to share + play back later
-
-    sox # audio tools
-
-    exiftool # image tools
-    imagemagick # convert anything to anything, badly
-
-    terminal-notifier # macOS notifications
-  )
-  brew install "${PACKAGES[@]}"
-
-  CASK_PACKAGES=(
-    visual-studio-code
-    caffeine # keep the machine awake
-    sim-daltonism # colour-blindness/a11y tool
-    focuswriter # ignore the void for a while
-    karabiner-elements # messing with key bindings
-    muzzle # turn off notifications during talks/streams
-    flux # because Night Shift has bugs when you have multiple monitors
-    glueprint # translucent always-on-top image hovering, when you're nostalgic for working at a design agency implementing pixel-perfect designs
-    keycastr # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up
-    sonic-visualiser # See also: Sonance
-    # virtualbox
-    # aws-vault
-    # tunnelblick
-  )
-  brew cask install "${CASK_PACKAGES[@]}"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 )
 
-prompt_to_install "obs ('Open Broadcaster Software')" && (
+# Use brew-bundle to install the contents of the Brewfile
+brew bundle
+
+prompt_to_install "obs (Open Broadcaster Software)" && (
   set -x;
   brew cask install obs;
 )
 
-prompt_to_install "slowquitapps" && (
+prompt_to_install "CPU Temp Checker" "osx-cpu-temp" && (
   set -x;
-  brew tap dteoh/sqa;
-  brew cask install slowquitapps;
-);
-
-# Pomodoro
-prompt_to_install "thyme" && (
-  set -x;
-  sudo gem install thyme;
-);
-
-cat <<-EOF
-  Manually install:
-  - HazeOver (App Store)
-  - MacSVG (App Store)
-  - VSCode extensions, via ~/dotfiles/support/install_vscode_extensions.sh
-  - Spectacle? (App Store...?)
-  - Try <https://contexts.co/> or <https://github.com/lwouis/alt-tab-macos> ...?
-  - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
-EOF
-
-cat <<-EOF
-  Manually configure:
-  - Scroll direction
-  - Shortcut keys for desktop left+right
-  - Shortcut keys for Automator actions (eg. leave meeting)
-EOF
-
-# CPU Temp tool
-mkdir -p ~/build
-(
-  set -x;
+  mkdir -p ~/build
   [[ -d ~/build/osx-cpu-temp ]] || git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
   cd ~/build/osx-cpu-temp;
   git checkout 22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
 )
 
-
-### macOS settings
-(
+prompt_to_install "macOS Preferences" && (
   set -x;
 
   # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
@@ -156,3 +75,18 @@ mkdir -p ~/build
   # Restart settings-affected applications
   for app in Safari Finder Dock Mail; do killall "$app"; done
 )
+
+cat <<-EOF
+  Manually install:
+  - VSCode extensions, via ~/dotfiles/support/install_vscode_extensions.sh
+  - Try <https://contexts.co/> or <https://github.com/lwouis/alt-tab-macos> ...?
+  - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
+  - Try Yabai <https://github.com/koekeishiya/yabai> ...?
+EOF
+
+cat <<-EOF
+  Manually configure:
+  - Scroll direction
+  - Shortcut keys for desktop left+right
+  - Shortcut keys for Automator actions (eg. leave meeting)
+EOF
