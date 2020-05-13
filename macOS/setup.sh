@@ -54,6 +54,7 @@ prompt_to_install () {
   brew install "${PACKAGES[@]}"
 
   CASK_PACKAGES=(
+    visual-studio-code
     caffeine # keep the machine awake
     sim-daltonism # colour-blindness/a11y tool
     focuswriter # ignore the void for a while
@@ -91,8 +92,7 @@ cat <<-EOF
   Manually install:
   - HazeOver (App Store)
   - MacSVG (App Store)
-  - VSCode <https://code.visualstudio.com/docs/setup/mac>
-    - With extensions, via ~/dotfiles/support/install_vscode_extensions.sh
+  - VSCode extensions, via ~/dotfiles/support/install_vscode_extensions.sh
   - Spectacle? (App Store...?)
   - Try <https://contexts.co/> or <https://github.com/lwouis/alt-tab-macos> ...?
   - Haptic Touch Bar App? <https://www.haptictouchbar.com/> or HapticKey? <https://github.com/niw/HapticKey>
@@ -149,10 +149,6 @@ mkdir -p ~/build
 
   # Dim hidden apps
   defaults write com.apple.dock showhidden -bool true
-
-  # These make MacOS randomly shut down after being suspended for a while sometimes. :|
-  #sudo pmset -a destroyfvkeyonstandby 1
-  #sudo pmset -a standbydelay 300 # 5-minute hibernate countdown
 
   # Make HiDPI mode available for high-res external monitors
   # sudo defaults write /Library/Preferences/com.apple.windowserver.plist DisplayResolutionEnabled -bool true
