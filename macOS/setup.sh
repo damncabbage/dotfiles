@@ -72,6 +72,9 @@ prompt_to_install "macOS Preferences" && (
   # Make HiDPI mode available for high-res external monitors
   # sudo defaults write /Library/Preferences/com.apple.windowserver.plist DisplayResolutionEnabled -bool true
 
+  # Set the scroll direction
+  #defaults write -g com.apple.swipescrolldirection -bool false
+
   # Restart settings-affected applications
   for app in Safari Finder Dock Mail; do killall "$app"; done
 )
