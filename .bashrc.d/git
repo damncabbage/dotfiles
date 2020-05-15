@@ -3,7 +3,7 @@
 alias gs="git status"
 alias gap="git add -p"
 
-alias tig="echo \"Remember 'tig status', 'tig blame', 'press [t] on a commit in the history view to open tree view', and 'in blame, press [,] for back-in-history, and [<] for back-to-previous-state'.\"  && read && tig"
+alias tig="echo \"Remember 'tig status', 'tig blame', 'press [t] on a commit in the history view to open tree view', and 'in blame, press [,] for back-in-history, and [<] for back-to-previous-state'.\" && tig"
 alias tigs="tig status"
 alias tigb="tig blame"
 
