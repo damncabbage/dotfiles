@@ -68,6 +68,8 @@ brew "terminal-notifier" # macOS notifications
 
 cask_args appdir: "/Applications"
 
+cask "iterm2"
+
 cask "caffeine" # keep the machine awake
 cask "karabiner-elements" # messing with key bindings
 cask "muzzle" # turn off notifications during talks/streams
@@ -77,12 +79,13 @@ cask "slowquitapps"
 
 cask "aws-vault"
 cask "visual-studio-code"
-cask "glueprint" # translucent always-on-top image hovering, when you're nostalgic for working at a design agency implementing pixel-perfect designs
 cask "sim-daltonism" # colour-blindness/a11y tool
 
 cask "keycastr" # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up
 cask "sonic-visualiser" # real-time spectral analysis tool
 cask "typora" # ignore the void for a while
+
+cask "workflowy" # organising the things
 
 # Possibly needed:
 #cask "virtualbox"
