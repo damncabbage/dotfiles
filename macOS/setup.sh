@@ -1,31 +1,31 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
 
 prompt_to_install() {
   local name="$1"
   local cmd="${2:-}"
   if [ ! -z "$cmd" ] && command -v "$cmd" >/dev/null; then
     echo "'$name' already installed."
-    return
+    return 99
   fi
 
-  echo "Install '$name'?";
+  echo "Install '$name'? (y/N)";
   local prompt;
   read -r prompt;
-  [[ "$(echo "$PROMPT" | grep -c -i 'y')" -eq 1 ]];
+  [[ "$(echo "$prompt" | grep -c -i 'y')" -eq 1 ]];
 }
 
 prompt_to_install "Homebrew" "brew" && (
-  set -x;
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-)
+) || true
 
 # Use brew-bundle to install the contents of the Brewfile
+echo 'brew bundle'
 brew bundle
 
 prompt_to_install "obs (Open Broadcaster Software)" && (
   set -x;
   brew cask install obs;
-)
+) || true
 
 prompt_to_install "CPU Temp Checker" "osx-cpu-temp" && (
   set -x;
@@ -33,7 +33,7 @@ prompt_to_install "CPU Temp Checker" "osx-cpu-temp" && (
   [[ -d ~/build/osx-cpu-temp ]] || git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
   cd ~/build/osx-cpu-temp;
   git checkout 22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
-)
+) || true
 
 prompt_to_install "macOS Preferences" && (
   set -x;
@@ -77,7 +77,7 @@ prompt_to_install "macOS Preferences" && (
 
   # Restart settings-affected applications
   for app in Safari Finder Dock Mail; do killall "$app"; done
-)
+) || true
 
 cat <<-EOF
   Manually install:
