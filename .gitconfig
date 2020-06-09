@@ -62,3 +62,6 @@
   prune-all = !git remote | xargs -n 1 git remote prune
 
   git = "!git" # Allows 'git git diff' et al to work, when Rob is being scatter-brained and types+pastes git.
+
+[include]
+  path = "~/.gitrc.d/local"
