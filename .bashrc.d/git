@@ -22,7 +22,7 @@ git-forked-from() {
   local BRANCH=${1-origin/master}
   git merge-base "$BRANCH" HEAD
 }
-alias gff='git show $(git_forked_from)'
+alias gff='git show $(git-forked-from)'
 
 git-files-changed() {
   local BRANCH=${1:-origin/master}
