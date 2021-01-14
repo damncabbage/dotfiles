@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eo pipefail
+
+source ~/.bashrc.d/git
+
+# Use fzf to interactively chose a branch.
+branch=$(git-recent-branches | fzf --height 10 | gsed -e 's/^[\* ]\+//' | cut -d' ' -f1)
+
+# If we didn't ctrl-C, then switch to that branch.
+git checkout "$branch"

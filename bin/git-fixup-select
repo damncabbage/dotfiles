@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eo pipefail
+
+source ~/.bashrc.d/git
+
+# Use fzf to interactively chose a commit to fixup.
+message="Choose a commit to fixup (or ^C to abort); commits ordered from least (top) to most (bottom) recent:"
+commit=$(git log --oneline "$(git-forked-from)"..HEAD | fzf --height 10 --header "$message" | gsed -e 's/^[\* ]\+//' | cut -d' ' -f1)
+
+# If we didn't ctrl-C, then switch to that commit.
+git commit --fixup "$commit"
