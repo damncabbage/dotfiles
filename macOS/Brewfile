@@ -65,6 +65,10 @@ brew "youtube-dl" # download (most) things
 
 brew "terminal-notifier" # macOS notifications
 
+brew "carthage" # MacOS dev package manager
+
+brew "awscli" # *long sigh*
+
 
 cask_args appdir: "/Applications"
 
@@ -93,6 +97,9 @@ cask "workflowy" # organising the things
 #brew "postgres"
 
 
+# To get IDs: mas list
+
+mas "Boop", id: 1518425043 # Text scratchpad with transform scripts
 mas "Boxy", id: 611658502 # Boxy SVG
 mas "Calendarique", id: 1040634920
 mas "Connect", id: 1352696344
