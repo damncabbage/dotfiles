@@ -160,6 +160,10 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
   trap "kill $SSH_AGENT_PID" 0
 fi
 
+# Homebrew
+# Stop homebrew removing everything all the bloody time
+export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+
 # Alias 'thefuck' to something more pleasant.
 eval $(thefuck --alias "please")
 
