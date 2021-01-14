@@ -33,7 +33,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible', { 'commit': '5dc6eb2' }
 
 " A pair of commands (Sayonara + ...ra!) that handle both buffer deletion and window-closing.
-Plug 'mhinz/vim-sayonara'
+"Plug 'mhinz/vim-sayonara'
 
 " Colorschemes
 Plug 'damncabbage/fairyfloss.vim' " Forked from tssm original; unfixed colour typo.
@@ -123,8 +123,9 @@ noremap ,, ,
 nnoremap Q <nop>
 
 " Have :q do a combo of bdelete + close window, and :wq write then do the same.
-cnoreabbrev wq w<bar>Sayonara
-cnoreabbrev  q       Sayonara
+"cnoreabbrev wq  w<bar>Sayonara
+"cnoreabbrev  q!       q!
+"cnoreabbrev  q        Sayonara
 
 " Write without auto-formatters or other autocommand-driven actions.
 command! W :noautocmd write
@@ -252,7 +253,7 @@ command! FzfModifiedOnBranch call fzf#run({
 \ })
 " Search files (names), file contents, buffers ...
 nnoremap <silent> <C-P> :Files<CR>
-nnoremap <silent> <C-F> :Rg<CR>
+nnoremap <silent> <C-K> :Rg<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 " ... commits and <file-in-current-buffer>-commits.
 nnoremap <silent> <leader>gcc :Commits<CR>
