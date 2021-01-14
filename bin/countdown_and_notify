@@ -6,4 +6,4 @@
   exit 1
 );
 
-countdown_and.sh "$1" "say 'It has been $1 minutes.'; terminal-notifier -message '$1 minutes is up!'"
+countdown_and "$1" "say 'It has been $1 minutes.'; terminal-notifier -message '$1 minutes is up!'"
