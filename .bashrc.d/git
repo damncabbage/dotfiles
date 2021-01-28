@@ -19,13 +19,13 @@ gcwip() {
 
 # shellcheck disable=2120
 git-forked-from() {
-  local BRANCH=${1-origin/master}
+  local BRANCH=${1-origin/$(git trunk)}
   git merge-base "$BRANCH" HEAD
 }
 alias gff='git show $(git-forked-from)'
 
 git-files-changed() {
-  local BRANCH=${1:-origin/master}
+  local BRANCH=${1:-origin/$(git trunk)}
   (
     set -e;
     FORK_SHA=$(git merge-base "$BRANCH" HEAD);

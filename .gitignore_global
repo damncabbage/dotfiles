@@ -1,3 +1,7 @@
+# Git configuration
+# (Just for my own aliases / commands, etc.)
+.gittrunk
+
 # Vim
 *.swp
 *.swo
