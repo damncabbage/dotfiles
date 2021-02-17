@@ -46,7 +46,8 @@
 
   co = checkout
   cop = branch-select
-  copr = "!f() { git fetch origin pull/$1/head && git checkout pr/$1; }; f" # Running 'git copr 1234' checks out PR #1234
+  bs = branch-select
+  copr = "!f() { git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1; }; f" # Running 'git copr 1234' checks out PR #1234
   nb = !"git checkout -b"
   nbo = "!f() { set -u; git fetch origin && git checkout -b \"$1\" \"origin/$(git trunk)\"; }; f"
 
