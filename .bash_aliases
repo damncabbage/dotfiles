@@ -9,6 +9,8 @@ alias ll='ls -alF'
 
 alias be="bundle exec"
 alias bi="bundle install"
+alias bo="bundle open"
+alias bs="bundle show"
 
 # Pretty-print JSON from STDIN
 alias json="python -mjson.tool"
