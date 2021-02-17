@@ -1,0 +1,35 @@
+#!/usr/bin/ruby
+require 'webrick'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: http-server-just-returns [options] file/to/echo/as/response.txt"
+  opts.separator "(Can use - instead of a file path to indicate STDIN.)"
+
+  opts.on("-p", "--port PORT", Integer, "List on this port") do |p|
+    options[:port] = p
+  end
+
+  opts.on("-h", "--help", "List options and arguments") do
+    puts opts
+    exit
+  end
+end.parse!
+
+file = ARGV.shift.yield_self { |f|
+  if f.nil? || f == "-"
+    $stdin
+  else
+    File.open(f)
+  end
+}
+response = file.read # Blocking for file contents, or stdin.
+
+server = WEBrick::HTTPServer.new(:Port => options.fetch(:port, 8080), :DocumentRoot => Dir.pwd)
+server.mount_proc '/' do |req, res|
+  res.body = response
+end
+
+trap 'INT' do server.shutdown end
+server.start
