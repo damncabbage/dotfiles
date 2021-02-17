@@ -1,4 +1,9 @@
 " TODO: Try
+" Neovim configs (including statusbar): https://github.com/phaazon/config/tree/master/nvim
+" Neovim LSP config: https://www.reddit.com/r/neovim/comments/krghi3/why_neovim_lsp_client_by_tj/giaa72y/
+" ... with https://github.com/RishabhRD/nvim-lsputils
+" ... or coc.nvim
+" ... or this with its recommendations in the thread: https://twitter.com/acid2/status/1358064739650273281
 " Neovim 0.5 LSP support
 " https://github.com/terryma/vim-multiple-cursors
 " https://github.com/nathanaelkane/vim-indent-guides or listchars (https://imgur.com/a/FiHC9Dy)
