@@ -4,6 +4,11 @@ blast () { terminal-notifier -message "$1"; say "$1"; }
 lrun () { "$@" && blast "'$1' finished" || blast "'$1' failed"; }
 prun () { wait "$1" && blast "'$1' finished" || blast "'$1' failed"; }
 
+# Stash a bunch of files in a subdirectory, eg.
+#
+#   stash_in dump tmp-log-*.log blah-*.log
+#
+# ... to take the logs and put them in a directory called 'dump'.
 stash_in () {
   local target_dir="$1"
   if [ ! -d "$1" ]; then
