@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+docker-ensure-running() {
+  (
+    docker-is-running() {
+      docker stats --no-stream 2>/dev/null >/dev/null
+    }
+
+    docker-is-at-least-starting() {
+      # If hyperkit is a running process; may not actually be able to use Docker yet.
+      pgrep com.docker.hyperkit >/dev/null
+    }
+
+    if ! docker-is-at-least-starting; then
+      if ! docker-is-running; then
+        open /Applications/Docker.app
+      else
+        echo "Waiting for Docker to launch..."
+      fi
+    fi
+
+    # Docker takes a few seconds to initialize
+    local timeout=60
+    while ! docker-is-running; do
+      if [ "$timeout" -le 0 ]; then
+        echo "Timed out waiting for Docker to start up. :("
+        return 1
+      fi
+      echo -n "."
+      sleep 1
+      timeout=$((timeout - 1))
+    done
+  )
+}
+
+alias d-c="docker-ensure-running && docker-compose"
+
+dumpster() {
+  if [ -z "$1" ]; then
+    echo "Usage: dumpster image-name (eg. ruby:3)"; return 1
+  else
+    docker-ensure-running && docker run --rm -it "$1"
+  fi
+}

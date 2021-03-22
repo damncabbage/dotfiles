@@ -57,9 +57,6 @@ alias log='mkdir -p ~/logs && vim -O ~/logs/`date +%F`.txt ~/logs/`date -v-1d +%
 alias ie="iex -S mix"
 alias iep="iex -S mix phx.server"
 
-### Docker ###
-alias d-c="docker-compose"
-
 ### Searching ###
 alias rgt="rg --type"
 
