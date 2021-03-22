@@ -1,0 +1,13 @@
+#!/bin/bash
+
+yaml2json() {
+  if [ -z "$1" ]; then
+    echo "Usage: yaml2json filename"
+    echo "eg."
+    echo "  $ yaml2json myfile.yaml"
+    echo "  $ echo -e \"---\nfoo: 123\" | yaml2json -"
+    return 1
+  fi
+
+  yq read "$1" --tojson
+}

@@ -42,6 +42,7 @@ brew "hexyl" # hexdump but better
 brew "httpie" # user-friendly curl alternative, eg. http PUT http://my/url foo=bar
 brew "hyperfine" # benchmarking
 brew "jq" # JSON parser + queries
+brew "yq" # ... and the same for YAML
 brew "gron" # Greppable JSON
 brew "pv" # pipe-viewer, for progress of copies and the like
 
