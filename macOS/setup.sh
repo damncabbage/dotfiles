@@ -22,6 +22,11 @@ prompt_to_install "Homebrew" "brew" && (
 echo 'brew bundle'
 brew bundle
 
+prompt_to_install "pika (Colour picker)" && (
+  set -x;
+  open https://superhighfives.com/pika
+) || true
+
 prompt_to_install "obs (Open Broadcaster Software)" && (
   set -x;
   brew cask install obs;
