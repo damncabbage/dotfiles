@@ -94,7 +94,22 @@ EOF
 
 cat <<-EOF
   Manually configure:
-  - Scroll direction
-  - Shortcut keys for desktop left+right
-  - Shortcut keys for Automator actions (eg. leave meeting)
+  - Trackpad:
+    - Scroll direction
+  - Mouse:
+    - Mouse speed
+  - Keyboard:
+    - Shortcut keys for desktop left+right
+    - Shortcut keys for Automator actions (eg. leave meeting)
+  - Dock:
+    - Disable recent apps in Dock.
+  - General:
+    - Set default browser
+    - Set highlight colour
+  - Accesibility
+    - Mouse zoom
+    - Set "Speak selected text"
+  - Touchbar:
+    - Set "Touchbar shows" to "Expanded control strip"
+  - Start Karabiner Elements, Caffeine, etc.
 EOF
