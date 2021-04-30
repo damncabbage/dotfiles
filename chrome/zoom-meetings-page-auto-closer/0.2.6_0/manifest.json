@@ -1,0 +1,87 @@
+{
+  "name": "Zoom Meetings Page Auto Closer",
+  "description": "Automatically closes the page used to launch Zoom meetings and restores focus to the tab you were on before Zoom opened.",
+  "version": "0.2.6",
+  "manifest_version": 2,
+  "homepage_url": "https://github.com/ChromeAdmin/zoom-meetings-page-auto-closer",
+  "icons": {
+    "16": "icons/icon-128.png",
+    "48": "icons/icon-128.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [],
+  "background": {
+    "scripts": [
+      "src/background.js" 
+    ] 
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": [
+        "*://*.zoom.us/a/*",
+        "*://*.zoom.us/b/*",
+        "*://*.zoom.us/c/*",
+        "*://*.zoom.us/d/*",
+        "*://*.zoom.us/e/*",
+        "*://*.zoom.us/f/*",
+        "*://*.zoom.us/g/*",
+        "*://*.zoom.us/h/*",
+        "*://*.zoom.us/i/*",
+        "*://*.zoom.us/j/*",
+        "*://*.zoom.us/k/*",
+        "*://*.zoom.us/l/*",
+        "*://*.zoom.us/m/*",
+        "*://*.zoom.us/n/*",
+        "*://*.zoom.us/o/*",
+        "*://*.zoom.us/p/*",
+        "*://*.zoom.us/q/*",
+        "*://*.zoom.us/r/*",
+        "*://*.zoom.us/s/*",
+        "*://*.zoom.us/t/*",
+        "*://*.zoom.us/u/*",
+        "*://*.zoom.us/v/*",
+        "*://*.zoom.us/w/*",
+        "*://*.zoom.us/x/*",
+        "*://*.zoom.us/y/*",
+        "*://*.zoom.us/z/*",
+        "*://*.zoom.us/postattendee*",
+        "*://*.zoom.us/wc/leave*",
+        "*://*.zoomgov.com/a/*",
+        "*://*.zoomgov.com/b/*",
+        "*://*.zoomgov.com/c/*",
+        "*://*.zoomgov.com/d/*",
+        "*://*.zoomgov.com/e/*",
+        "*://*.zoomgov.com/f/*",
+        "*://*.zoomgov.com/g/*",
+        "*://*.zoomgov.com/h/*",
+        "*://*.zoomgov.com/i/*",
+        "*://*.zoomgov.com/j/*",
+        "*://*.zoomgov.com/k/*",
+        "*://*.zoomgov.com/l/*",
+        "*://*.zoomgov.com/m/*",
+        "*://*.zoomgov.com/n/*",
+        "*://*.zoomgov.com/o/*",
+        "*://*.zoomgov.com/p/*",
+        "*://*.zoomgov.com/q/*",
+        "*://*.zoomgov.com/r/*",
+        "*://*.zoomgov.com/s/*",
+        "*://*.zoomgov.com/t/*",
+        "*://*.zoomgov.com/u/*",
+        "*://*.zoomgov.com/v/*",
+        "*://*.zoomgov.com/w/*",
+        "*://*.zoomgov.com/x/*",
+        "*://*.zoomgov.com/y/*",
+        "*://*.zoomgov.com/z/*",
+        "*://*.zoomgov.com/postattendee*",
+        "*://*.zoomgov.com/wc/leave*"
+      ],
+      "js": [
+        "src/content.js"
+      ],
+      "css": [
+        "src/content.css"
+      ]
+    }
+  ]
+}
