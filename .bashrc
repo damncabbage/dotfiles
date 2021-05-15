@@ -9,6 +9,15 @@ if [ -f /etc/bash.bashrc ]; then
 	. /etc/bash.bashrc
 fi
 
+# asdf
+if [ -f "$HOME/.asdf/asdf.sh" ]; then
+  . "$HOME/.asdf/asdf.sh"
+  . "$HOME/.asdf/completions/asdf.bash"
+fi
+if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
+  . "/usr/local/opt/asdf/asdf.sh"
+fi
+
 # Prepend Homebrew/local paths, otherwise things like ctags will always use
 # the (rubbish) system-provided version.
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
@@ -134,15 +143,6 @@ fi
 
 # GHC 8.2.2
 #export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"
-
-# asdf
-if [ -f "$HOME/.asdf/asdf.sh" ]; then
-  . "$HOME/.asdf/asdf.sh"
-  . "$HOME/.asdf/completions/asdf.bash"
-fi
-if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
-  . "/usr/local/opt/asdf/asdf.sh"
-fi
 
 # Global JS tools
 if [ -d "$HOME/build/js/node_modules/.bin" ]; then
