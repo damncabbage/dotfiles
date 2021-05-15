@@ -1,5 +1,13 @@
 #!/bin/bash
 
+mkcd() {
+  if [ $# -ne 1 ]; then
+    echo "Usage: mkcd path/to/make/and/cd/into"
+    return 1
+  fi
+  mkdir -p "$1" && cd "$1"
+}
+
 history_delete_last() {
   (
     set -e;
