@@ -28,9 +28,11 @@ brew "icu4c" # some library everything needs
 
 brew "asdf"
 brew "gpg" # needed for asdf-nodejs
+
 brew "shellcheck" # sh/bash linter
 
 brew "tig" # git history viewer
+brew "git-delta" # pretty diff pager
 
 brew "bat" # cat with syntax highlighting
 brew "mdcat" # cat markdown

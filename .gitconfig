@@ -5,6 +5,7 @@
 [core]
   excludesfile = ~/.gitignore_global
   editor = /usr/bin/env vim
+  pager = delta # https://github.com/dandavison/delta
 
 [commit]
   verbose = true # Include the commit diff in the chunk of stuff git preloads into the editor
@@ -12,6 +13,25 @@
 [diff]
   colorMoved = plain # Show moved blocks in a different colour to added+removed blocks
   colorWords = true # Word diffs
+
+[delta]
+  syntax-theme = "fairyfloss"
+  #minus-style = normal "#572739"
+  #minus-emph-style = normal "#9b2739"
+  #minus-empty-line-marker-style = normal "#5f3951"
+  #plus-style = syntax "#2D5C18"
+  #plus-emph-style = syntax "#2D7C18"
+  #plus-empty-line-marker-style = normal "#395f51"
+  minus-style = normal "#814A62"
+  minus-emph-style = normal "#b42840"
+  minus-empty-line-marker-style = normal "#814A62"
+  plus-style = syntax "#0A6D00"
+  plus-emph-style = syntax "#0A8E1E"
+  plus-empty-line-marker-style = normal "#395f51"
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+  hunk-header-decoration-style = yellow box
 
 [difftool "vimdiff"]
   cmd = vimdiff -c ':colorscheme ron' $LOCAL $REMOTE
