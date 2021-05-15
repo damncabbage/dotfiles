@@ -47,6 +47,8 @@ brew "jq" # JSON parser + queries
 brew "yq" # ... and the same for YAML
 brew "gron" # Greppable JSON
 brew "pv" # pipe-viewer, for progress of copies and the like
+brew "moreutils" # misc, but includes "vipe".
+brew "telnet" # just because
 
 brew "fzf" # fuzzy-finder, good for CLI tools
 brew "ripgrep" # ack/grep but fast and some bugs fixed
@@ -72,6 +74,9 @@ brew "carthage" # MacOS dev package manager
 
 brew "awscli" # *long sigh*
 
+# Neovim
+tap "jason0x43/homebrew-neovim-nightly"
+cask "neovim-nightly"
 
 cask_args appdir: "/Applications"
 
@@ -94,6 +99,7 @@ cask "sim-daltonism" # colour-blindness/a11y tool
 cask "keycastr" # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up
 cask "sonic-visualiser" # real-time spectral analysis tool
 cask "typora" # ignore the void for a while
+cask "vlc" # video player
 
 cask "workflowy" # outliner / nested dotpoint organisation the things
 
