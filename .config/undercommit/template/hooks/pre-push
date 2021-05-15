@@ -6,6 +6,10 @@ cc_menu() {
   local origin=$1
   local push_url=$2
 
+  if [ -z "${CC_BUILDKITE_TOKEN:-}" ]; then
+    return 0
+  fi
+
   # WARNING: These variables need to be declared separately.
   local bk_token=$CC_BUILDKITE_TOKEN # A Buildkite API Access Token with at least read_builds access.
   local bk_org=$CC_BUILDKITE_ORG # The Buildkite org slug, eg. "couture-animer"
