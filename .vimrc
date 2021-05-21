@@ -380,6 +380,12 @@ let g:LanguageClient_serverCommands = {
 " Check the type under cursor
 nnoremap <silent> <leader>t :call LanguageClient_textDocument_hover()<CR>
 
+" References and Implementations under cursor
+nnoremap <silent> <leader>r :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <leader>i :call LanguageClient#textDocument_implementation()<CR>
+
+" TODO: completion
+
 " Until LanguageClient plugin supports adding to the tag-stack, use this as a workaround
 " from a comment on an issue thread:
 "   https://github.com/autozimu/LanguageClient-neovim/issues/517#issuecomment-507564489
@@ -490,9 +496,10 @@ au FileType markdown setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 " Run nearest spec under cursor.
 au FileType ruby setlocal nosmarttab
 let g:rspec_command = "!bundle exec rspec {spec}"
-nnoremap <leader>rr :call RunNearestSpec()<CR>
-nnoremap <leader>rf :call RunCurrentSpecFile()<CR>
-nnoremap <leader>rl :call RunLastSpec()<CR>
+nnoremap <leader>sr :call RunNearestSpec()<CR>
+nnoremap <leader>ss :call RunNearestSpec()<CR>
+nnoremap <leader>sf :call RunCurrentSpecFile()<CR>
+nnoremap <leader>sl :call RunLastSpec()<CR>
 
 """ Elm
 au FileType elm setlocal tabstop=4 expandtab shiftwidth=4 softtabstop=4
