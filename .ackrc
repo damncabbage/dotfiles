@@ -22,7 +22,8 @@
 
 # Ignores
 --ignore-dir=vendor/bundler
---ignore-file=match:tags
+--ignore-file=is:tags
+# Previously: --ignore-file=match:tags
 
 --noignore-dir=node_modules
 --type-set=npm:is:package.json
