@@ -49,3 +49,11 @@ stash_in () {
     fi
   fi
 }
+
+# A number that monotonically increases during a session.
+# Optional argument: the initial number.
+monotonic() {
+  __MONOTONIC_SESSION_COUNTER=${__MONOTONIC_SESSION_COUNTER:=${1:-0}}
+  __MONOTONIC_SESSION_COUNTER=$((__MONOTONIC_SESSION_COUNTER + 1));
+  echo "$__MONOTONIC_SESSION_COUNTER"
+}
