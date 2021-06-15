@@ -8,7 +8,7 @@ function! AddJsDebug()
   " TODO: debounce?
   call add(debug_method_code, "  var cl = (new Error).stack.split(\"\\n\")[2]")
   call add(debug_method_code, "  var index = cl.indexOf('at ')")
-	call add(debug_method_code, "  var clClean = cl.slice(index+3, cl.length)")
+  call add(debug_method_code, "  var clClean = cl.slice(index+3, cl.length)")
   call add(debug_method_code, "  console.log('[' + clClean + '] [' + name + ']:', val)")
   call add(debug_method_code, "  return val")
   call add(debug_method_code, "}")
@@ -17,7 +17,7 @@ function! AddJsDebug()
   " Save cursor position to restore at the end of the function.
   let save_cursor = getcurpos()
 
-  " 1) Add the debug line to the top of the Ruby file, so it's available in
+  " 1) Add the debug line to the top of the JS file, so it's available in
   "    later code, if we haven't already added it.
   call cursor(1, 1)
   let debug_find_result = search('\V' . minified_debug, 'c')
@@ -93,3 +93,6 @@ function! AddJsDebug()
 endfunction
 
 nnoremap <leader>dd :call AddJsDebug()<CR>
+
+" Lint Fix
+nmap <leader>ll :!eslint --fix %<CR>

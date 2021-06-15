@@ -78,7 +78,6 @@ Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 Plug 'prettier/vim-prettier', {
-  \ 'branch': 'issue/232-adding-support-for-prettier-2.x',
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 " TODO: Try:
