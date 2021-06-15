@@ -180,6 +180,14 @@ colorscheme fairyfloss
 hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
 hi! link Visual Search
 
+" Fix up the lack of Spell* and Pmenu* styles (which LanguageClient uses) by copying SpellBad.
+hi SpellBad   ctermbg=NONE guifg=NONE guibg=NONE gui=undercurl
+hi SpellCap   ctermbg=NONE guifg=NONE guibg=NONE gui=undercurl
+hi SpellLocal ctermbg=NONE guifg=NONE guibg=NONE gui=undercurl
+hi SpellRare  ctermbg=NONE guifg=NONE guibg=NONE gui=undercurl
+hi Pmenu      ctermfg=0 ctermbg=13 guifg=fg guibg=Grey40
+hi PmenuThumb ctermbg=15 guibg=Black
+
 " Show trailing whitespace
 highlight default BadWhitespace ctermbg=red guibg=red
 autocmd ColorScheme <buffer> highlight default BadWhitespace ctermbg=red guibg=red
@@ -382,6 +390,9 @@ nnoremap <silent> <leader>t :call LanguageClient_textDocument_hover()<CR>
 " References and Implementations under cursor
 nnoremap <silent> <leader>r :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <leader>i :call LanguageClient#textDocument_implementation()<CR>
+
+" Show the menu of actions
+nnoremap <silent> <leader>o :call LanguageClient_contextMenu()<CR>
 
 " TODO: completion
 
