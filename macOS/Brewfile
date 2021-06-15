@@ -33,6 +33,9 @@ brew "shellcheck" # sh/bash linter
 
 brew "tig" # git history viewer
 brew "git-delta" # pretty diff pager
+brew "git-interactive-rebase-tool" # git rebase -i, with the ability to dig into logs, easily flip lines, etc.
+tap "jesseduffield/lazygit"
+brew "lazygit" # Console Git GUI
 
 brew "bat" # cat with syntax highlighting
 brew "mdcat" # cat markdown

@@ -47,6 +47,7 @@
   ff = only # No accidental merges when 'git pull'-ing
 
 [push]
+  default = simple # 'upstream' for same origin, 'current' otherwise; includes safety checks.
   followTags = true # Also push tags associated with commits being pushed; disable with 'git push --no-follow-tags'
 
 [stash]
@@ -54,6 +55,9 @@
 
 [status]
   submoduleSummary = true
+
+[sequence]
+  #editor = interactive-rebase-tool # Still unsure about this one; a bit _too_ different from both tig and vim.
 
 [rebase]
   autoStash = true

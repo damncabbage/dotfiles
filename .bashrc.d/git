@@ -7,6 +7,8 @@ alias tig="echo \"Remember 'tig status', 'tig blame', 'press [t] on a commit in 
 alias tigs="tig status"
 alias tigb="tig blame"
 
+alias gg="lazygit" # gg as in, "git gui"
+
 gcwip() {
   local message
   if [ -z "$1" ]; then
