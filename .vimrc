@@ -248,7 +248,10 @@ set nofoldenable
 " File-search / file opening {{{
 
 " Open file prompt with current path
-nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+nmap <leader>e :e <C-R>=expand("%:.:h") . '/'<CR>
+
+" Open :e prompt with ~/code directory pre-filled.
+nmap <leader>c :e ~/code/
 
 set wildmenu
 set wildmode=list:longest,full " Tab-complete files up to longest unambiguous prefix
