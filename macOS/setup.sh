@@ -40,6 +40,14 @@ prompt_to_install "CPU Temp Checker" "osx-cpu-temp" && (
   git checkout 22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
 ) || true
 
+prompt_to_install "QMK (Moonlander et al)" && (
+  set -x;
+  QDIR=~/code/self/qmk_firmware
+  mkdir -p "$QDIR"
+  git clone git@github.com:damncabbage/qmk_firmware "$QDIR"
+  qmk setup -H ~/code/self/qmk_firmware damncabbage/qmk_firmware
+) || true
+
 prompt_to_install "macOS Preferences" && (
   set -x;
 

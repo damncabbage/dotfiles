@@ -1,3 +1,5 @@
+cask_args appdir: "/Applications"
+
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "dteoh/sqa"
@@ -73,15 +75,26 @@ brew "youtube-dl" # download (most) things
 
 brew "terminal-notifier" # macOS notifications
 
+brew "lazydocker" # docker + docker-compose management
+
 brew "carthage" # MacOS dev package manager
 
 brew "awscli" # *long sigh*
 
+# Moonlander / QMK
+tap "osx-cross/arm"
+tap "osx-cross/avr"
+brew "avr-gcc"
+brew "arm-gcc-bin"
+brew "qmk/qmk/qmk"
+
+tap "homebrew/cask-drivers"
+brew "libusb"
+cask "zsa-wally" # Flashing tool
+
 # Neovim
 tap "jason0x43/homebrew-neovim-nightly"
 cask "neovim-nightly"
-
-cask_args appdir: "/Applications"
 
 cask "iterm2"
 
