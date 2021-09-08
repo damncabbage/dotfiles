@@ -257,6 +257,10 @@ set wildmenu
 set wildmode=list:longest,full " Tab-complete files up to longest unambiguous prefix
 set wildignore+=*.swp,*.swo
 
+""" Git
+nnoremap <leader>zz :!lazygit<CR>
+nnoremap <leader>za :!git add -p %<CR>
+
 """ FZF
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
