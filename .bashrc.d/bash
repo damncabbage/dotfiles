@@ -52,7 +52,7 @@ urldecode() {
 #   $ mvv foo/bar/baz
 #   foo/bar/baz^Hck^M
 # ... moves foo/bar/baz to foo/bar/back
-function mvv() {
+mvv() {
   if [ "$#" -ne 1 ]; then
     command mv "$@"
     return
@@ -64,4 +64,8 @@ function mvv() {
 
   read -ei "$1" newfilename
   mv -v "$1" "$newfilename"
+}
+
+mcd() {
+  mkdir -p "$@" && cd "$@"
 }
