@@ -64,5 +64,6 @@ alias rgt="rg --type"
 alias trek="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14" # Infinite starship engine noise. :D
 alias weather="curl http://wttr.in/Sydney"
 alias minprompt='export PS1="\w$(__git_ps1)\$ "'
+alias keysmash='cat /dev/urandom | env LC_CTYPE=C tr -dc "asdfghjkl;" | fold -w 20 | head -n 1'
 
 alias pomo="thyme -r -b"

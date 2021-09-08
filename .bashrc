@@ -111,7 +111,8 @@ fi
 #export color_prompt="yes"
 . ~/.git-completion.bash
 #export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
-export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
+#export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
+export PS1='robin:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 
 ## Hook installation
@@ -167,6 +168,9 @@ export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 
 # Alias 'thefuck' to something more pleasant.
 eval $(thefuck --alias "please")
+
+# AWS
+export SAM_CLI_TELEMETRY=0
 
 # z
 # Most 'frecent' directories, eg.
