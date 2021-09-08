@@ -57,3 +57,7 @@ monotonic() {
   __MONOTONIC_SESSION_COUNTER=$((__MONOTONIC_SESSION_COUNTER + 1));
   echo "$__MONOTONIC_SESSION_COUNTER"
 }
+
+sum() {
+  cat | awk 'BEGIN{total=0} {total+=$1} END{print total}'
+}
