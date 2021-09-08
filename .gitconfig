@@ -73,12 +73,12 @@
   bs = branch-select
   copr = "!f() { git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1; }; f" # Running 'git copr 1234' checks out PR #1234
   nb = !"git checkout -b"
-  nbo = "!f() { set -u; git fetch origin && git checkout -b \"$1\" \"origin/$(git trunk)\"; }; f"
+  nbo = "!f() { set -u; git fetch origin && git checkout -b \"$1\" \"origin/$(git trunk)\" && git pu; }; f"
 
-  pc = push origin HEAD
+  pc = push -u origin HEAD
   pcf = push origin HEAD --force-with-lease
-  pu = push origin -u
-  puf = push origin -u --force-with-lease
+  pu = push -u origin HEAD
+  puf = push origin HEAD --force-with-lease
   prom = "!git pull --rebase origin \"$(git trunk)\""
 
   # TODO: Remove...?
