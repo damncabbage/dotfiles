@@ -23,6 +23,7 @@
 # Ignores
 --ignore-dir=vendor/bundler
 --ignore-file=is:tags
+--ignore-dir=dist
 # Previously: --ignore-file=match:tags
 
 --noignore-dir=node_modules
