@@ -93,6 +93,9 @@ Plug 'thoughtbot/vim-rspec', { 'for': ['ruby'] }
 " Elixir
 Plug 'elixir-editors/vim-elixir'
 
+" Go
+Plug 'fatih/vim-go'
+
 " Markdown
 Plug 'godlygeek/tabular' " eg. :Tab /,\zs  - must come *before* vim-markdown
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -384,12 +387,15 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'elixir': ['~/build/elixir/ls/language_server.sh'],
+    \ 'go': ['gopls'],
     \ }
 " The above needs to have:
 "   npm install -g typescript-language-server
 "   gem install solargraph
 "   pip install python-language-server
 "   rustup component add rls --toolchain stable-x86_64-apple-darwin
+" Not usable yet:
+"    \ 'c': ['ccls'],
 
 " Check the type under cursor
 nnoremap <silent> <leader>t :call LanguageClient_textDocument_hover()<CR>
