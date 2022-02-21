@@ -81,16 +81,20 @@ brew "carthage" # MacOS dev package manager
 
 brew "awscli" # *long sigh*
 
-# Moonlander / QMK
+### Moonlander / QMK
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 brew "avr-gcc"
 brew "arm-gcc-bin"
 brew "qmk/qmk/qmk"
 
+# Flashing tool
 tap "homebrew/cask-drivers"
 brew "libusb"
 cask "zsa-wally" # Flashing tool
+
+# C dev env
+brew "ccls"
 
 # Neovim
 tap "jason0x43/homebrew-neovim-nightly"
