@@ -32,7 +32,7 @@ if [ "${IS_MAC:-}" ]; then
 	alias osxresetdock="killall Dock"
 fi
 
-if [ "${IS_LINUX:-}" ]; then
+if [ "${IS_LINUX:-}" ] && command -v ack-grep >/dev/null; then
   # Debian has an inconvenient name for its ack.
   alias ack="ack-grep"
 fi
