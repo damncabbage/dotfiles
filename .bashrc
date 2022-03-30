@@ -31,6 +31,11 @@ PATH="env/bin:$PATH"
 # Stack (Haskell)
 PATH="$HOME/.local/bin:$PATH"
 
+# Rust/Cargo
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
+
 # Set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
