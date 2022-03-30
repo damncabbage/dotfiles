@@ -1,6 +1,6 @@
 [user]
-  name = Rob Howard
-  email = rob@robhoward.id.au
+  name = Robin Howard
+  email = robin@rhoward.id.au
 
 [core]
   excludesfile = ~/.gitignore_global
