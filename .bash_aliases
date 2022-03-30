@@ -44,6 +44,14 @@ else
   alias netconns="netstat -tapn"
 fi
 
+# Clipboard
+if [ "${IS_LINUX:-}" ]; then
+  if command -v xclip>/dev/null; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+  fi
+fi
+
 # Vim
 vis() {
   DIR="${1:-.}"
