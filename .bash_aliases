@@ -52,6 +52,10 @@ if [ "${IS_LINUX:-}" ]; then
   fi
 fi
 
+if [ "${IS_MAC:-}" ]; then
+  alias lsusb="ioreg -p IOUSB -w 0"
+fi
+
 # Vim
 vis() {
   DIR="${1:-.}"
