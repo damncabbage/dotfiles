@@ -170,6 +170,7 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
 fi
 
 # Homebrew
+eval $(/opt/homebrew/bin/brew shellenv)
 # Stop homebrew removing everything all the bloody time
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 
@@ -178,6 +179,9 @@ eval $(thefuck --alias "please")
 
 # AWS
 export SAM_CLI_TELEMETRY=0
+
+# MacOS Bash warning
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # z
 # Most 'frecent' directories, eg.

@@ -84,9 +84,11 @@ brew "awscli" # *long sigh*
 ### Moonlander / QMK
 tap "osx-cross/arm"
 tap "osx-cross/avr"
-brew "avr-gcc"
-brew "arm-gcc-bin"
-brew "qmk/qmk/qmk"
+#brew "avr-gcc"
+#brew "arm-gcc-bin"
+#brew "arm-none-eabi-gcc"
+tap "qmk/qmk"
+brew "qmk"
 
 # Flashing tool
 tap "homebrew/cask-drivers"
