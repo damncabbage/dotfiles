@@ -1,6 +1,9 @@
 .vim/.netrwhist
 .DS_Store
 
+/.ssh/*
+!/.ssh/config
+
 /.bundle/cache
 
 /.vim/plugged
