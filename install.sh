@@ -31,6 +31,9 @@ function action() {
 # Make sure we're in the same directory as the script
 pushd `dirname $0` > /dev/null
 
+  # Make sure submodules are all present before we get started
+  git submodule update --init --recursive
+
   # Can anyone say HACK?
   FILES=".[A-Za-z0-9_][A-Za-z0-9_.]* .config/* bin/* lib/* User/settings.json Services/* chrome/*"
   TARGETDIR=$HOME
