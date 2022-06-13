@@ -1,6 +1,8 @@
 " TODO: Try
 "
 " https://github.com/lifepillar/vim-mucomplete as a solution for stacks of autocomplete
+" https://github.com/mg979/vim-visual-multi
+" https://witchhazel.thea.codes/
 "
 " Neovim configs (including statusbar): https://github.com/phaazon/config/tree/master/nvim
 " Neovim LSP config: https://www.reddit.com/r/neovim/comments/krghi3/why_neovim_lsp_client_by_tj/giaa72y/
