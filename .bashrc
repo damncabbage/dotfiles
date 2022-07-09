@@ -170,9 +170,11 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
 fi
 
 # Homebrew
-eval $(/opt/homebrew/bin/brew shellenv)
-# Stop homebrew removing everything all the bloody time
-export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+  # Stop homebrew removing everything all the bloody time
+  export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+fi
 
 # Alias 'thefuck' to something more pleasant.
 eval $(thefuck --alias "please")
