@@ -6,9 +6,22 @@
 
 # Import from the global blob
 if [ -f /etc/bash.bashrc ]; then
-	. /etc/bash.bashrc
+  . /etc/bash.bashrc
 fi
 
+## Helpers
+prepend_path_if_exists() {
+  if [ ! -z "$1" ] && [ -d "$1" ]; then
+    # Add $2 if provided, otherwise use $1
+    export PATH="${2:-$1}:$PATH"
+  fi
+}
+
+# Check what we're running on.
+[[ `uname -a | grep -ic 'linux'` -gt 0 ]] && export IS_LINUX=1
+[[ `uname -a | grep -ic 'darwin'` -gt 0 ]] && export IS_MAC=1
+
+## Setup scripts
 # asdf
 if [ -f "$HOME/.asdf/asdf.sh" ]; then
   . "$HOME/.asdf/asdf.sh"
@@ -17,57 +30,41 @@ fi
 if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
   . "/usr/local/opt/asdf/asdf.sh"
 fi
-
-# Prepend Homebrew/local paths, otherwise things like ctags will always use
-# the (rubbish) system-provided version.
-PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-
-# Node.js
-PATH="node_modules/.bin:$PATH"
-
-# Python
-PATH="env/bin:$PATH"
-
-# Stack (Haskell)
-PATH="$HOME/.local/bin:$PATH"
+if [ -f "/opt/homebrew/opt/asdf/libexec/asdf.sh" ]; then
+  . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+fi
 
 # Rust/Cargo
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
-# Set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-	PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/build/bin" ] ; then
-	PATH="$HOME/build/bin:$PATH"
-fi
-
-# Haskell
-if [ -d "$HOME/.cabal" ]; then
-	PATH=".cabal-sandbox/bin:$HOME/.cabal/bin:$PATH"
-fi
-#if [ -d "$HOME/.mafia/bin/hdevtools/bin" ]; then
-#  PATH="$HOME/.mafia/bin/hdevtools/bin:$PATH"
-#fi
-#if [ -d "$HOME/.haskell-vim-now/bin" ]; then
-#  PATH="$HOME/.haskell-vim-now/bin:$PATH"
-#fi
-
-if [ -d "/opt/blender" ]; then
-	PATH="$PATH:/opt/blender"
-fi
-
+# Node.js
 if [ -d "$HOME/.nvm" ]; then
   export NVM_DIR="$HOME/.nvm"
   . "/usr/local/opt/nvm/nvm.sh"
   #nvm use 8 2>/dev/null >/dev/null
 fi
 
-# Check what we're running on.
-[[ `uname -a | grep -ic 'linux'` -gt 0 ]] && export IS_LINUX=1
-[[ `uname -a | grep -ic 'darwin'` -gt 0 ]] && export IS_MAC=1
+## Plain $PATH manip
+# Node.js
+prepend_path_if_exists "$HOME/node_modules/.bin"
+
+# Python
+prepend_path_if_exists "$HOME/env/bin"
+
+# Haskell
+prepend_path_if_exists "$HOME/.local/bin" # Stack
+prepend_path_if_exists "$HOME/.cabal" "$HOME/.cabal-sandbox/bin:$HOME/.cabal/bin"
+
+# Set PATH so it includes user's private bin if it exists
+prepend_path_if_exists "$HOME/bin"
+prepend_path_if_exists "$HOME/build/bin"
+
+# Misc
+prepend_path_if_exists "/opt/blender"
+prepend_path_if_exists "$HOME/.platformio/penv/bin"
+
 
 # History
 # No duplicate blanks lines
@@ -100,45 +97,30 @@ shopt -s checkwinsize
 
 # Aliases to import
 if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # Programmable bash completion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	. /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 
-# Git
-
-## Git Prompt
-#export GIT_PS1_SHOWCOLORHINTS='y'
-#export GIT_PS1_SHOWUPSTREAM='auto'
-#export GIT_PS1_DESCRIBE_STYLE='contains'
-#export color_prompt="yes"
+## Git
+# Git Prompt
 . ~/.git-completion.bash
-#export PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
-#export PS1='\u:\w$(__git_ps1 " (%s)")\$ '
 export PS1='robin:\w$(__git_ps1 " (%s)")\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 
-## Hook installation
+# Hook installation
 export GIT_TEMPLATE_DIR="$(undercommit template-dir)"
-
-
-# rbenv
-#if [ -d "$HOME/.rbenv" ] ; then
-#	# "rbenv" command
-#	PATH="$HOME/.rbenv/bin:$PATH"
-#	eval "$(rbenv init -)"
-#fi
 
 # Elixir
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Set STDERR text to red
 #if [ -f "$HOME/lib/stderred.so" ]; then
-#	export LD_PRELOAD="$HOME/lib/stderred.so"
+#  export LD_PRELOAD="$HOME/lib/stderred.so"
 #fi
 
 # Load in anything else that's install-specific.
@@ -148,14 +130,6 @@ if [ -d "$HOME/.bashrc.d" ]; then
     source "${FILE}"
   done
   shopt -u nullglob
-fi
-
-# GHC 8.2.2
-#export PATH="$HOME/.stack/programs/x86_64-osx/ghc-8.2.2/bin:${PATH}"
-
-# Global JS tools
-if [ -d "$HOME/build/js/node_modules/.bin" ]; then
-  export PATH="$PATH:$HOME/build/js/node_modules/.bin"
 fi
 
 # ripgrep config
