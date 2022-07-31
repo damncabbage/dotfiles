@@ -51,6 +51,7 @@ Plug 'tpope/vim-sensible', { 'commit': '5dc6eb2' }
 
 " Colorschemes
 Plug 'damncabbage/fairyfloss.vim' " Forked from tssm original; unfixed colour typo.
+Plug 'theacodes/witchhazel'
 
 " Files
 Plug 'scrooloose/nerdtree'
@@ -185,8 +186,10 @@ set viminfo^=% " Remember info about open buffers on close
 set t_Co=256 " Say we can use 256 colours
 set termguicolors " Use the hex-code colours in colour-schemes (24-bit colours).
 
-colorscheme fairyfloss
+"colorscheme fairyfloss
 "hi Underlined guifg=#ffffff guibg=NONE gui=underline cterm=none ctermfg=0
+
+colorscheme witchhazel
 
 " Use visible search highlighting
 hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
