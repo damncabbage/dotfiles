@@ -124,6 +124,7 @@ cask "typora" # ignore the void for a while
 cask "vlc" # video player
 
 cask "workflowy" # outliner / nested dotpoint organisation the things
+cask "autodesk-fusion360"
 
 # Possibly needed:
 #cask "virtualbox"
