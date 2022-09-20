@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+db_args=(-conf ~/.dosbox.conf)
+db_prog=${1:-}
+
+if [ -f "./dosbox.conf" ]; then
+  db_args+=(-conf ./dosbox.conf)
+fi
+
+if [ ! -z "$db_prog" ]; then
+  [ -f "$db_prog/dosbox.conf" ] && db_args+=(-conf ${db_prog}/dosbox.conf)
+  [ -d "$db_prog" ] && db_args+=(-c "cd $db_prog")
+fi
+
+set -x
+dosbox "${db_args[@]}"
