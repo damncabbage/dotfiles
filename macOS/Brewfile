@@ -81,7 +81,14 @@ brew "carthage" # MacOS dev package manager
 
 brew "awscli" # *long sigh*
 
-### Moonlander / QMK
+# Neovim + Supporting fonts
+brew "luarocks"
+brew "neovim"
+tap "homebrew/cask-fonts"
+cask "font-hack-nerd-font"
+
+
+### Keeb / QMK
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 #brew "avr-gcc"
@@ -96,13 +103,9 @@ brew "libusb"
 cask "zsa-wally" # Flashing tool
 
 # C dev env
-brew "ccls"
+#brew "ccls"
 
-# Neovim
-tap "jason0x43/homebrew-neovim-nightly"
-cask "neovim-nightly"
-
-cask "iterm2"
+#cask "iterm2"
 
 cask "caffeine" # keep the machine awake
 cask "karabiner-elements" # messing with key bindings

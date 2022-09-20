@@ -8,7 +8,6 @@
 
 /.vim/plugged
 /.vim/session
-
 /.vim/bundle
 /.vim/haskell/bin
 /.vim/haskell/data
@@ -23,3 +22,5 @@
 /parked
 
 /.config/karabiner/automatic_backups
+
+/.config/nvim/plugin
