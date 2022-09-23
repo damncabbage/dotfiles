@@ -214,8 +214,10 @@ vim.cmd [[
 -- Load in aliases+functions to make them available in a :!... command.
 vim.env.BASH_ENV = "~/.config/nvim/bash.sh"
 
--- Shortcut to open a terminal buffer
-vim.keymap.set('n', '<leader>!', ':term<cr>')
+-- Shortcut to open a terminal buffer at the bottom of the screen, and switch to it.
+vim.keymap.set('n', '<leader>!', ':botright split<cr>:term<cr>', {
+  desc = "Open terminal buffer in a bottom h-split"
+})
 
 -- Allow typing into term buffers on open
 vim.cmd [[
