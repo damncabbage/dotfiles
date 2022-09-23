@@ -87,6 +87,12 @@ brew "neovim"
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
 
+### C++
+# esp-if
+brew "cmake"
+brew "ninja"
+brew "dfu-util"
+
 
 ### Keeb / QMK
 tap "osx-cross/arm"
