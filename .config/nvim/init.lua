@@ -121,6 +121,7 @@ require('packer').startup(function(use)
     end
   }
 
+  -- Parallel undo histories, for a scatter-brained fool like me
   use 'mbbill/undotree'
 
   -- Keep last, in order to bootstrap successfully.
@@ -211,7 +212,7 @@ vim.cmd [[
 ]]
 
 -- Load in aliases+functions to make them available in a :!... command.
-vim.env.BASH_ENV = "~/.vim/bash.sh"
+vim.env.BASH_ENV = "~/.config/nvim/bash.sh"
 
 -- Shortcut to open a terminal buffer
 vim.keymap.set('n', '<leader>!', ':term<cr>')
