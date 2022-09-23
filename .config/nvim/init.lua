@@ -1,6 +1,11 @@
---------------------------------------------------------------------------------
+-- luacheck: ignore
+if not vim then
+  vim = {}
+end
+
+--------------------------------------------------------
 -- Neovide configuration
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Done first so that bootstrapping plugins etc still looks nice
 if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0.05
@@ -8,9 +13,9 @@ if vim.g.neovide then
   vim.opt.guioptions = "i"
 end
 
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Plugins
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Packer is the new Bundle/Vundle/Plug I guess?
 -- Make sure we can bootstrap it.
 local ensure_packer = function()
@@ -116,15 +121,17 @@ require('packer').startup(function(use)
     end
   }
 
+  use 'mbbill/undotree'
+
   -- Keep last, in order to bootstrap successfully.
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
 
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- General Settings
---------------------------------------------------------------------------------
+--------------------------------------------------------
 vim.opt.scrolloff = 8
 vim.g.mapleader = ","
 vim.opt.mouse = "a"
@@ -141,6 +148,13 @@ vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.cmd "colorscheme one-nvim"
 
+-- Line-wrapping
+vim.opt.wrap = true
+vim.opt.linebreak = true   -- Avoid line-wrapping in the middle of a word.
+vim.opt.breakindent = true -- Hanging indent soft-wrap ...
+vim.opt.sbr = "↪ "         -- ... prefixed by an arrow, and a space (to make it line up with a match 2-space indent).
+vim.opt.breakindentopt = "min:20,shift:0"
+
 -- Persistent undo
 local undo_path = vim.fn.stdpath('data')..'/undo'
 if vim.fn.empty(vim.fn.glob(undo_path)) > 0 then
@@ -151,16 +165,68 @@ vim.opt.undodir = undo_path..'/'
 vim.opt.swapfile = false
 
 vim.opt.textwidth = 0
-vim.opt.wrap = true
 vim.opt.list = true
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
+vim.opt.expandtab = true
 vim.opt.cc = '81'
 vim.opt.ruler = true
+vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
 
---------------------------------------------------------------------------------
+-- Buffers and Tabs
+-- Tab-moving (complementing gt and gT)
+vim.keymap.set('n', 'mt', ':tabmove +1<cr>')
+vim.keymap.set('n', 'mT', ':tabmove -1<cr>')
+
+-- Buffer navigation
+vim.keymap.set('n', 'gb', ':bnext<cr>')
+vim.keymap.set('n', 'gB', ':bprevious<cr>')
+
+-- Return to last edit position when opening files
+vim.cmd [[
+  augroup last_edit
+    autocmd!
+    autocmd BufReadPost *
+         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+         \   exe "normal! g`\"" |
+         \ endif
+  augroup end
+]]
+vim.opt.viminfo = "%,"..vim.opt.viminfo._value -- Remember info about open buffers on close
+
+-- Source the vimrc file after saving it
+vim.cmd [[
+  augroup sourcing
+    autocmd!
+    autocmd bufwritepost init.lua source $MYVIMRC
+  augroup end
+]]
+
+--------------------------------------------------------
+-- Shell-related business
+--------------------------------------------------------
+-- Write without auto-formatters or other autocommand-driven actions.
+vim.cmd [[
+  command! W :noautocmd write
+]]
+
+-- Load in aliases+functions to make them available in a :!... command.
+vim.env.BASH_ENV = "~/.vim/bash.sh"
+
+-- Shortcut to open a terminal buffer
+vim.keymap.set('n', '<leader>!', ':term<cr>')
+
+-- Allow typing into term buffers on open
+vim.cmd [[
+  autocmd TermOpen * startinsert
+]]
+
+-- Rebind the clunky C-\ C-n to the quicker esc-esc
+vim.keymap.set('t', '<esc><esc>', '<C-\\><C-n>')
+
+--------------------------------------------------------
 -- Treesitter configuration
---------------------------------------------------------------------------------
+--------------------------------------------------------
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "c", "cpp", "lua", "rust", "ruby", "javascript", "typescript" },
   sync_install = true,
@@ -171,10 +237,9 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Search Configuration
---------------------------------------------------------------------------------
-
+--------------------------------------------------------
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -192,10 +257,9 @@ vim.keymap.set('n', '<leader>p', function()
   require('telescope.builtin').registers(require('telescope.themes').get_cursor({}))
 end)
 
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Language Server Configuration
---------------------------------------------------------------------------------
-
+--------------------------------------------------------
 require('mason').setup()
 require('mason-lspconfig').setup()
 
@@ -206,9 +270,9 @@ require("mason-lspconfig").setup_handlers {
   end
 }
 
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Autocompletion
---------------------------------------------------------------------------------
+--------------------------------------------------------
 vim.opt.completeopt = {"menu", "menuone", "noselect", "preview"}
 
 require('snippy').setup {}
@@ -236,6 +300,8 @@ cmp.setup {
         else
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         end
+      else
+        fallback()
       end
     end, {"i", "s", "c"}),
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -264,9 +330,9 @@ cmp.setup.cmdline(':', {
   }
 })
 
---------------------------------------------------------------------------------
+--------------------------------------------------------
 -- Status Line
---------------------------------------------------------------------------------
+--------------------------------------------------------
 require('lualine').setup {
   theme = 'onedark',
   options = {
@@ -293,3 +359,10 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
 }
+
+--------------------------------------------------------
+-- Undo Tree
+--------------------------------------------------------
+vim.keymap.set('n', '<leader>u', ':UndotreeToggle<CR>')
+vim.g.undotree_WindowLayout = 3
+vim.g.undotree_SetFocusWhenToggle = 1
