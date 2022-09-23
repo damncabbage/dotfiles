@@ -124,6 +124,15 @@ require('packer').startup(function(use)
   -- Parallel undo histories, for a scatter-brained fool like me
   use 'mbbill/undotree'
 
+  -- Show me what my shortcuts are
+  use {
+    'folke/which-key.nvim',
+    config = function()
+      require("which-key").setup {
+      }
+    end
+  }
+
   -- Keep last, in order to bootstrap successfully.
   if packer_bootstrap then
     require('packer').sync()
