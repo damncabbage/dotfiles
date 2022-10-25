@@ -36,9 +36,11 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- Themes
+  use 'tssm/fairyfloss.vim'
   use 'theacodes/witchhazel'
   use 'Th3Whit3Wolf/one-nvim'
   use 'morhetz/gruvbox'
+  use 'folke/tokyonight.nvim'
 
   -- Displays nice git diff information in the sidebar
   use {
@@ -133,6 +135,9 @@ require('packer').startup(function(use)
     end
   }
 
+  -- Buffer management
+  use 'kazhala/close-buffers.nvim'
+
   -- Keep last, in order to bootstrap successfully.
   if packer_bootstrap then
     require('packer').sync()
@@ -156,7 +161,9 @@ vim.opt.smartcase = true
 
 -- Pretty
 vim.opt.termguicolors = true
-vim.cmd "colorscheme one-nvim"
+vim.cmd "colorscheme tokyonight"
+--vim.cmd "colorscheme one-nvim"
+--vim.cmd "colorscheme witchhazel-hypercolor"
 
 -- Line-wrapping
 vim.opt.wrap = true
@@ -183,6 +190,14 @@ vim.opt.cc = '81'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
 
+vim.keymap.set('n', '<leader>P', function()
+  if vim.opt.paste:get() then
+    vim.opt.paste = false
+  else
+    vim.opt.paste = true
+  end
+end)
+
 -- Buffers and Tabs
 -- Tab-moving (complementing gt and gT)
 vim.keymap.set('n', 'mt', ':tabmove +1<cr>')
@@ -202,7 +217,7 @@ vim.cmd [[
          \ endif
   augroup end
 ]]
-vim.opt.viminfo = "%,"..vim.opt.viminfo._value -- Remember info about open buffers on close
+vim.opt.viminfo:prepend("%") -- Remember info about open buffers on close
 
 -- Source the vimrc file after saving it
 vim.cmd [[
@@ -345,32 +360,48 @@ cmp.setup.cmdline(':', {
 --------------------------------------------------------
 -- Status Line
 --------------------------------------------------------
-require('lualine').setup {
-  theme = 'onedark',
-  options = {
-    component_separators = '',
-    section_separators = '',
-  },
-
-  -- Override 'encoding': Don't display if encoding is UTF-8.
-  encoding = function()
+do
+  -- mode: Include 'Paste' info
+  local mode = function()
+    local ms = require('lualine.utils.mode').get_mode()
+    if vim.opt.paste:get() then
+      ms = ms .. ' '
+    end
+    return ms
+  end
+  -- encoding: Don't display if encoding is UTF-8.
+  local encoding = function()
     local ret, _ = (vim.bo.fenc or vim.go.enc):gsub("^utf%-8$", "")
     return ret
-  end,
+  end
   -- fileformat: Don't display if &ff is unix.
-  fileformat = function()
+  local fileformat = function()
     local ret, _ = vim.bo.fileformat:gsub("^unix$", "")
     return ret
-  end,
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {function() return require('nvim-treesitter').statusline({}) end},
-    lualine_x = {encoding, fileformat, 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-}
+  end
+  -- statusline: Handle nil return values for :term buffers
+  local statusline = function()
+    local ret = require('nvim-treesitter').statusline({})
+    return (ret or '')
+  end
+  local filetype = {'filetype', colored = false, icon_only = true}
+
+  require('lualine').setup {
+    theme = 'onedark',
+    options = {
+      component_separators = '',
+      section_separators = '',
+    },
+    sections = {
+      lualine_a = {mode},
+      lualine_b = {'branch', 'diff', 'diagnostics'},
+      lualine_c = {statusline},
+      lualine_x = {encoding, fileformat, filetype},
+      lualine_y = {'progress'},
+      lualine_z = {'location'}
+    },
+  }
+end
 
 --------------------------------------------------------
 -- Undo Tree
@@ -378,3 +409,8 @@ require('lualine').setup {
 vim.keymap.set('n', '<leader>u', ':UndotreeToggle<CR>')
 vim.g.undotree_WindowLayout = 3
 vim.g.undotree_SetFocusWhenToggle = 1
+
+--------------------------------------------------------
+-- Close Buffers
+--------------------------------------------------------
+vim.keymap.set('n', '<leader>bd', ':BDelete! hidden<CR>')
