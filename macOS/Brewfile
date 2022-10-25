@@ -111,10 +111,10 @@ cask "zsa-wally" # Flashing tool
 # C dev env
 #brew "ccls"
 
-#cask "iterm2"
+cask "iterm2"
+cask "wezterm"
 
 cask "caffeine" # keep the machine awake
-cask "karabiner-elements" # messing with key bindings
 cask "muzzle" # turn off notifications during talks/streams
 cask "flux" # because Night Shift has bugs when you have multiple monitors
 cask "rectangle" # window management
@@ -133,16 +133,16 @@ cask "typora" # ignore the void for a while
 cask "vlc" # video player
 
 cask "workflowy" # outliner / nested dotpoint organisation the things
-cask "autodesk-fusion360"
 
 # Possibly needed:
 #cask "virtualbox"
 #cask "tunnelblick"
 #cask "blender"
 #brew "postgres"
+#cask "autodesk-fusion360"
 
-
-# To get IDs: mas list
+# Mac App Store
+# (To get IDs: mas list)
 
 mas "Boop", id: 1518425043 # Text scratchpad with transform scripts
 mas "Boxy", id: 611658502 # Boxy SVG
@@ -151,3 +151,5 @@ mas "Connect", id: 1352696344
 mas "Fenêtre", id: 1288451627
 mas "HazeOver", id: 430798174
 mas "Sonance", id: 423666302
+
+# TODO: look at whalebrew for some things, eg. qmk

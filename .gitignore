@@ -24,3 +24,5 @@
 /.config/karabiner/automatic_backups
 
 /.config/nvim/plugin
+
+/macOS/Brewfile.lock.json
