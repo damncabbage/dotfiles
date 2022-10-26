@@ -25,32 +25,33 @@ return {
   font_size = 14.0,
   use_cap_height_to_scale_fallback_fonts = true,
 
-  color_scheme = 'Fairyfloss',
-  colors = {
-    foreground = '#F8F8F2',
-    background = '#282634',
+  color_scheme = 'tokyonight-storm',
+  --color_scheme = 'Fairyfloss',
+  --colors = {
+  --  foreground = '#F8F8F2',
+  --  background = '#282634',
 
-    ansi = {
-      "#040303",
-      "#f92672",
-      "#c2ffdf",
-      "#e6c000",
-      "#c2ffdf",
-      "#ffb8d1",
-      "#c5a3ff",
-      "#f8f8f0"
-    },
-    brights = {
-      "#6090cb",
-      "#ff857f",
-      "#c2ffdf",
-      "#ffea00",
-      "#c2ffdf",
-      "#ffb8d1",
-      "#c5a3ff",
-      "#f8f8f0"
-    }
-  },
+  --  ansi = {
+  --    "#040303",
+  --    "#f92672",
+  --    "#c2ffdf",
+  --    "#e6c000",
+  --    "#c2ffdf",
+  --    "#ffb8d1",
+  --    "#c5a3ff",
+  --    "#f8f8f0"
+  --  },
+  --  brights = {
+  --    "#6090cb",
+  --    "#ff857f",
+  --    "#c2ffdf",
+  --    "#ffea00",
+  --    "#c2ffdf",
+  --    "#ffb8d1",
+  --    "#c5a3ff",
+  --    "#f8f8f0"
+  --  }
+  --},
 
   keys = {
     { key = 'LeftArrow', mods = 'SUPER', action = wezterm.action.ActivateTabRelative(-1) },
