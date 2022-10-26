@@ -1,9 +1,22 @@
 local wezterm = require 'wezterm'
+local act = wezterm.action
+
+-- Helpers
+-- TODO: for some reason wezterm.nerdfonts.mdi_numeric_#_outline (et al) are missing in this version.
+local box_glyphs = {
+  filled = { [0] = '', '', '', '', '', '', '', '', '', '' },
+  outline = { [0] = '', '', '', '', '', '', '', '', '', '' },
+}
+local box_types = { outline = 'outline', filled = 'filled' }
+local box = function(num, type)
+  return box_glyphs[type][num] or ('[' .. num .. ']')
+end
 
 wezterm.on(
   'format-tab-title',
   function(tab)
-    return ' ' .. tab.tab_index + 1 .. ' '
+    box_type = tab.is_active and box_types.filled or box_types.outline
+    return box(tab.tab_index + 1, box_type) .. ' ' .. tab.active_pane.title .. ' '
   end
 )
 
