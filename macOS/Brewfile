@@ -67,6 +67,7 @@ brew "thefuck" # aliased as 'please'
 
 brew "asciinema" # record terminal sessions to share + play back later
 
+brew "graphviz" # for dot, etc
 brew "sox" # audio tools
 brew "ffmpeg" # video tools
 brew "exiftool" # image tools
@@ -75,6 +76,7 @@ brew "youtube-dl" # download (most) things
 
 brew "terminal-notifier" # macOS notifications
 
+#cask "docker" # Docker Desktop # TODO: doesn't work on M1...?
 brew "lazydocker" # docker + docker-compose management
 
 brew "carthage" # MacOS dev package manager
@@ -125,6 +127,8 @@ cask "slowquitapps"
 
 cask "aws-vault"
 cask "visual-studio-code"
+
+cask "pika" # colour picker
 cask "sim-daltonism" # colour-blindness/a11y tool
 
 cask "keycastr" # key display, good for Quicktime screen recordings if you don't have ScreenFlow or OBS set up

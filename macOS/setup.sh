@@ -22,22 +22,9 @@ prompt_to_install "Homebrew" "brew" && (
 echo 'brew bundle'
 brew bundle
 
-prompt_to_install "pika (Colour picker)" && (
-  set -x;
-  open https://superhighfives.com/pika
-) || true
-
 prompt_to_install "obs (Open Broadcaster Software)" && (
   set -x;
   brew cask install obs;
-) || true
-
-prompt_to_install "CPU Temp Checker" "osx-cpu-temp" && (
-  set -x;
-  mkdir -p ~/build
-  [[ -d ~/build/osx-cpu-temp ]] || git clone https://github.com/lavoiesl/osx-cpu-temp ~/build/osx-cpu-temp;
-  cd ~/build/osx-cpu-temp;
-  git checkout 22a86f51fb1c421bafceb0aebc009bd7337982f8 && make && ./osx-cpu-temp && mv -i ./osx-cpu-temp ~/bin/
 ) || true
 
 prompt_to_install "QMK (Moonlander et al)" && (
