@@ -159,6 +159,8 @@ vim.g.mapleader = ","
 vim.opt.number = true
 vim.opt.relativenumber = false
 
+vim.opt.title = true -- Set the terminal window title
+
 -- Searching
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
