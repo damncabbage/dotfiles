@@ -54,9 +54,27 @@ return {
   --},
 
   keys = {
-    { key = 'LeftArrow', mods = 'SUPER', action = wezterm.action.ActivateTabRelative(-1) },
-    { key = 'RightArrow', mods = 'SUPER', action = wezterm.action.ActivateTabRelative(1) },
-    { key = 'LeftArrow', mods = 'SUPER|SHIFT', action = wezterm.action.MoveTabRelative(-1) },
-    { key = 'RightArrow', mods = 'SUPER|SHIFT', action = wezterm.action.MoveTabRelative(1) },
-  }
+    { key = 'LeftArrow', mods = 'SUPER', action = act.ActivateTabRelative(-1) },
+    { key = 'RightArrow', mods = 'SUPER', action = act.ActivateTabRelative(1) },
+
+    { key = 'LeftArrow', mods = 'SUPER|SHIFT', action = act.MoveTabRelative(-1) },
+    { key = 'RightArrow', mods = 'SUPER|SHIFT', action = act.MoveTabRelative(1) },
+
+    { key = 'LeftArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Left') },
+    { key = 'RightArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Right') },
+    { key = 'UpArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Up') },
+    { key = 'DownArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Down') },
+
+    { key = 'd', mods = 'SUPER', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+    { key = 'D', mods = 'SUPER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+
+    {
+      key = 'k',
+      mods = 'SUPER',
+      action = act.Multiple {
+        act.ClearScrollback 'ScrollbackAndViewport',
+        act.SendKey { key = 'l', mods = 'CTRL' },
+      },
+    },
+  },
 }
