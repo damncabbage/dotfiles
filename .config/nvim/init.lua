@@ -198,6 +198,8 @@ vim.opt.cc = '81'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
 
+-- Resize panes on window/viewport resize
+vim.api.nvim_command('autocmd VimResized * wincmd =')
 
 -- Mouse
 vim.opt.mouse = ''
