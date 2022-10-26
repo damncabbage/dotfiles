@@ -145,11 +145,17 @@ require('packer').startup(function(use)
 end)
 
 --------------------------------------------------------
+-- Tiny Helpers
+--------------------------------------------------------
+local is_mouse_enabled = function()
+  return string.find(vim.opt.mouse._value, 'a')
+end
+
+--------------------------------------------------------
 -- General Settings
 --------------------------------------------------------
 vim.opt.scrolloff = 8
 vim.g.mapleader = ","
-vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.relativenumber = false
 
@@ -190,6 +196,15 @@ vim.opt.cc = '81'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
 
+
+-- Mouse
+vim.opt.mouse = ''
+vim.keymap.set('n', '<leader>M', function()
+  -- TODO: this wipes out all existing mouse settings; seems bad.
+  vim.opt.mouse = is_mouse_enabled() and '' or 'a'
+end)
+
+-- Paste
 vim.keymap.set('n', '<leader>P', function()
   if vim.opt.paste:get() then
     vim.opt.paste = false
@@ -361,9 +376,12 @@ cmp.setup.cmdline(':', {
 -- Status Line
 --------------------------------------------------------
 do
-  -- mode: Include 'Paste' info
+  -- mode: Include 'Mouse' and 'Paste' info
   local mode = function()
     local ms = require('lualine.utils.mode').get_mode()
+    if is_mouse_enabled() then
+      ms = ms .. ' '
+    end
     if vim.opt.paste:get() then
       ms = ms .. ' '
     end
