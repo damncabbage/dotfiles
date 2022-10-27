@@ -218,7 +218,7 @@ end)
 
 -- Paste
 vim.keymap.set('n', '<leader>P', function()
-  if vim.opt.paste:get() then
+  if vim.opt.paste._value then
     vim.opt.paste = false
   else
     vim.opt.paste = true
@@ -244,7 +244,9 @@ vim.cmd [[
          \ endif
   augroup end
 ]]
-vim.opt.viminfo:prepend("%") -- Remember info about open buffers on close
+-- Remember info about open buffers on close.
+-- This would be 'vim.opt.viminfo:prepend("%")', but this doesn't seem to work on 0.8.x...?
+vim.opt.viminfo = "%,"..vim.opt.viminfo._value
 
 -- Source the vimrc file after saving it
 vim.cmd [[
