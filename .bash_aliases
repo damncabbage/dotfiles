@@ -1,5 +1,9 @@
 alias vi="nvim"
 
+if [ ! -z "${IS_LINUX:-}" ]; then
+  alias wezterm="flatpak run org.wezfurlong.wezterm"
+fi
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
