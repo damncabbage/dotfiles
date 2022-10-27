@@ -167,3 +167,5 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 #   $ z -t foo      cd to most recently accessed dir matching foo
 #   $ z -l foo      list all dirs matching foo (by frecency)
 . ~/bin/z.sh
+
+#export PATH="$HOME/.platformio/penv/bin:$PATH"
