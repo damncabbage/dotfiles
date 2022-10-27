@@ -303,13 +303,19 @@ require('telescope').setup {
     },
   }
 }
-vim.keymap.set('n', '<C-p>', function()
-  require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({}))
-end)
 
-vim.keymap.set('n', '<leader>p', function()
-  require('telescope.builtin').registers(require('telescope.themes').get_cursor({}))
-end)
+vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files theme=dropdown<cr>')
+vim.keymap.set('n', '<leader>p', '<cmd>Telescope registers theme=cursor<cr>')
+
+vim.keymap.set('n', '<leader>r', '<cmd>Telescope lsp_references theme=dropdown<cr>')
+vim.keymap.set('n', '<leader>g', '<cmd>Telescope lsp_definitions theme=cursor<cr>')
+vim.keymap.set('n', '<leader>G', '<cmd>Telescope lsp_type_definitions theme=cursor<cr>')
+
+-- Show LSP errors + warnings
+vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0<cr>')
+
+vim.keymap.set('n', '<leader>t', vim.lsp.buf.hover)
+
 
 --------------------------------------------------------
 -- Language Server Configuration
@@ -323,6 +329,23 @@ require("mason-lspconfig").setup_handlers {
     lspconfig[server_name].setup {}
   end
 }
+
+vim.api.nvim_create_user_command('LspFormat', function(_)
+  if vim.lsp.buf.format then
+    vim.lsp.buf.format()
+  elseif vim.lsp.buf.formatting then
+    vim.lsp.buf.formatting()
+  end
+end, { desc = 'Format current buffer with LSP' })
+
+-- Autoformat on request and on save
+vim.keymap.set('n', '<leader>f', '<cmd>LspFormat<cr>')
+-- TODO: maybe hook into gg=G formatter thingy
+--vim.cmd [[
+--  augroup LspFormat
+--]]
+
+-- TODO: neovim nerdtree equivalent
 
 --------------------------------------------------------
 -- Autocompletion
