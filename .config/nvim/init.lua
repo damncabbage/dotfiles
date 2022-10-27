@@ -123,6 +123,14 @@ require('packer').startup(function(use)
     end
   }
 
+  -- TODO: configure
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icons
+    }
+  }
+
   -- Parallel undo histories, for a scatter-brained fool like me
   use 'mbbill/undotree'
 
