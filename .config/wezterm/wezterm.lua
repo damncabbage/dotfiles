@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
--- Helpers
+---------- Tab Titles ----------
 -- TODO: for some reason wezterm.nerdfonts.mdi_numeric_#_outline (et al) are missing in this version.
 local box_glyphs = {
   filled = { [0] = '', '', '', '', '', '', '', '', '', '' },
@@ -20,11 +20,59 @@ wezterm.on(
   end
 )
 
+---------- Font Helpers ----------
+local codelia_font_features = {
+  -- See: https://tosche.net/media/pages/fonts/codelia/7fbd7c0aca-1664387056/codelia9.svg
+  'liga=1', 'dlig=1', 'calt=1', 'clig=1', 'case=1', 'ccmp=1', 'ss01=1',
+}
+
+local codelia = function(overrides)
+  local font = {
+    family = 'Codelia Ligatures',
+    harfbuzz_features = codelia_font_features,
+  }
+  for k,v in pairs(overrides) do font[k] = v end
+  return wezterm.font(font)
+end
+
+
+---------- Config ----------
 return {
-  font = wezterm.font('Codelia Ligatures'),
+  font_rules = {
+    {
+      italic = true,
+      font = codelia { weight = 'Medium', style = 'Italic' },
+    },
+    {
+      italic = true,
+      intensity = 'Bold',
+      font = codelia { weight = 'Bold', style = 'Italic' },
+    },
+    {
+      italic = false,
+      intensity = 'Bold',
+      font = codelia { weight = 'Bold' },
+    },
+    {
+      italic = false,
+      intensity = 'Half',
+      font = codelia { weight = 'Medium' },
+    },
+    {
+      italic = true,
+      intensity = 'Half',
+      font = codelia { weight = 'Medium', style = 'Italic' },
+    },
+  },
+  font = wezterm.font {
+    family = 'Codelia Ligatures',
+    weight = 'Medium',
+    harfbuzz_features = font_features,
+  },
   font_size = 14.0,
   use_cap_height_to_scale_fallback_fonts = true,
 
+  ---------- Colours ----------
   color_scheme = 'tokyonight-storm',
   --color_scheme = 'Fairyfloss',
   --colors = {
@@ -53,21 +101,31 @@ return {
   --  }
   --},
 
+  ---------- Keys ----------
   keys = {
+    -- Tabs
     { key = 'LeftArrow', mods = 'SUPER', action = act.ActivateTabRelative(-1) },
     { key = 'RightArrow', mods = 'SUPER', action = act.ActivateTabRelative(1) },
 
     { key = 'LeftArrow', mods = 'SUPER|SHIFT', action = act.MoveTabRelative(-1) },
     { key = 'RightArrow', mods = 'SUPER|SHIFT', action = act.MoveTabRelative(1) },
 
+    -- Panes
     { key = 'LeftArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Left') },
     { key = 'RightArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Right') },
     { key = 'UpArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Up') },
     { key = 'DownArrow', mods = 'SUPER|ALT', action = act.ActivatePaneDirection('Down') },
 
+    { key = 'LeftArrow', mods = 'SUPER|ALT|SHIFT', action = act.RotatePanes('CounterClockwise') },
+    { key = 'RightArrow', mods = 'SUPER|ALT|SHIFT', action = act.RotatePanes('CounterClockwise') },
+
     { key = 'd', mods = 'SUPER', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
     { key = 'D', mods = 'SUPER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
 
+    { key = '>', mods = 'SUPER|ALT|SHIFT', action = act.AdjustPaneSize { 'Right', 3 } },
+    { key = '<', mods = 'SUPER|ALT|SHIFT', action = act.AdjustPaneSize { 'Left', 3 } },
+
+    -- Misc
     {
       key = 'k',
       mods = 'SUPER',
