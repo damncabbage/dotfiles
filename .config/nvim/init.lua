@@ -214,7 +214,7 @@ vim.opt.mouse = ''
 vim.keymap.set('n', '<leader>M', function()
   -- TODO: this wipes out all existing mouse settings; seems bad.
   vim.opt.mouse = is_mouse_enabled() and '' or 'a'
-end)
+end, {desc = "Toggle Mouse-enabled"})
 
 -- Paste
 vim.keymap.set('n', '<leader>P', function()
@@ -223,7 +223,7 @@ vim.keymap.set('n', '<leader>P', function()
   else
     vim.opt.paste = true
   end
-end)
+end, {desc = "Toggle Paste-enabled"})
 
 -- Buffers and Tabs
 -- Tab-moving (complementing gt and gT)
@@ -316,7 +316,7 @@ vim.keymap.set('n', '<leader>G', '<cmd>Telescope lsp_type_definitions theme=curs
 -- Show LSP errors + warnings
 vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0<cr>')
 
-vim.keymap.set('n', '<leader>t', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>t', vim.lsp.buf.hover, {desc="LSP Hover Info"})
 
 
 --------------------------------------------------------
