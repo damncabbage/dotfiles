@@ -22,6 +22,9 @@ prompt_to_install "Homebrew" "brew" && (
 echo 'brew bundle'
 brew bundle
 
+echo 'Rebuilding bat theme cache...'
+bat cache --build
+
 prompt_to_install "obs (Open Broadcaster Software)" && (
   set -x;
   brew cask install obs;
