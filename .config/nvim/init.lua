@@ -311,14 +311,15 @@ require('telescope').setup {
 vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files theme=dropdown<cr>')
 vim.keymap.set('n', '<leader>p', '<cmd>Telescope registers theme=cursor<cr>')
 
-vim.keymap.set('n', '<leader>r', '<cmd>Telescope lsp_references theme=dropdown<cr>')
-vim.keymap.set('n', '<leader>g', '<cmd>Telescope lsp_definitions theme=cursor<cr>')
-vim.keymap.set('n', '<leader>G', '<cmd>Telescope lsp_type_definitions theme=cursor<cr>')
+vim.keymap.set('n', '<leader>lr', '<cmd>Telescope lsp_references theme=dropdown<cr>')
+vim.keymap.set('n', '<leader>lg', '<cmd>Telescope lsp_definitions theme=cursor<cr>')
+vim.keymap.set('n', '<leader>lG', '<cmd>Telescope lsp_type_definitions theme=cursor<cr>')
 
 -- Show LSP errors + warnings
-vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0<cr>')
+--vim.keymap.set('n', '<leader>le', '<cmd>Telescope diagnostics bufnr=0<cr>')
+vim.keymap.set('n', '<leader>le', '<cmd>TroubleToggle<cr>')
 
-vim.keymap.set('n', '<leader>t', vim.lsp.buf.hover, {desc="LSP Hover Info"})
+vim.keymap.set('n', '<leader>lt', vim.lsp.buf.hover, {desc="LSP Hover Info"})
 
 
 --------------------------------------------------------
