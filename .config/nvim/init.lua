@@ -210,7 +210,7 @@ vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
 vim.api.nvim_command('autocmd VimResized * wincmd =')
 
 -- Mouse
-vim.opt.mouse = ''
+vim.opt.mouse = 'a'
 vim.keymap.set('n', '<leader>M', function()
   -- TODO: this wipes out all existing mouse settings; seems bad.
   vim.opt.mouse = is_mouse_enabled() and '' or 'a'
