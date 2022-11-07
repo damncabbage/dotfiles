@@ -75,7 +75,7 @@ return {
   ---------- Colours ----------
   color_scheme = 'tokyonight-storm',
   --color_scheme = 'Fairyfloss',
-  --colors = {
+  colors = {
   --  foreground = '#F8F8F2',
   --  background = '#282634',
 
@@ -98,8 +98,10 @@ return {
   --    "#ffb8d1",
   --    "#c5a3ff",
   --    "#f8f8f0"
-  --  }
-  --},
+  --  },
+
+    visual_bell = '#2a2d43',
+  },
 
   ---------- Keys ----------
   keys = {
@@ -134,5 +136,13 @@ return {
         act.SendKey { key = 'l', mods = 'CTRL' },
       },
     },
+  },
+
+  ---------- Misc ----------
+  audible_bell = "Disabled",
+  visual_bell = {
+    fade_in_duration_ms = 15,
+    fade_out_duration_ms = 75,
+    target = 'BackgroundColor',
   },
 }
