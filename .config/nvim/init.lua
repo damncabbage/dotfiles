@@ -287,10 +287,9 @@ vim.keymap.set('t', '<esc><esc>', '<C-\\><C-n>')
 -- Treesitter configuration
 --------------------------------------------------------
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "cpp", "lua", "rust", "ruby", "javascript", "typescript" },
+  ensure_installed = { "c", "cpp", "javascript", "lua", "python", "ruby", "rust", "typescript", },
   sync_install = true,
   auto_install = true,
-
   highlight = {
     enable = true,
   },
