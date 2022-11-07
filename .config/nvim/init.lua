@@ -234,6 +234,9 @@ vim.keymap.set('n', 'mT', ':tabmove -1<cr>')
 vim.keymap.set('n', 'gb', ':bnext<cr>')
 vim.keymap.set('n', 'gB', ':bprevious<cr>')
 
+-- Autoclose those damn netrw buffers
+vim.g.netrw_fastbrowse = 0
+
 -- Return to last edit position when opening files
 vim.cmd [[
   augroup last_edit
