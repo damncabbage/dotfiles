@@ -9,6 +9,9 @@
 *.swm
 Session*.vim
 
+# LSP
+.solargraph.yml
+
 # VS Code
 .vscode/settings.json
 
