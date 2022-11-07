@@ -472,3 +472,19 @@ vim.g.undotree_SetFocusWhenToggle = 1
 -- Close Buffers
 --------------------------------------------------------
 vim.keymap.set('n', '<leader>bd', ':BDelete! hidden<CR>')
+
+--------------------------------------------------------
+-- Tree/Dir Navigation
+--------------------------------------------------------
+-- A little bit of vim-vinegar.
+-- (Hit - to navigate to the directory the current file
+-- sits in.)
+vim.keymap.set('n', '-', function()
+  -- i can't be arsed to convert this to lua
+  vim.cmd [[
+    let fname = expand('%:t')
+    edit %:h
+    normal! gg
+    call search('\<'.fname.'\>')
+  ]]
+end, { desc = "Vinegarette" })
