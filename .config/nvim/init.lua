@@ -96,6 +96,9 @@ require('packer').startup(function(use)
     'hrsh7th/cmp-nvim-lsp-document-symbol',
   }
 
+  -- Indentation using in-built commentstring
+  use 'terrortylor/nvim-comment'
+
   -- Fancy icons
   use {
     'kyazdani42/nvim-web-devicons',
@@ -198,13 +201,18 @@ vim.opt.undodir = undo_path..'/'
 vim.opt.swapfile = false
 
 vim.opt.textwidth = 0
-vim.opt.list = true
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.expandtab = true
+vim.opt.list = true -- Show tabs as >, trailing spaces as -, nbsp as +.
 vim.opt.cc = '81'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
+
+-- Indentation
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+-- Stay in visual mode while indenting
+vim.keymap.set('v', '<', '<gv', {})
+vim.keymap.set('v', '>', '>gv', {})
 
 -- Resize panes on window/viewport resize
 vim.api.nvim_command('autocmd VimResized * wincmd =')
@@ -258,6 +266,16 @@ vim.cmd [[
     autocmd bufwritepost init.lua source $MYVIMRC
   augroup end
 ]]
+
+--------------------------------------------------------
+-- Commenting
+--------------------------------------------------------
+require('nvim_comment').setup {
+  marker_padding = true, -- no space after comment markers
+  create_mappings = false,
+}
+vim.keymap.set('v', '<leader>/', ':CommentToggle<cr>')
+vim.keymap.set('n', '<leader>/', ':CommentToggle<cr>')
 
 --------------------------------------------------------
 -- Shell-related business
