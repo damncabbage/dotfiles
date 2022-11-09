@@ -233,6 +233,9 @@ vim.keymap.set('n', '<leader>P', function()
   end
 end, {desc = "Toggle Paste-enabled"})
 
+-- Mouse-mode + Paste
+vim.keymap.set('v', '<M-c>', '"+y', {desc = "Copy to system clipboard" })
+
 -- Buffers and Tabs
 -- Tab-moving (complementing gt and gT)
 vim.keymap.set('n', 'mt', ':tabmove +1<cr>')
