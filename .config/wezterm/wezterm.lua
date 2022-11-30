@@ -145,4 +145,6 @@ return {
     fade_out_duration_ms = 75,
     target = 'BackgroundColor',
   },
+
+  check_for_updates_interval_seconds = 604800,
 }
