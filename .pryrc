@@ -1,8 +1,18 @@
+# vi: ft=ruby
+
 if defined?(PryByebug)
-  Pry.commands.alias_command 'c', 'continue'
-  Pry.commands.alias_command 's', 'step'
-  Pry.commands.alias_command 'n', 'next'
-  Pry.commands.alias_command 'f', 'finish'
-  Pry.commands.alias_command 'w', 'whereami'
-  Pry.commands.alias_command 'u', 'up'
+  [
+    %w(c continue),
+    %w(s step),
+    %w(n next),
+    %w(f finish),
+    %w(w whereami),
+    %w(u up),
+    %w(d down),
+    %w(b break),
+    %w(ss show-source),
+    ['sd', 'show-source -d'],
+  ].each do |short, full|
+    Pry.commands.alias_command short, full
+  end
 end
