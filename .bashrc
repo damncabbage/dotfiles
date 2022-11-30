@@ -78,7 +78,7 @@ HISTFILESIZE=10000
 
 
 # Misc preferences
-export EDITOR=$(command -v vim)
+export EDITOR=$(command -v nvim)
 export LESS="R" # Have 'less' interpret/use colour codes
 #export TERM=xterm-256color
 if [ $IS_MAC ]; then
