@@ -145,6 +145,7 @@ require('packer').startup(function(use)
       }
     end
   }
+  use 'AndrewRadev/bufferize.vim'
 
   -- Buffer management
   use 'kazhala/close-buffers.nvim'
