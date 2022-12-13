@@ -9,5 +9,5 @@ yaml2json() {
     return 1
   fi
 
-  yq read "$1" --tojson
+  yq -o=json '.' "$1"
 }
