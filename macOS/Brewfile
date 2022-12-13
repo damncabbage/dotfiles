@@ -61,6 +61,7 @@ brew "ripgrep" # ack/grep but fast and some bugs fixed
 brew "pastel" # colour tool
 
 brew "ncdu" # Hard-disk space spelunking
+brew "tree" # Dir tree visualisation
 brew "pstree" # 'pstree -p $$' is my "am I in a bash session in a vim session in a bash session" checker
 brew "entr" # file-watcher; use with pipes, eg. while true; do find . -name "*.js" | entr -dcs 'eslint'; done
 brew "thefuck" # aliased as 'please'
