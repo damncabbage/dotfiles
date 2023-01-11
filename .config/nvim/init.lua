@@ -191,6 +191,7 @@ vim.opt.linebreak = true   -- Avoid line-wrapping in the middle of a word.
 vim.opt.breakindent = true -- Hanging indent soft-wrap ...
 vim.opt.sbr = " "         -- ... prefixed by an arrow, and a space (to make it line up with a match 2-space indent).
 vim.opt.breakindentopt = "min:20,shift:0"
+vim.opt.shiftround = true  -- Round to nearest shiftwidth value
 
 -- Persistent undo
 local undo_path = vim.fn.stdpath('data')..'/undo'
