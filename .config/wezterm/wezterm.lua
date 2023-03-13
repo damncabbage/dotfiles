@@ -73,32 +73,48 @@ return {
   use_cap_height_to_scale_fallback_fonts = true,
 
   ---------- Colours ----------
-  color_scheme = 'tokyonight-storm',
-  --color_scheme = 'Fairyfloss',
+  -- Previously:
+  --   color_scheme = 'tokyonight-storm',
+  --   color_scheme = 'Fairyfloss',
+  -- Now:
   colors = {
-  --  foreground = '#F8F8F2',
-  --  background = '#282634',
+    ------
+    -- Copy-paste-modification of:
+    -- https://github.com/wez/wezterm/blob/main/assets/colors/tokyonight-storm.toml
+    ------
+    foreground = '#d3ddff', -- MODIFIED
+    background = "#25283B", -- MODIFIED
 
-  --  ansi = {
-  --    "#040303",
-  --    "#f92672",
-  --    "#c2ffdf",
-  --    "#e6c000",
-  --    "#c2ffdf",
-  --    "#ffb8d1",
-  --    "#c5a3ff",
-  --    "#f8f8f0"
-  --  },
-  --  brights = {
-  --    "#6090cb",
-  --    "#ff857f",
-  --    "#c2ffdf",
-  --    "#ffea00",
-  --    "#c2ffdf",
-  --    "#ffb8d1",
-  --    "#c5a3ff",
-  --    "#f8f8f0"
-  --  },
+    ansi = {
+      '#1d202f', -- black
+      '#f7768e', -- red
+      '#6e9e3a', -- green -- MODIFIED
+      '#e0af68', -- yellow
+      '#6a92e7', -- blue
+      '#bb9af7', -- purple
+      '#5dafdf', -- cyan  -- MODIFIED
+      '#c9d1f6', -- white -- MODIFIED
+    },
+
+    brights = {
+      '#414868', -- black
+      '#f7768e', -- red
+      '#9ece6a', -- green
+      '#e0af68', -- yellow
+      '#7aa2f7', -- blue
+      '#bb9af7', -- purple
+      '#7dcfff', -- cyan
+      '#c0caf5', -- white
+    },
+
+    cursor_bg = '#c0caf5',
+    cursor_border = '#c0caf5',
+    cursor_fg = '#1d202f',
+    selection_bg = '#364a82',
+    selection_fg = '#c0caf5',
+    ------
+    -- /tokyonight-storm
+    ------
 
     visual_bell = '#2a2d43',
   },
