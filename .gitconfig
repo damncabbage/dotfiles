@@ -114,11 +114,16 @@
       if [ -f \"$trunk\" ]; then \
         cat \"$trunk\"; \
       else \
-        echo 'master'; \
+        echo 'main'; \
       fi; \
     }; f"
 
-  git = "!git" # Allows 'git git diff' et al to work, when Rob is being scatter-brained and types+pastes git.
+  su = "submodule update --init --recursive"
+
+  git = "!git" # Allows 'git git diff' et al to work, when Robin is being scatter-brained and types+pastes git.
+
+[init]
+  defaultBranch = main
 
 [include]
   path = "~/.gitrc.d/local"
