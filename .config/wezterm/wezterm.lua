@@ -33,9 +33,40 @@ local codelia = function(overrides)
   return wezterm.font(font)
 end
 
+---------- Misc Helpers ----------
+local scrollback_lines = 10000
+wezterm.on("trigger-vim-with-scrollback", function(window, pane)
+  -- Retrieve the current viewport's text.
+  -- Pass an optional number of lines (eg: 2000) to retrieve
+  -- that number of lines starting from the bottom of the viewport
+  local scrollback = pane:get_logical_lines_as_text(scrollback_lines);
+
+  -- Create a temporary file to pass to vim
+  local name = os.tmpname();
+  local f = io.open(name, "w+");
+  f:write(scrollback);
+  f:flush();
+  f:close();
+
+  -- Open a new window running vim and tell it to open the file
+  window:perform_action(
+    wezterm.action{
+      SpawnCommandInNewWindow={args={"vim", name}}
+    },
+    pane
+  )
+
+  -- wait "enough" time for vim to read the file before we remove it.
+  -- The window creation and process spawn are asynchronous
+  -- wrt. running this script and are not awaitable, so we just pick
+  -- a number.
+  wezterm.sleep_ms(1000);
+  os.remove(name);
+end)
+
 
 ---------- Config ----------
-return {
+local config = {
   font_rules = {
     {
       italic = true,
@@ -141,7 +172,7 @@ return {
     { key = '>', mods = 'SUPER|ALT|SHIFT', action = act.AdjustPaneSize { 'Right', 3 } },
     { key = '<', mods = 'SUPER|ALT|SHIFT', action = act.AdjustPaneSize { 'Left', 3 } },
 
-    -- Misc
+    -- Scrollback
     {
       key = 'k',
       mods = 'SUPER',
@@ -150,6 +181,35 @@ return {
         act.SendKey { key = 'l', mods = 'CTRL' },
       },
     },
+    {
+      key = 'e',
+      mods = 'SUPER',
+      action=wezterm.action{EmitEvent="trigger-vim-with-scrollback"},
+    },
+  },
+
+  mouse_bindings = {
+    -- Change the default click behavior so that it only selects
+    -- text and doesn't open hyperlinks
+    {
+      event={Up={streak=1, button="Left"}},
+      mods="NONE",
+      action=act.CompleteSelection("PrimarySelection"),
+    },
+
+    -- and make Super-Click open hyperlinks
+    {
+      event={Up={streak=1, button="Left"}},
+      mods="SUPER",
+      action=act.OpenLinkAtMouseCursor,
+    },
+
+    -- Disable the 'Down' event of SUPER-Click to avoid weird program behaviors
+    {
+      event = { Down = { streak = 1, button = 'Left' } },
+      mods = 'SUPER',
+      action = act.Nop,
+    }
   },
 
   ---------- Misc ----------
@@ -160,5 +220,8 @@ return {
     target = 'BackgroundColor',
   },
 
+  scrollback_lines = scrollback_lines,
+
   check_for_updates_interval_seconds = 604800,
 }
+return config
