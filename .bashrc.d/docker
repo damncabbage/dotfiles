@@ -42,3 +42,19 @@ dumpster() {
     docker-ensure-running && docker run --rm -it "$1"
   fi
 }
+
+docker-clean-containers() {
+  docker-ensure-running && docker rm $(docker ps --filter=status=exited --filter=status=created -q)
+}
+
+docker-clean-images() {
+  docker-ensure-running && docker rmi $(docker images -a --filter=dangling=true -q)
+}
+
+docker-purge-cache() {
+  if docker-ensure-running; then
+    docker kill $(docker ps -q)
+    docker-clean-containers
+    docker rmi $(docker images -a -q)
+  fi
+}
