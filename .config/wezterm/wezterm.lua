@@ -1,15 +1,13 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
+local io = require 'io';
+local os = require 'os';
+
 ---------- Tab Titles ----------
--- TODO: for some reason wezterm.nerdfonts.mdi_numeric_#_outline (et al) are missing in this version.
-local box_glyphs = {
-  filled = { [0] = '', '', '', '', '', '', '', '', '', '' },
-  outline = { [0] = '', '', '', '', '', '', '', '', '', '' },
-}
-local box_types = { outline = 'outline', filled = 'filled' }
+local box_types = { outline = 'box_outline', filled = 'box' }
 local box = function(num, type)
-  return box_glyphs[type][num] or ('[' .. num .. ']')
+  return wezterm.nerdfonts['md_numeric_' .. num .. '_' .. type]
 end
 
 wezterm.on(
