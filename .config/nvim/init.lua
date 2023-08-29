@@ -578,3 +578,20 @@ vim.keymap.set('n', '-', function()
     call search('\<'.fname.'\>')
   ]]
 end, { desc = "Vinegarette" })
+
+--------------------------------------------------------
+-- Daily Planner
+--------------------------------------------------------
+do
+  next_day = function()
+    local fdir = vim.fn.expand('%:h')
+    local fname = vim.fn.expand('%:t:r')
+    local nfname = string.gsub(
+      vim.fn.system("gdate -d '" .. fname .. " +1 day' +%F"),
+      "%c+$",
+      ""
+    )
+    vim.cmd.edit(fdir .. "/" .. nfname .. ".txt")
+  end
+  vim.api.nvim_create_user_command('NextDay', next_day, {})
+end
