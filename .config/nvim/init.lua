@@ -150,6 +150,26 @@ require('packer').startup(function(use)
   -- Buffer management
   use 'kazhala/close-buffers.nvim'
 
+  -- Session management
+  use {
+    'rmagatti/auto-session',
+    config = function()
+      require("auto-session").setup {
+        log_level = "info",
+        auto_session_enabled = false, -- no automatic save+restore
+        auto_session_use_git_branch = true,
+      }
+      vim.opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+    end
+  }
+
+  -- EditorConfig support for project-level settings
+  use 'editorconfig/editorconfig-vim'
+
+  -- Dev Tools
+  -- TODO: figure out if this is needed/useful
+  -- use 'sakhnik/nvim-gdb'
+
   -- Keep last, in order to bootstrap successfully.
   if packer_bootstrap then
     require('packer').sync()
@@ -193,6 +213,9 @@ vim.opt.sbr = " "         -- ... prefixed by an arrow, and a space (to make i
 vim.opt.breakindentopt = "min:20,shift:0"
 vim.opt.shiftround = true  -- Round to nearest shiftwidth value
 
+-- Compatibility
+vim.opt.fixendofline = false -- Keep no-end-of-line if a file has that.
+
 -- Persistent undo
 local undo_path = vim.fn.stdpath('data')..'/undo'
 if vim.fn.empty(vim.fn.glob(undo_path)) > 0 then
@@ -211,7 +234,9 @@ vim.opt.scrolloff = 2 -- Keep some space at the bottom of the window
 -- Indentation
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
 vim.opt.expandtab = true
+
 -- Stay in visual mode while indenting
 vim.keymap.set('v', '<', '<gv', {})
 vim.keymap.set('v', '>', '>gv', {})
@@ -310,7 +335,18 @@ vim.keymap.set('t', '<esc><esc>', '<C-\\><C-n>')
 -- Treesitter configuration
 --------------------------------------------------------
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "cpp", "javascript", "lua", "python", "ruby", "rust", "typescript", },
+  ensure_installed = {
+    "c",
+    "cpp",
+    "elixir",
+    "html",
+    "javascript",
+    "lua",
+    "python",
+    "ruby",
+    "rust",
+    "typescript",
+  },
   sync_install = true,
   auto_install = true,
   highlight = {
@@ -331,8 +367,9 @@ require('telescope').setup {
   }
 }
 
-vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files theme=dropdown<cr>')
-vim.keymap.set('n', '<leader>p', '<cmd>Telescope registers theme=cursor<cr>')
+vim.keymap.set('n', '<C-p>f', '<cmd>Telescope find_files theme=dropdown<cr>')
+vim.keymap.set('n', '<C-p>r', '<cmd>Telescope registers theme=cursor<cr>')
+vim.keymap.set('n', '<C-p>b', '<cmd>Telescope buffers theme=ivy previewer=false<cr>')
 
 vim.keymap.set('n', '<leader>lr', '<cmd>Telescope lsp_references theme=dropdown<cr>')
 vim.keymap.set('n', '<leader>lg', '<cmd>Telescope lsp_definitions theme=cursor<cr>')
@@ -342,8 +379,11 @@ vim.keymap.set('n', '<leader>lG', '<cmd>Telescope lsp_type_definitions theme=cur
 --vim.keymap.set('n', '<leader>le', '<cmd>Telescope diagnostics bufnr=0<cr>')
 vim.keymap.set('n', '<leader>le', '<cmd>TroubleToggle<cr>')
 
+vim.keymap.set('n', '<leader>lR', vim.lsp.buf.rename, {desc="LSP Rename"})
+
 vim.keymap.set('n', '<leader>lt', vim.lsp.buf.hover, {desc="LSP Hover Info"})
 
+vim.keymap.set('i', '<leader>lc', vim.lsp.buf.completion, {desc="LSP Complete"})
 
 --------------------------------------------------------
 -- Language Server Configuration
@@ -354,7 +394,14 @@ require('mason-lspconfig').setup()
 local lspconfig = require("lspconfig")
 local masonLspConfig = require("mason-lspconfig")
 masonLspConfig.setup {
-  ensure_installed = { 'rust_analyzer', 'solargraph', 'tsserver' },
+  ensure_installed = {
+    'clangd',
+    -- 'elixirls',
+    'html',
+    'rust_analyzer',
+    'solargraph',
+    'tsserver',
+  },
 }
 masonLspConfig.setup_handlers {
   function (server_name)
@@ -370,8 +417,24 @@ vim.api.nvim_create_user_command('LspFormat', function(_)
   end
 end, { desc = 'Format current buffer with LSP' })
 
--- Autoformat on request and on save
-vim.keymap.set('n', '<leader>f', '<cmd>LspFormat<cr>')
+-- Autoformat on request
+vim.keymap.set({'n', 'v'}, '<leader>lf', vim.lsp.buf.format, { remap = false })
+
+function format_range_operator()
+  local old_func = vim.go.operatorfunc
+  _G.op_func_formatting = function()
+    local start = vim.api.nvim_buf_get_mark(0, '[')
+    local finish = vim.api.nvim_buf_get_mark(0, ']')
+    vim.lsp.buf.format({ range = { start = start, ["end"] = finish }})
+    vim.go.operatorfunc = old_func
+    _G.op_func_formatting = nil
+  end
+  vim.go.operatorfunc = 'v:lua.op_func_formatting'
+  vim.api.nvim_feedkeys('g@', 'n', false)
+end
+vim.api.nvim_set_keymap("n", "gm", "<cmd>lua format_range_operator()<CR>", {noremap = true})
+
+-- ... and on save:
 -- TODO: maybe hook into gg=G formatter thingy
 --vim.cmd [[
 --  augroup LspFormat
