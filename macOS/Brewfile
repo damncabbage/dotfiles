@@ -90,12 +90,18 @@ brew "neovim"
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
 
+# Window Management et al
+tap "koekeishiya/formulae"
+brew "skhd"
+brew "yabai"
+tap "FelixKratz/formulae"
+brew "sketchybar"
+
 ### C++
 # esp-if
 brew "cmake"
 brew "ninja"
 brew "dfu-util"
-
 
 ### Keeb / QMK
 tap "osx-cross/arm"
@@ -113,6 +119,8 @@ cask "zsa-wally" # Flashing tool
 
 # C dev env
 #brew "ccls"
+
+brew "chrome-cli"
 
 cask "iterm2"
 cask "wezterm"

@@ -82,6 +82,16 @@ prompt_to_install "macOS Preferences" && (
   for app in Safari Finder Dock Mail; do killall "$app"; done
 ) || true
 
+# Start up Yabai et al
+yabai --start-service
+skhd --start-service
+brew services start felixkratz/formulae/sketchybar
+
+# TODO:
+#   sudo visudo -f /private/etc/sudoers.d/yabai
+# ... with:
+#   echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa"
+
 cat <<-EOF
   Manually install:
   - VSCode extensions, via ~/dotfiles/support/install_vscode_extensions.sh
