@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -eu
+
+REMOTE="${1:-origin}"
+TRUNK=$(git trunk)
+
+BRANCHES=$( \
+  git branch --all --merged "remotes/${REMOTE}/${TRUNK}" \
+    | sed -e 's/^[ ]*//' \
+    | grep "^remotes/${REMOTE}" \
+    | grep --invert-match -e "\(HEAD\|^remotes/${REMOTE}/${TRUNK}$\)" \
+    | cut -d "/" -f 3-
+)
+
+echo "Deleting the following remote merged-to-${TRUNK} branches on ${REMOTE}:"
+echo "$BRANCHES"
+echo
+echo "Proceed? (y/N)"
+
+read PROMPT
+if [ "$PROMPT" == "y" ]; then
+  echo "Deleting..."; sleep 2
+  echo $BRANCHES | xargs -n 1 git push --delete "${REMOTE}"
+else
+  echo "Aborted."
+fi
+
