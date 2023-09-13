@@ -405,7 +405,21 @@ masonLspConfig.setup {
 }
 masonLspConfig.setup_handlers {
   function (server_name)
-    lspconfig[server_name].setup {}
+    if server_name == "pylsp" then
+      lspconfig[server_name].setup{
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                ignore = {'E265'}
+              }
+            }
+          }
+        }
+      }
+    else
+      lspconfig[server_name].setup {}
+    end
   end
 }
 
