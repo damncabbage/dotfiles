@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nl -w2 -s': '
