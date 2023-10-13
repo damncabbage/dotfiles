@@ -383,6 +383,8 @@ vim.keymap.set('n', '<leader>lR', vim.lsp.buf.rename, {desc="LSP Rename"})
 
 vim.keymap.set('n', '<leader>lt', vim.lsp.buf.hover, {desc="LSP Hover Info"})
 
+vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, {desc="LSP Action"})
+
 vim.keymap.set('i', '<leader>lc', vim.lsp.buf.completion, {desc="LSP Complete"})
 
 --------------------------------------------------------
@@ -416,6 +418,10 @@ masonLspConfig.setup_handlers {
             }
           }
         }
+      }
+    elseif server_name == "clangd" then
+      lspconfig[server_name].setup {
+        cmd = { "/usr/bin/clangd" }
       }
     else
       lspconfig[server_name].setup {}
