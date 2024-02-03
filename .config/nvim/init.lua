@@ -379,6 +379,12 @@ vim.keymap.set('n', '<leader>lG', '<cmd>Telescope lsp_type_definitions theme=cur
 --vim.keymap.set('n', '<leader>le', '<cmd>Telescope diagnostics bufnr=0<cr>')
 vim.keymap.set('n', '<leader>le', '<cmd>TroubleToggle<cr>')
 
+vim.keymap.set('n', '<leader>lE', ':lua vim.diagnostic.open_float()<CR>', {
+  desc="LSP Error Popup",
+  noremap = true,
+  silent = true,
+})
+
 vim.keymap.set('n', '<leader>lR', vim.lsp.buf.rename, {desc="LSP Rename"})
 
 vim.keymap.set('n', '<leader>lt', vim.lsp.buf.hover, {desc="LSP Hover Info"})
@@ -421,7 +427,7 @@ masonLspConfig.setup_handlers {
       }
     elseif server_name == "clangd" then
       lspconfig[server_name].setup {
-        cmd = { "/usr/bin/clangd" }
+        cmd = { "/usr/bin/clangd", "--query-driver=**" }
       }
     else
       lspconfig[server_name].setup {}
@@ -461,6 +467,20 @@ vim.api.nvim_set_keymap("n", "gm", "<cmd>lua format_range_operator()<CR>", {nore
 --]]
 
 -- TODO: neovim nerdtree equivalent
+
+--------------------------------------------------------
+-- Filetype-specific settings / overrides
+--------------------------------------------------------
+---- Lua - 2 tab indent, spaces
+--vim.api.nvim_create_autocmd("FileType", {
+--  pattern = { "lua" },
+--  callback = function()
+--    vim.opt.tabstop = 2
+--    vim.opt.shiftwidth = 2
+--    vim.opt.expandtab = true
+--  end
+--})
+
 
 --------------------------------------------------------
 -- Autocompletion
@@ -530,7 +550,7 @@ do
   local mode = function()
     local ms = require('lualine.utils.mode').get_mode()
     if is_mouse_enabled() then
-      ms = ms .. ' '
+      ms = ms .. ' 󰍽'
     end
     if vim.opt.paste:get() then
       ms = ms .. ' '
