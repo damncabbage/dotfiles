@@ -1,3 +1,6 @@
 [submodule ".zprezto"]
 	path = .zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule ".config/wezterm/wezterm-session-manager"]
+	path = .config/wezterm/wezterm-session-manager
+	url = https://github.com/danielcopper/wezterm-session-manager.git

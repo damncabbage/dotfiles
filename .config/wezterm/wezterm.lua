@@ -4,10 +4,16 @@ local act = wezterm.action
 local io = require 'io';
 local os = require 'os';
 
+local session_manager = require 'wezterm-session-manager/session-manager'
+
 ---------- Tab Titles ----------
 local box_types = { outline = 'box_outline', filled = 'box' }
 local box = function(num, type)
-  return wezterm.nerdfonts['md_numeric_' .. num .. '_' .. type]
+  if num > 10 then
+    return (type == box_types.filled and "[" .. num .. "]" or num)
+  else
+    return wezterm.nerdfonts['md_numeric_' .. num .. '_' .. type]
+  end
 end
 
 wezterm.on(
@@ -30,7 +36,10 @@ local codelia = function(overrides)
     harfbuzz_features = codelia_font_features,
   }
   for k,v in pairs(overrides) do font[k] = v end
-  return wezterm.font(font)
+  return wezterm.font_with_fallback {
+    font,
+    'Hack Bold Nerd Font Complete Mono',
+  }
 end
 
 ---------- Misc Helpers ----------
@@ -64,6 +73,12 @@ wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   os.remove(name);
 end)
 
+--
+---------- Session Management ----------
+wezterm.on("save_session", function(window) session_manager.save_state(window) end)
+wezterm.on("load_session", function(window) session_manager.load_state(window) end)
+wezterm.on("restore_session", function(window) session_manager.restore_state(window) end)
+
 
 ---------- Config ----------
 local config = {
@@ -93,10 +108,14 @@ local config = {
       font = codelia { weight = 'Medium', style = 'Italic' },
     },
   },
-  font = wezterm.font {
-    family = 'Codelia Ligatures',
-    weight = 'Medium',
-    harfbuzz_features = font_features,
+  font_dirs = { 'fonts' }, -- include ~/.config/wezterm/fonts; this _may_ shadow inbuilt fonts though
+  font = wezterm.font_with_fallback {
+    {
+      family = 'Codelia Ligatures',
+      weight = 'Medium',
+      harfbuzz_features = codelia_font_features,
+    },
+    "Symbols Nerd Font Mono", -- intended to refer to the local fallback/override nerdfont
   },
   font_size = 14.0,
   use_cap_height_to_scale_fallback_fonts = true,
@@ -186,6 +205,11 @@ local config = {
       mods = 'SUPER',
       action=wezterm.action{EmitEvent="trigger-vim-with-scrollback"},
     },
+
+    -- Sessions
+    {key = "S", mods = "SUPER|SHIFT", action = wezterm.action{EmitEvent = "save_session"}},
+    {key = "L", mods = "SUPER|SHIFT", action = wezterm.action{EmitEvent = "load_session"}},
+    {key = "R", mods = "SUPER|SHIFT", action = wezterm.action{EmitEvent = "restore_session"}},
   },
 
   mouse_bindings = {

@@ -25,4 +25,6 @@
 
 /.config/nvim/plugin
 
+/.config/wezterm/wezterm-session-manager/*.json
+
 /macOS/Brewfile.lock.json
