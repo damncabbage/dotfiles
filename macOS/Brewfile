@@ -5,6 +5,7 @@ tap "homebrew/cask-versions"
 tap "dteoh/sqa"
 
 # The basics:
+brew "bash" # replaces ancient bash v3 that comes with MacOS
 brew "git"
 brew "vim"
 brew "ack"
