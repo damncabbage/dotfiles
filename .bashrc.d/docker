@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+export DOCKER_RUNNING_WITHIN_SESSION=
 docker-ensure-running() {
+  if [ ! -z "$DOCKER_RUNNING_WITHIN_SESSION" ]; then
+    return 0
+  fi
+
   (
     docker-is-running() {
-      docker stats --no-stream 2>/dev/null >/dev/null
+      command docker stats --no-stream 2>/dev/null >/dev/null
     }
 
     docker-is-at-least-starting() {
@@ -31,30 +36,41 @@ docker-ensure-running() {
       timeout=$((timeout - 1))
     done
   )
+
+  DOCKER_RUNNING_WITHIN_SESSION=1
+  return 0
 }
 
 alias d-c="docker-ensure-running && docker-compose"
+alias docker="docker-ensure-running && command docker"
 
 dumpster() {
   if [ -z "$1" ]; then
     echo "Usage: dumpster image-name (eg. ruby:3)"; return 1
   else
-    docker-ensure-running && docker run --rm -it "$1"
+    ( set -xe; docker run --rm -it "$1" )
   fi
 }
 
 docker-clean-containers() {
-  docker-ensure-running && docker rm $(docker ps --filter=status=exited --filter=status=created -q)
+  (
+    set -xe
+    docker rm $(docker ps --filter=status=exited --filter=status=created -q)
+  )
 }
 
 docker-clean-images() {
-  docker-ensure-running && docker rmi $(docker images -a --filter=dangling=true -q)
+  (
+    set -xe
+    docker rmi $(docker images -a --filter=dangling=true -q)
+  )
 }
 
 docker-purge-cache() {
-  if docker-ensure-running; then
+  (
+    set -xe
     docker kill $(docker ps -q)
     docker-clean-containers
     docker rmi $(docker images -a -q)
-  fi
+  )
 }
