@@ -41,3 +41,5 @@ __pycache__
 # Buildkite info
 /.buildkite/display_name
 /.buildkite/slug
+
+*.robinlocal
