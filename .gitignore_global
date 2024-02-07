@@ -43,3 +43,10 @@ __pycache__
 /.buildkite/slug
 
 *.robinlocal
+
+# Assume I'm the only person using this tool.
+# A sample .envrc:
+#   use_cache .envrc.cache
+#   . .env
+.envrc
+.envrc.cache
