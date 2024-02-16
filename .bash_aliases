@@ -60,6 +60,11 @@ if [ "${IS_MAC:-}" ]; then
   alias lsusb="ioreg -p IOUSB -w 0"
 fi
 
+# Disk
+if [ "${IS_MAC:-}" ]; then
+  alias eject="diskutil eject" # disk device *or* mountpoint is fine here
+fi
+
 # Vim
 vis() {
   DIR="${1:-.}"
