@@ -6,6 +6,7 @@ tap "dteoh/sqa"
 
 # The basics:
 brew "bash" # replaces ancient bash v3 that comes with MacOS
+brew "grep" # gnu utils
 brew "git"
 brew "vim"
 brew "ack"
