@@ -61,10 +61,12 @@ prepend_path_if_exists "$HOME/.cabal" "$HOME/.cabal-sandbox/bin:$HOME/.cabal/bin
 prepend_path_if_exists "$HOME/bin"
 prepend_path_if_exists "$HOME/build/bin"
 
+# MacOS GNU
+prepend_path_if_exists "/opt/homebrew/opt/grep/libexec/gnubin"
+
 # Misc
 prepend_path_if_exists "/opt/blender"
 prepend_path_if_exists "$HOME/.platformio/penv/bin"
-
 
 # History
 # No duplicate blanks lines
