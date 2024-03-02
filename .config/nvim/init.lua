@@ -444,8 +444,13 @@ vim.api.nvim_create_user_command('LspFormat', function(_)
 end, { desc = 'Format current buffer with LSP' })
 
 -- Autoformat on request
-vim.keymap.set({'n', 'v'}, '<leader>lf', vim.lsp.buf.format, { remap = false })
+-- TODO: what is going on here, why is it different to above
+vim.keymap.set({'n', 'v'}, '<leader>lf',
+  vim.lsp.buf.format,
+  { remap = false, desc = 'Format current buffer with LSP' }
+)
 
+-- TODO: also here
 function format_range_operator()
   local old_func = vim.go.operatorfunc
   _G.op_func_formatting = function()
