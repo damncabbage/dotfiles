@@ -173,5 +173,6 @@ mas "Fenêtre", id: "1288451627"
 mas "HazeOver", id: "430798174"
 mas "Sonance", id: "423666302"
 mas "Pipper", id: "1587335166"
+mas "Brother P-Touch Editor", id: "1453365242"
 
 # TODO: look at whalebrew for some things, eg. qmk
