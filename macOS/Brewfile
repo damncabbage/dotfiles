@@ -29,6 +29,7 @@ brew "libxslt"
 brew "libtool"
 brew "unixodbc"
 brew "icu4c" # some library everything needs
+brew "binutils"
 
 brew "asdf"
 brew "gpg" # needed for asdf-nodejs
@@ -113,6 +114,9 @@ tap "osx-cross/avr"
 #brew "arm-none-eabi-gcc"
 tap "qmk/qmk"
 brew "qmk"
+
+### CH552
+brew "sdcc"
 
 # Flashing tool
 tap "homebrew/cask-drivers"

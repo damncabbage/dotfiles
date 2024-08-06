@@ -63,6 +63,7 @@ prepend_path_if_exists "$HOME/build/bin"
 
 # MacOS GNU
 prepend_path_if_exists "/opt/homebrew/opt/grep/libexec/gnubin"
+prepend_path_if_exists "/opt/homebrew/opt/binutils/bin"
 
 # Misc
 prepend_path_if_exists "/opt/blender"
