@@ -80,17 +80,6 @@ HISTSIZE=5000
 HISTFILESIZE=10000
 
 
-# Misc preferences
-export EDITOR=$(command -v nvim)
-export LESS="R" # Have 'less' interpret/use colour codes
-#export TERM=xterm-256color
-if [ $IS_MAC ]; then
-  export GREP_OPTIONS="--color=auto"
-fi
-if [ $IS_MAC ]; then
-  export CLICOLOR=1
-fi
-
 # Check the window size after each command and, if necessary,
 # Update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -151,6 +140,8 @@ if [ -f "/opt/homebrew/bin/brew" ]; then
   eval $(/opt/homebrew/bin/brew shellenv)
   # Stop homebrew removing everything all the bloody time
   export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+  # and this
+  export HOMEBREW_NO_AUTO_UPDATE=true
 fi
 
 # Alias 'thefuck' to something more pleasant.
@@ -172,3 +163,14 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 . ~/bin/z.sh
 
 #export PATH="$HOME/.platformio/penv/bin:$PATH"
+
+# Misc preferences
+export EDITOR=$(command -v nvim)
+export LESS="R" # Have 'less' interpret/use colour codes
+#export TERM=xterm-256color
+if [ $IS_MAC ]; then
+  export GREP_OPTIONS="--color=auto"
+fi
+if [ $IS_MAC ]; then
+  export CLICOLOR=1
+fi
