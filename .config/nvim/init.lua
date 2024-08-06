@@ -1,3 +1,11 @@
+-- TODO
+-- - Lualine:
+--    https://gist.github.com/ChHaeni/b15938c2f41b178f476b1bc4cecc0271
+--    https://www.reddit.com/r/neovim/comments/x05u8o/lualine_devs_thank_you_very_much/
+--    https://www.reddit.com/r/neovim/comments/s9wyh8/custom_neovim_statusline_in_lua/
+--      https://nuxsh.is-a.dev/blog/custom-nvim-statusline.html
+--    https://github.com/nvim-lualine/lualine.nvim
+
 -- luacheck: ignore
 if not vim then
   vim = {}
@@ -95,6 +103,9 @@ require('packer').startup(function(use)
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-nvim-lsp-document-symbol',
   }
+
+  -- Better use of rust-analyzer
+  use 'simrat39/rust-tools.nvim'
 
   -- Indentation using in-built commentstring
   use 'terrortylor/nvim-comment'
@@ -419,7 +430,10 @@ masonLspConfig.setup_handlers {
           pylsp = {
             plugins = {
               pycodestyle = {
-                ignore = {'E265'}
+                ignore = {
+                  'E265', -- can't comment code without inserting space after #
+                  'W191', -- tabs
+                }
               }
             }
           }
@@ -470,6 +484,19 @@ vim.api.nvim_set_keymap("n", "gm", "<cmd>lua format_range_operator()<CR>", {nore
 --vim.cmd [[
 --  augroup LspFormat
 --]]
+
+-- Rust
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      --vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      ---- Code action groups
+      --vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
 
 -- TODO: neovim nerdtree equivalent
 
