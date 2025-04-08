@@ -41,8 +41,8 @@ docker-ensure-running() {
   return 0
 }
 
-alias d-c="docker-ensure-running && docker-compose"
-alias docker="docker-ensure-running && command docker"
+#alias d-c="docker-ensure-running && docker-compose"
+#alias docker="docker-ensure-running && command docker"
 
 dumpster() {
   if [ -z "$1" ]; then
