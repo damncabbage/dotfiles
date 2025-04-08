@@ -23,15 +23,20 @@ prepend_path_if_exists() {
 
 ## Setup scripts
 # asdf
-if [ -f "$HOME/.asdf/asdf.sh" ]; then
-  . "$HOME/.asdf/asdf.sh"
-  . "$HOME/.asdf/completions/asdf.bash"
-fi
-if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
-  . "/usr/local/opt/asdf/asdf.sh"
-fi
-if [ -f "/opt/homebrew/opt/asdf/libexec/asdf.sh" ]; then
-  . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+#if [ -f "$HOME/.asdf/asdf.sh" ]; then
+#  . "$HOME/.asdf/asdf.sh"
+#  . "$HOME/.asdf/completions/asdf.bash"
+#fi
+#if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
+#  . "/usr/local/opt/asdf/asdf.sh"
+#fi
+#if [ -f "/opt/homebrew/opt/asdf/libexec/asdf.sh" ]; then
+#  . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+#fi
+
+# mise
+if [ -f "$HOME/.local/bin/mise" ]; then
+  eval "$("$HOME/.local/bin/mise" activate bash)"
 fi
 
 # Rust/Cargo
@@ -49,6 +54,11 @@ fi
 ## Plain $PATH manip
 # Node.js
 prepend_path_if_exists "$HOME/node_modules/.bin"
+export PATH="$PATH:node_modules/.bin"
+
+# - Bun
+export BUN_INSTALL="$HOME/.bun"
+prepend_path_if_exists "$BUN_INSTALL/bin"
 
 # Python
 prepend_path_if_exists "$HOME/env/bin"
@@ -57,17 +67,24 @@ prepend_path_if_exists "$HOME/env/bin"
 prepend_path_if_exists "$HOME/.local/bin" # Stack
 prepend_path_if_exists "$HOME/.cabal" "$HOME/.cabal-sandbox/bin:$HOME/.cabal/bin"
 
-# Set PATH so it includes user's private bin if it exists
-prepend_path_if_exists "$HOME/bin"
-prepend_path_if_exists "$HOME/build/bin"
-
 # MacOS GNU
 prepend_path_if_exists "/opt/homebrew/opt/grep/libexec/gnubin"
 prepend_path_if_exists "/opt/homebrew/opt/binutils/bin"
 
+# Misc Homebrew keg-only libs
+prepend_path_if_exists "/opt/homebrew/opt/icu4c/bin"
+prepend_path_if_exists "/opt/homebrew/opt/icu4c/sbin"
+
+# Ruby-build with Mise
+prepend_path_if_exists "/usr/local/opt/ruby/bin"
+
 # Misc
 prepend_path_if_exists "/opt/blender"
 prepend_path_if_exists "$HOME/.platformio/penv/bin"
+
+# Set PATH so it includes user's private bin if it exists
+prepend_path_if_exists "$HOME/bin"
+prepend_path_if_exists "$HOME/build/bin"
 
 # History
 # No duplicate blanks lines
@@ -97,6 +114,13 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
 
+# Homebrew completions
+#if [ -d /opt/homebrew/etc/bash_completion.d ] && ! shopt -oq posix; then
+#  for ii in /opt/homebrew/etc/bash_completion.d/*; do
+#    . "$ii"
+#  done
+#fi
+
 
 ## Git
 # Git Prompt
@@ -114,15 +138,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 #if [ -f "$HOME/lib/stderred.so" ]; then
 #  export LD_PRELOAD="$HOME/lib/stderred.so"
 #fi
-
-# Load in anything else that's install-specific.
-if [ -d "$HOME/.bashrc.d" ]; then
-  shopt -s nullglob
-  for FILE in "$HOME/.bashrc.d/"*; do
-    source "${FILE}"
-  done
-  shopt -u nullglob
-fi
 
 # ripgrep config
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
@@ -142,6 +157,10 @@ if [ -f "/opt/homebrew/bin/brew" ]; then
   export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
   # and this
   export HOMEBREW_NO_AUTO_UPDATE=true
+
+  # Fixing a diesel-cli install for Rust
+  #export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
+  # ... which causes problems for some homebrew apps. yay.
 fi
 
 # Alias 'thefuck' to something more pleasant.
@@ -173,4 +192,13 @@ if [ $IS_MAC ]; then
 fi
 if [ $IS_MAC ]; then
   export CLICOLOR=1
+fi
+
+# Load in anything else that's install-specific.
+if [ -d "$HOME/.bashrc.d" ]; then
+  shopt -s nullglob
+  for FILE in "$HOME/.bashrc.d/"*; do
+    source "${FILE}"
+  done
+  shopt -u nullglob
 fi
