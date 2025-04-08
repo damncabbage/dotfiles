@@ -27,7 +27,7 @@ wezterm.on(
 ---------- Font Helpers ----------
 local codelia_font_features = {
   -- See: https://tosche.net/media/pages/fonts/codelia/7fbd7c0aca-1664387056/codelia9.svg
-  'liga=1', 'dlig=1', 'calt=1', 'clig=1', 'case=1', 'ccmp=1', 'ss01=1',
+  'liga=0', 'dlig=1', 'calt=1', 'clig=1', 'case=1', 'ccmp=1', 'ss01=1',
 }
 
 local codelia = function(overrides)
