@@ -73,15 +73,23 @@ wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   os.remove(name);
 end)
 
---
 ---------- Session Management ----------
 wezterm.on("save_session", function(window) session_manager.save_state(window) end)
 wezterm.on("load_session", function(window) session_manager.load_state(window) end)
 wezterm.on("restore_session", function(window) session_manager.restore_state(window) end)
 
+---------- Default Shell ----------
+local file_exists = function(name)
+   local f = io.open(name, "r")
+   return f ~= nil and io.close(f)
+end
+local homebrew_bash = "/opt/homebrew/bin/bash"
 
 ---------- Config ----------
 local config = {
+  default_prog = {
+    file_exists(homebrew_bash) and homebrew_bash or "/bin/bash"
+  },
   font_rules = {
     {
       italic = true,
