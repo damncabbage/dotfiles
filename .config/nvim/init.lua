@@ -61,6 +61,26 @@ require('packer').startup(function(use)
   -- Displays LSP information like compile errors inline.
   use {
     'folke/trouble.nvim',
+    cmd = "Trouble",
+    opts = {},
+    keys = {},
+    modes = {
+      perrors = {
+        mode = "diagnostics", -- inherit from diagnostics mode
+        filter = {
+          any = {
+            buf = 0, -- current buffer
+            {
+              severity = vim.diagnostic.severity.ERROR, -- errors only
+              -- limit to files in the current project
+              function(item)
+                return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+              end,
+            },
+          },
+        },
+      }
+    },
     config = function()
       require('trouble').setup()
     end
@@ -388,7 +408,7 @@ vim.keymap.set('n', '<leader>lG', '<cmd>Telescope lsp_type_definitions theme=cur
 
 -- Show LSP errors + warnings
 --vim.keymap.set('n', '<leader>le', '<cmd>Telescope diagnostics bufnr=0<cr>')
-vim.keymap.set('n', '<leader>le', '<cmd>TroubleToggle<cr>')
+vim.keymap.set('n', '<leader>le', '<cmd>Trouble perrors toggle<cr>')
 
 vim.keymap.set('n', '<leader>lE', ':lua vim.diagnostic.open_float()<CR>', {
   desc="LSP Error Popup",
@@ -407,12 +427,53 @@ vim.keymap.set('i', '<leader>lc', vim.lsp.buf.completion, {desc="LSP Complete"})
 --------------------------------------------------------
 -- Language Server Configuration
 --------------------------------------------------------
-require('mason').setup()
-require('mason-lspconfig').setup()
 
-local lspconfig = require("lspconfig")
-local masonLspConfig = require("mason-lspconfig")
-masonLspConfig.setup {
+vim.lsp.config('pylsp', {
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {
+            'E265', -- can't comment code without inserting space after #
+            'W191', -- tabs
+          }
+        }
+      }
+    }
+  }
+})
+vim.lsp.config('clangd', {
+  cmd = { "/usr/bin/clangd", "--query-driver=**" }
+})
+vim.lsp.config('rust_analyzer', {
+  settings = {
+    ['rust-analyzer'] = {
+      check = {
+        overrideCommand = {
+          "cargo",
+          "+nightly",
+          "clippy",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--tests",
+          "--examples",
+          "--benches",
+          "--message-format=json",
+        },
+      },
+      diagnostics = {
+        disabled = "unlinked-file",
+        experimental = {
+          enable = true,
+        },
+      },
+    },
+  },
+})
+
+require('mason').setup()
+require('mason-lspconfig').setup {
   ensure_installed = {
     'clangd',
     -- 'elixirls',
@@ -421,32 +482,6 @@ masonLspConfig.setup {
     'solargraph',
     'ts_ls',
   },
-}
-masonLspConfig.setup_handlers {
-  function (server_name)
-    if server_name == "pylsp" then
-      lspconfig[server_name].setup{
-        settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = {
-                ignore = {
-                  'E265', -- can't comment code without inserting space after #
-                  'W191', -- tabs
-                }
-              }
-            }
-          }
-        }
-      }
-    elseif server_name == "clangd" then
-      lspconfig[server_name].setup {
-        cmd = { "/usr/bin/clangd", "--query-driver=**" }
-      }
-    else
-      lspconfig[server_name].setup {}
-    end
-  end
 }
 
 vim.api.nvim_create_user_command('LspFormat', function(_)
