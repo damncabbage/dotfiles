@@ -17,6 +17,7 @@ brew "rename"
 
 brew "gnu-sed" # because BSD sed is still Bad™
 brew "exa" # 'ls' but not awful
+brew "fd" # 'find' but not awful
 
 # A bunch of tools need these for compilation:
 brew "coreutils"

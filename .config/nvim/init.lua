@@ -24,188 +24,194 @@ end
 --------------------------------------------------------
 -- Plugins
 --------------------------------------------------------
--- Packer is the new Bundle/Vundle/Plug I guess?
--- Make sure we can bootstrap it.
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
+-- ~~Packer is the new Bundle/Vundle/Plug I guess?~~
+-- Lazy.nvim is the new Packer I guess?
+
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
-  return false
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = ","
+vim.g.maplocalleader = "\\"
 
-require('packer').startup(function(use)
-  -- pls manage yourself kthx
-  use 'wbthomason/packer.nvim'
+-- Setup lazy.nvim
+require("lazy").setup({
+  -- colorscheme that will be used when installing plugins.
+  install = { colorscheme = { "habamax" } },
+  -- automatically check for plugin updates
+  checker = { enabled = true },
+  spec = {
+    -- Plugins go here.
 
-  -- Themes
-  use 'tssm/fairyfloss.vim'
-  use 'theacodes/witchhazel'
-  use 'Th3Whit3Wolf/one-nvim'
-  use 'morhetz/gruvbox'
-  use 'folke/tokyonight.nvim'
+    -- Themes
+    { 'tssm/fairyfloss.vim', lazy = true },
+    { 'theacodes/witchhazel', lazy = true },
+    { 'Th3Whit3Wolf/one-nvim', lazy = true },
+    { 'morhetz/gruvbox', lazy = true },
+    {
+      "folke/tokyonight.nvim",
+      lazy = false, -- make sure we load this during startup if it is your main colorscheme
+      priority = 1000, -- make sure to load this before all the other start plugins
+      config = function()
+        -- load the colorscheme here
+        vim.cmd([[colorscheme tokyonight]])
+      end,
+    },
 
-  -- Displays nice git diff information in the sidebar
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
-  }
+    -- Displays nice git diff information in the sidebar
+    { 'lewis6991/gitsigns.nvim' },
 
-  -- Displays LSP information like compile errors inline.
-  use {
-    'folke/trouble.nvim',
-    cmd = "Trouble",
-    opts = {},
-    keys = {},
-    modes = {
-      perrors = {
-        mode = "diagnostics", -- inherit from diagnostics mode
-        filter = {
-          any = {
-            buf = 0, -- current buffer
-            {
-              severity = vim.diagnostic.severity.ERROR, -- errors only
-              -- limit to files in the current project
-              function(item)
-                return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
-              end,
+    -- Displays LSP information like compile errors inline.
+    {
+      'folke/trouble.nvim',
+      cmd = "Trouble",
+      opts = {},
+      keys = {},
+      modes = {
+        perrors = {
+          mode = "diagnostics", -- inherit from diagnostics mode
+          filter = {
+            any = {
+              buf = 0, -- current buffer
+              {
+                severity = vim.diagnostic.severity.ERROR, -- errors only
+                -- limit to files in the current project
+                function(item)
+                  return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+                end,
+              },
             },
           },
-        },
+        }
+      },
+      -- config = function()
+      --   require('trouble').setup()
+      -- end
+    },
+
+    -- CtrlP but modern i guess. Can also search LSP results.
+    {
+      'nvim-telescope/telescope.nvim',
+      tag = '0.1.0',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+
+    -- LSP support. Initialisation is in a separate block later, since init order
+    -- of these plugins is important.
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "neovim/nvim-lspconfig" },
+
+    -- AST parsing for better syntax highlighting.
+    {
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+        require('nvim-treesitter.install').update({ with_sync = true })
+      end,
+    },
+
+    -- Completion
+    -- `nvim-cmp` is the main plugin. Everything else is just input sources for
+    -- it to get completions from.
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/cmp-buffer' },
+    { 'hrsh7th/cmp-path' },
+    { 'hrsh7th/cmp-cmdline' },
+    { 'hrsh7th/nvim-cmp' },
+    { 'dcampos/nvim-snippy' },
+    { 'dcampos/cmp-snippy' },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+    { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+
+    -- Better use of rust-analyzer
+    { 'simrat39/rust-tools.nvim' },
+
+    -- Indentation using in-built commentstring
+    { 'terrortylor/nvim-comment' },
+
+    -- Fancy icons
+    {
+      'kyazdani42/nvim-web-devicons',
+      config = function()
+        require('nvim-web-devicons').setup {
+          default = true
+        }
+      end
+    },
+    { 'onsails/lspkind.nvim' },
+
+    -- Status line and tab line
+    { 'nvim-lualine/lualine.nvim' },
+    {
+      'kdheepak/tabline.nvim',
+      config = function()
+        require('tabline').setup {
+          enable = true,
+          options = {
+            show_bufnr = false,
+            show_tabs_always = false,
+            show_filename_only = true,
+          }
+        }
+      end
+    },
+
+    -- TODO: configure
+    {
+      'kyazdani42/nvim-tree.lua',
+      dependencies = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icons
       }
     },
-    config = function()
-      require('trouble').setup()
-    end
-  }
 
-  -- CtrlP but modern i guess. Can also search LSP results.
-  use {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} },
-  }
+    -- Parallel undo histories, for a scatter-brained fool like me
+    { 'mbbill/undotree' },
 
-  -- LSP support. Initialisation is in a separate block later, since init order
-  -- of these plugins is important.
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-  }
+    -- Show me what my shortcuts are
+    { 'folke/which-key.nvim' },
 
-  -- AST parsing for better syntax highlighting.
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      require('nvim-treesitter.install').update({ with_sync = true })
-    end,
-  }
+    -- Buffer management
+    { 'AndrewRadev/bufferize.vim' },
+    { 'kazhala/close-buffers.nvim' },
 
-  -- Completion
-  -- `nvim-cmp` is the main plugin. Everything else is just input sources for
-  -- it to get completions from.
-  use {
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/nvim-cmp',
-    'dcampos/nvim-snippy',
-    'dcampos/cmp-snippy',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'hrsh7th/cmp-nvim-lsp-document-symbol',
-  }
-
-  -- Better use of rust-analyzer
-  use 'simrat39/rust-tools.nvim'
-
-  -- Indentation using in-built commentstring
-  use 'terrortylor/nvim-comment'
-
-  -- Fancy icons
-  use {
-    'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('nvim-web-devicons').setup {
-        default = true
-      }
-    end
-  }
-  use { 'onsails/lspkind.nvim' }
-
-  -- Status line and tab line
-  use 'nvim-lualine/lualine.nvim'
-  use {
-    'kdheepak/tabline.nvim',
-    config = function()
-      require('tabline').setup {
-        enable = true,
-        options = {
-          show_bufnr = false,
-          show_tabs_always = false,
-          show_filename_only = true,
+    -- Session management
+    {
+      'rmagatti/auto-session',
+      config = function()
+        vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+        require("auto-session").setup {
+          log_level = "info",
+          auto_session_enabled = false, -- no automatic save+restore
+          auto_session_use_git_branch = true,
         }
-      }
-    end
-  }
+      end
+    },
 
-  -- TODO: configure
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icons
-    }
-  }
+    -- EditorConfig support for project-level settings
+    { 'editorconfig/editorconfig-vim' },
 
-  -- Parallel undo histories, for a scatter-brained fool like me
-  use 'mbbill/undotree'
+    -- Dev Tools
+    -- TODO: figure out if this is needed/useful
+    -- use 'sakhnik/nvim-gdb'
 
-  -- Show me what my shortcuts are
-  use {
-    'folke/which-key.nvim',
-    config = function()
-      require("which-key").setup {
-      }
-    end
-  }
-  use 'AndrewRadev/bufferize.vim'
-
-  -- Buffer management
-  use 'kazhala/close-buffers.nvim'
-
-  -- Session management
-  use {
-    'rmagatti/auto-session',
-    config = function()
-      vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-      require("auto-session").setup {
-        log_level = "info",
-        auto_session_enabled = false, -- no automatic save+restore
-        auto_session_use_git_branch = true,
-      }
-    end
-  }
-
-  -- EditorConfig support for project-level settings
-  use 'editorconfig/editorconfig-vim'
-
-  -- Dev Tools
-  -- TODO: figure out if this is needed/useful
-  -- use 'sakhnik/nvim-gdb'
-
-  -- Keep last, in order to bootstrap successfully.
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+  },
+})
 
 --------------------------------------------------------
 -- Tiny Helpers
@@ -218,7 +224,7 @@ end
 -- General Settings
 --------------------------------------------------------
 vim.opt.scrolloff = 8
-vim.g.mapleader = ","
+-- vim.g.mapleader = ","
 vim.opt.number = true
 vim.opt.relativenumber = false
 
@@ -321,12 +327,13 @@ vim.cmd [[
 vim.opt.viminfo = "%,"..vim.opt.viminfo._value
 
 -- Source the vimrc file after saving it
-vim.cmd [[
-  augroup sourcing
-    autocmd!
-    autocmd bufwritepost init.lua source $MYVIMRC
-  augroup end
-]]
+-- DISABLED: lazy.nvim does not support this (https://github.com/LazyVim/LazyVim/discussions/4213)
+--vim.cmd [[
+--  augroup sourcing
+--    autocmd!
+--    autocmd bufwritepost init.lua source $MYVIMRC
+--  augroup end
+--]]
 
 --------------------------------------------------------
 -- Diff-mode
@@ -343,8 +350,8 @@ require('nvim_comment').setup {
   marker_padding = true, -- no space after comment markers
   create_mappings = false,
 }
-vim.keymap.set('v', '<leader>/', ':CommentToggle<cr>')
-vim.keymap.set('n', '<leader>/', ':CommentToggle<cr>')
+vim.keymap.set('v', '<leader>/', ':CommentToggle<cr>', { desc = "Toggle Comment Block" })
+vim.keymap.set('n', '<leader>/', ':CommentToggle<cr>', { desc = "Toggle Comment Block" })
 
 --------------------------------------------------------
 -- Shell-related business
@@ -373,38 +380,48 @@ vim.keymap.set('t', '<esc><esc>', '<C-\\><C-n>')
 --------------------------------------------------------
 -- Treesitter configuration
 --------------------------------------------------------
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-    "c",
-    "cpp",
-    "elixir",
-    "html",
-    "javascript",
-    "lua",
-    "python",
-    "ruby",
-    "rust",
-    "typescript",
-  },
-  sync_install = true,
-  auto_install = true,
-  highlight = {
-    enable = true,
-  },
-}
+require("lazy").setup({{
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  config = function ()
+    local configs = require("nvim-treesitter.configs")
+    configs.setup({
+        ensure_installed = {
+          "c",
+          "cpp",
+          "elixir",
+          "html",
+          "javascript",
+          "lua",
+          "python",
+          "ruby",
+          "rust",
+          "typescript",
+        },
+        sync_install = false,
+        highlight = { enable = true },
+        --indent = { enable = true },
+      })
+  end
+}})
 
 --------------------------------------------------------
 -- Search Configuration
 --------------------------------------------------------
-require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ["<esc>"] = require('telescope.actions').close
-      },
-    },
-  }
-}
+--require("lazy").setup({{
+--  'nvim-telescope/telescope.nvim',
+--  config = function ()
+--    require('telescope').setup({
+--      defaults = {
+--        mappings = {
+--          i = {
+--            ["<esc>"] = require('telescope.actions').close
+--          },
+--        },
+--      }
+--    })
+--  end
+--}})
 
 vim.keymap.set('n', '<C-p>f', '<cmd>Telescope find_files theme=dropdown<cr>')
 vim.keymap.set('n', '<C-p>r', '<cmd>Telescope registers theme=cursor<cr>')
@@ -669,7 +686,7 @@ end
 --------------------------------------------------------
 -- Undo Tree
 --------------------------------------------------------
-vim.keymap.set('n', '<leader>u', ':UndotreeToggle<CR>')
+vim.keymap.set('n', '<leader>u', ':UndotreeToggle<CR>', { desc = "Toggle UndoTree" })
 vim.g.undotree_WindowLayout = 3
 vim.g.undotree_SetFocusWhenToggle = 1
 
